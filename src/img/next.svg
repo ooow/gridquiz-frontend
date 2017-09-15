@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="28px" viewBox="0 0 48 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>next</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="quiz-entrance" transform="translate(-616.000000, -658.000000)" fill="#FFFFFF">
+            <g id="next" transform="translate(640.000000, 681.500000) rotate(-90.000000) translate(-640.000000, -681.500000) translate(614.500000, 655.500000)">
+                <g id="10:20" transform="translate(25.497937, 25.995020) rotate(-45.000000) translate(-25.497937, -25.995020) translate(7.997937, 7.995020)">
+                    <rect id="Rectangle-3" opacity="0.5" x="27.3802817" y="0" width="7.6056338" height="35.4929577" rx="3.8028169"></rect>
+                    <rect id="Rectangle-3" transform="translate(17.492958, 31.900165) rotate(-270.000000) translate(-17.492958, -31.900165) " x="13.6901408" y="14.4072069" width="7.6056338" height="34.9859155" rx="3.8028169"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
