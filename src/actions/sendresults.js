@@ -1,7 +1,6 @@
 import Request from 'superagent';
 
 export const sendForReview = (results) => dispatch => {
-    console.log(JSON.stringify(results));
     Request
         .post('http://localhost:8080/api/gridquiz/quiz/result')
         .send(results)

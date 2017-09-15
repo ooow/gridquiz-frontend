@@ -185,7 +185,7 @@ a {
 
     align-self: center;
 
-    background: #67aebc;
+/ / background: #67aebc;
 }
 
 .q-line {
@@ -199,7 +199,7 @@ a {
     font-weight: lighter;
     color: white;
 
-    background: #bc3f46;
+/ / background: #bc3f46;
 
 }
 
@@ -212,7 +212,7 @@ a {
     font-size: 90px;
     color: white;
 
-    background: rosybrown;
+/ / background: rosybrown;
 
     width: 100%;
 }
@@ -286,6 +286,76 @@ a {
     font-size: large;
 
     color: green;
+}
+
+/* RESULT */
+
+.result {
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.modal-backdrop {
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+
+    z-index: 999;
+
+    background-color: #50E3C2;
+    opacity: 0.7;
+}
+
+.modal-window {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    height: 30%;
+    width: 30%;
+
+    z-index: 1000;
+    opacity: 1;
+
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.12);
+}
+
+.result-title {
+    font-family: WanderlustLetters, sans-serif;
+    font-size: xx-large;
+    color: #4A4A4A;
+}
+
+.result-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 40%;
+    height: 40%;
+
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.24);
+    background: linear-gradient(180deg, #EA3440 0%, #DA3A4C 100%);
+}
+
+.result-comment {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
 }
 
 /*

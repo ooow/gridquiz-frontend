@@ -15,7 +15,7 @@ class App extends Component {
                 <div className="quiz-name">{quiz.name}</div>
                 <div className="description">
                     <div className="description-text">{quiz.description}</div>
-                    <div className="questions-text">0/10 questions</div>
+                    <div className="questions-text">{quiz.questions.length}</div>
                 </div>
             </Link>
         )
