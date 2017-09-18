@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Logo from './img/logo.svg'
-import UserAnswer from "./UserAnswer";
+import UserAnswer from "./models/UserAnswer";
 import {Link} from "react-router-dom";
 
 class Result extends Component {

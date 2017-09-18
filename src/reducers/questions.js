@@ -15,5 +15,9 @@ export default function questions(state = [], action) {
         ];
     }
 
+    if (action.type === 'CLEAN_ANSWERS_STORY') {
+        return action.payload;
+    }
+
     return state;
 }

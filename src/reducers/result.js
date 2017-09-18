@@ -3,5 +3,9 @@ export default function result(state = [], action) {
         return action.payload;
     }
 
+    if (action.type === 'CLEAN_RESULT_STORY') {
+        return action.payload;
+    }
+
     return state;
 }

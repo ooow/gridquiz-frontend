@@ -2,9 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Logo from './img/logo.svg'
-import UserAnswer from "./UserAnswer";
+import UserAnswer from "./models/UserAnswer";
 import {Link} from "react-router-dom";
 import {sendForReview} from "./actions/sendresults";
+
+import StopWatch from "./Stopwatch";
+import {startQuiz} from "./actions/startquiz";
+
 
 class Quiz extends Component {
 
@@ -23,7 +27,9 @@ class Quiz extends Component {
                         <div className="q-author-text">by Grid Dynamics</div>
                     </div>
                     <h1 className="q-quiz-name">Dev Ops Tech</h1>
-                    <div className="timer">4:59</div>
+                    <div className="timer">
+                        <StopWatch/>
+                    </div>
                 </div>
             </div>
         );
@@ -73,20 +79,30 @@ class Quiz extends Component {
         );
     }
 
+    formatTime(timerResult) {
+        return Math.floor(timerResult / 60000) + ':' + ('0' + Math.floor(timerResult / 1000) % 60).slice(-2);
+    }
+
     showResult() {
+        this.props.stopWatch(Date.now());
+        let timerResult = this.formatTime(this.props.stopwatch.end - this.props.stopwatch.start);
+
         return (
             <div className="result">
                 <div className="modal-backdrop">
                 </div>
                 <div className="modal-window">
-                    <h1 className="result-title">Well Done!</h1>
+                    <h1 className="modal-title">Well Done!</h1>
                     <div className="result-window">
                         <div className="result-window-total">
                             {this.res.points}/{this.quiz.questions.length}
                         </div>
                         <div className="result-window-text">QUESTIONS</div>
                     </div>
-                    <div className="result-comment">{this.res.comment.message}</div>
+                    <div className="result-time">
+                        <h1>{timerResult}</h1>
+                    </div>
+                    <div className="modal-comment">{this.res.comment.message}</div>
                     <Link to="/" className="result-link">See result</Link>
                 </div>
             </div>
@@ -100,7 +116,6 @@ class Quiz extends Component {
 
         if (sendResults) {
             this.props.sendForReview(this.questions);
-            //alert(this.props.result);
         }
     }
 
@@ -125,15 +140,20 @@ export default connect(
     state => ({
         quizzes: state.quizzes,
         questions: state.questions,
-        result: state.result
+        result: state.result,
+        stopwatch: state.stopwatch
     }),
     dispatch => ({
         submit: (answerId) => {
             dispatch({type: 'SUBMIT_ANSWER', payload: answerId});
-        }
-        ,
+        },
+        stopWatch: (date) => {
+            dispatch({type: 'STOP_WATCH', payload: date});
+        },
         sendForReview: (results) => {
             dispatch(sendForReview(results));
+        },
+        startQuiz(timestamp) {
+            dispatch(startQuiz(timestamp));
         }
-    }))
-(Quiz);
+    }))(Quiz);
