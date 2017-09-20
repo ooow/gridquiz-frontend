@@ -6,8 +6,12 @@ import UserAnswer from "./models/UserAnswer";
 import {Link} from "react-router-dom";
 import {sendForReview} from "./actions/sendresults";
 
+import {css} from 'aphrodite';
+import styles from './styles/QuizStyles';
+
 import StopWatch from "./Stopwatch";
 import {startQuiz} from "./actions/startquiz";
+import Back from './img/back.svg';
 
 
 class Quiz extends Component {
@@ -18,18 +22,23 @@ class Quiz extends Component {
     }
 
     showHead() {
+        let quizColor = `url(${Back})` + ", linear-gradient(180deg, " + this.quiz.colors[0].code + " 0%, " + this.quiz.colors[1].code + " 100%)";
         return (
-            <div className="q-container">
-                <div className="q-bar">
-                    <img className="q-logo" src={Logo}/>
-                    <div className="q-quiz-title">Quiz</div>
-                    <div className="q-line">
-                        <div className="q-author-text">by Grid Dynamics</div>
-                    </div>
-                    <h1 className="q-quiz-name">Dev Ops Tech</h1>
-                    <div className="timer">
+            <div className={css(styles.head)} style={{background: quizColor}}>
+                <div className={css(styles.logoContainer)}>
+                    <img className={css(styles.logo)} src={Logo}/>
+                </div>
+                <div className={css(styles.quizTitle)}>Quiz</div>
+                <div className={css(styles.lineContainer)}>
+                    <div className={css(styles.line)}>by</div>
+                    <div className={css(styles.quizAuthor)}>Grid Dynamics</div>
+                </div>
+                <h1 className={css(styles.quizName)}>{this.quiz.name}</h1>
+                <div className={css(styles.stopwatchContainer)}>
+                    <div className={css(styles.stopwatch)}>
                         <StopWatch/>
                     </div>
+                    <div className={css(styles.stopwatchText)}>QUIZ TIMER</div>
                 </div>
             </div>
         );
@@ -43,13 +52,13 @@ class Quiz extends Component {
         }
         else {
             return (
-                <div onClick={this.submit.bind(this, answer.id, true)} key={answer.id} className="answer">
+                <div className={css(styles.answer)} onClick={this.submit.bind(this, answer.id, true)} key={answer.id}>
                     {answer.text}
                 </div>
             )
         }
         return (
-            <div className="answer" onClick={this.submit.bind(this, answer.id, false)} key={answer.id}>
+            <div className={css(styles.answer)} onClick={this.submit.bind(this, answer.id, false)} key={answer.id}>
                 <Link to={link}>
                     {answer.text}
                 </Link>
@@ -66,14 +75,17 @@ class Quiz extends Component {
         this.question = question;
         this.length = length;
 
+        let quizColor = `url(${Back})`;
+
         return (
-            <div className="q-container-2">
-                <div className="question">
-                    <div className="counter">{index + 1}/{length}</div>
-                    <h1 className="question-text">{question.title}</h1>
-                    <div className="answers">
-                        {question.answers.map(i => this.showAnswers(i))}
-                    </div>
+            <div className={css(styles.bodyContainer)} style={{background: quizColor}}>
+                <div className={css(styles.question)}>
+                    <div className={css(styles.counter)}>{index + 1}/{length}</div>
+                    <div className={css(styles.counterText)}>QUESTIONS</div>
+                    <div className={css(styles.questionText)}>{question.title}</div>
+                </div>
+                <div className={css(styles.answersContainer)}>
+                    {question.answers.map(i => this.showAnswers(i))}
                 </div>
             </div>
         );
@@ -126,11 +138,11 @@ class Quiz extends Component {
 
         return (
             <div className="page">
-                {this.res && this.res.length !== 0 && this.showResult()}
-
-                {this.showHead()}
-
-                {this.quiz && this.showQuestions()}
+                <div className={css(styles.container)}>
+                    {this.res && this.res.length !== 0 && this.showResult()}
+                    {this.quiz && this.showHead()}
+                    {this.quiz && this.showQuestions()}
+                </div>
             </div>
         );
     }

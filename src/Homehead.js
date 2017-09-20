@@ -1,26 +1,32 @@
 import React, {Component} from 'react';
 
+import {css} from 'aphrodite';
+
 import Logo from './img/logo.svg'
 import Next from './img/next.svg'
+import Back from "./img/back.svg";
+import styles from "./styles/HomeHeadStyles";
+
 
 class HomeHead extends Component {
     render() {
         return (
-            <div className="container">
-                <div className="bar">
-                    <div className="flex-box-column">
-                        <img className="logo" src={Logo}/>
-                        <div className="flex-box-column">
-                            <div className="company-title">
-                                Welcome to Grid Dynamics
-                            </div>
-
-                            <div className="quiz-title">
-                                <h1>Quiz</h1>
-                            </div>
-                        </div>
+            <div className={css(styles.container)}
+                 style={{background: `url(${Back})` + ', linear-gradient(180deg, #DB3B4C 0%, #E6515E 100%)'}}
+            >
+                <div className={css(styles.space)}/>
+                <div className={css(styles.mainLogoContainer)}>
+                    <img className={css(styles.logo)} src={Logo}/>
+                    <div className={css(styles.companyTitle)}>
+                        Welcome to Grid Dynamics
                     </div>
-                    <img className="next" src={Next}/>
+
+                    <div className={css(styles.quizTitle)}>
+                        Quiz
+                    </div>
+                </div>
+                <div className={css(styles.nextArrowContainer)}>
+                    <img src={Next}/>
                 </div>
             </div>
         )

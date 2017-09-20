@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import HomeHead from "./Homehead";
 import {Link} from "react-router-dom";
+import {connect} from 'react-redux';
+import {css} from 'aphrodite';
+import styles from './styles/AppStyles';
+
+import Back from './img/back.svg';
+
+import HomeHead from "./Homehead";
 
 class App extends Component {
 
@@ -10,12 +15,15 @@ class App extends Component {
     }
 
     showQuiz(quiz) {
+        let quizColor = `url(${Back})` + ", linear-gradient(180deg, " + quiz.colors[0].code + " 0%, " + quiz.colors[1].code + " 100%)";
         return (
-            <Link to={"/quiz/" + quiz.id + "/question/1"} key={quiz.id} className="quiz">
-                <div className="quiz-name">{quiz.name}</div>
-                <div className="description">
-                    <div className="description-text">{quiz.description}</div>
-                    <div className="questions-text">{quiz.questions.length}</div>
+            <Link to={"/quiz/" + quiz.id + "/question/1"} key={quiz.id} className={css(styles.quiz)}>
+                <div className={css(styles.quizName)} style={{background: quizColor}}>
+                    {quiz.name}
+                </div>
+                <div className={css(styles.description)}>
+                    <div className={css(styles.descriptionText)}>{quiz.description}</div>
+                    <div className={css(styles.questionText)}>{quiz.questions.length}</div>
                 </div>
             </Link>
         )
@@ -56,8 +64,8 @@ class App extends Component {
 
                 <HomeHead/>
 
-                <div className="container-2">
-                    <div className="place">
+                <div className={css(styles.container)}>
+                    <div className={css(styles.quizzes)}>
                         {this.props.quizzes.map(i =>
                             this.showQuiz(i)
                         )}
@@ -82,5 +90,3 @@ export default connect(
         }
     })
 )(App);
-
-

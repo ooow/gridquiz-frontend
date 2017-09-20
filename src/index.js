@@ -7,10 +7,10 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-
 import App from './App'
 import Quiz from "./Quiz";
 import Result from "./Result";
+import AdminPanel from "./AdminPanel";
 
 import reducer from "./reducers"
 import {loadQuizzes} from './actions/loadquizess'
@@ -27,6 +27,7 @@ ReactDOM.render((
                     <Route exact path="/" component={App}/>
                     <Route path="/quiz/:id/question/:qid" component={Quiz}/>
                     <Route path="/quiz/:id/result" component={Result}/>
+                    <Route path="/admin/panel" component={AdminPanel}/>
                 </div>
             </BrowserRouter>
         </Provider>),
