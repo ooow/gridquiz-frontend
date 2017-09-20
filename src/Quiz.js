@@ -12,13 +12,19 @@ import styles from './styles/QuizStyles';
 import StopWatch from "./Stopwatch";
 import {startQuiz} from "./actions/startquiz";
 import Back from './img/back.svg';
+import {loadQuiz} from "./actions/loadquiz";
+import UserStartQuiz from "./models/UserStartQuiz";
 
 
 class Quiz extends Component {
 
     constructor(props) {
         super(props);
-        this.quiz = this.props.quizzes.find(i => i.id === Number(this.props.match.params.id));
+
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.quiz = this.props.quiz;
+
+        this.props.loadQuiz(new UserStartQuiz(Number(this.props.match.params.id), this.user.token));
     }
 
     showHead() {
@@ -131,17 +137,21 @@ class Quiz extends Component {
         }
     }
 
+    componentWillMount() {
+        this.quiz = this.props.quiz;
+    }
+
     render() {
-        this.quiz = this.props.quizzes.find(i => i.id === Number(this.props.match.params.id));
         this.questions = this.props.questions;
         this.res = this.props.result;
+        this.quiz = this.props.quiz;
 
         return (
             <div className="page">
                 <div className={css(styles.container)}>
                     {this.res && this.res.length !== 0 && this.showResult()}
-                    {this.quiz && this.showHead()}
-                    {this.quiz && this.showQuestions()}
+                    {this.quiz && this.quiz.length !== 0 && this.showHead()}
+                    {this.quiz && this.quiz.length !== 0 && this.showQuestions()}
                 </div>
             </div>
         );
@@ -150,7 +160,7 @@ class Quiz extends Component {
 
 export default connect(
     state => ({
-        quizzes: state.quizzes,
+        quiz: state.quiz,
         questions: state.questions,
         result: state.result,
         stopwatch: state.stopwatch
@@ -167,5 +177,8 @@ export default connect(
         },
         startQuiz(timestamp) {
             dispatch(startQuiz(timestamp));
+        },
+        loadQuiz: (userStartQuiz) => {
+            dispatch(loadQuiz(userStartQuiz));
         }
     }))(Quiz);

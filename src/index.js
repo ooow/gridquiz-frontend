@@ -9,16 +9,23 @@ import thunk from 'redux-thunk';
 
 import App from './App'
 import Quiz from "./Quiz";
-import Result from "./Result";
-import AdminPanel from "./AdminPanel";
+import AdminPanel from "./admin/AdminPanel";
 
 import reducer from "./reducers"
 import {loadQuizzes} from './actions/loadquizess'
 
 import registerServiceWorker from './registerServiceWorker';
+import {authUser} from "./actions/authuser";
+
+
+//localStorage.clear();
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 store.dispatch(loadQuizzes());
+const user = localStorage.getItem('user');
+if (user !== null) {
+    store.dispatch(authUser(JSON.parse(user)));
+}
 
 ReactDOM.render((
         <Provider store={store}>
@@ -26,7 +33,6 @@ ReactDOM.render((
                 <div className="page">
                     <Route exact path="/" component={App}/>
                     <Route path="/quiz/:id/question/:qid" component={Quiz}/>
-                    <Route path="/quiz/:id/result" component={Result}/>
                     <Route path="/admin/panel" component={AdminPanel}/>
                 </div>
             </BrowserRouter>

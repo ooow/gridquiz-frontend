@@ -1,6 +1,6 @@
 export default class UserAnswer {
-    constructor(quizId, date) {
+    constructor(quizId, userToken) {
         this.quizId = quizId;
-        this.date = date;
+        this.userToken = userToken;
     }
 }

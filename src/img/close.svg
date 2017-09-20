@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="34px" viewBox="0 0 35 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_close</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.349999994">
+        <g id="Quiz-registration" transform="translate(-716.000000, -515.000000)" fill="#4D4845">
+            <g id="sign-in">
+                <g id="Group-5" transform="translate(442.000000, 231.000000)">
+                    <g id="ico_close" transform="translate(274.271150, 284.000000)">
+                        <path d="M16.9631236,33.93 C7.6483731,33.93 0.0698481562,26.335 0.0698481562,17 C0.0698481562,7.665 7.6483731,0.07 16.9631236,0.07 C26.2778742,0.07 33.8563991,7.665 33.8563991,17 C33.8563991,26.335 26.2778742,33.93 16.9631236,33.93 L16.9631236,33.93 Z M16.9631236,1.93 C8.67114967,1.93 1.92581345,8.69 1.92581345,17 C1.92581345,25.31 8.67114967,32.07 16.9631236,32.07 C25.2550976,32.07 32.0004338,25.31 32.0004338,17 C32.0004338,8.69 25.2550976,1.93 16.9631236,1.93 L16.9631236,1.93 Z"
+                              id="Fill-52"></path>
+                        <polyline id="Fill-53"
+                                  points="9.63605206 25.658 8.32490239 24.342 24.2901952 8.342 25.6013449 9.658 9.63605206 25.658"></polyline>
+                        <polyline id="Fill-54"
+                                  points="24.2901952 25.658 8.32490239 9.658 9.63605206 8.342 25.6013449 24.342 24.2901952 25.658"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

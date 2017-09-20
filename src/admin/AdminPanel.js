@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import Logo from './img/logo.svg'
-import UsersGrid from "./UsersGrid";
+import Logo from '../img/logo.svg'
+import UsersGrid from "../UsersGrid";
 import QuizPanel from "./QuizPanel";
 
 class AdminPanel extends Component {

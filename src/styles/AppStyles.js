@@ -1,5 +1,8 @@
 import {StyleSheet} from 'aphrodite';
 import {container} from './elements/flexContainer';
+import {modalbackdrop} from './elements/modalbackdrop';
+import {modalwindow} from './elements/modalwindow';
+import {modalplace} from './elements/modalplace';
 
 export default StyleSheet.create(
     {
@@ -71,7 +74,62 @@ export default StyleSheet.create(
             fontSize: 'large',
             color: '#9B9B9B',
 
-            opacity: '.75'
+            opacity: '0.75'
+        },
+
+        registrationForm: {
+            ...modalwindow
+        },
+
+        backdrop: {
+            ...modalbackdrop
+        },
+
+        modalPlace: {
+            ...modalplace,
+            minWidth: '500px',
+            minHeight: '500px'
+        },
+
+        modalPlaceTitle: {
+            fontFamily: 'WanderlustLetters, sans-serif',
+            fontSize: '5vw',
+            color: '#4A4A4A',
+        },
+
+        modalPlaceComment: {
+            width: '80%',
+
+            fontFamily: 'Open Sans, sans-serif',
+            fontSize: 'large',
+            textAlign: 'center',
+            color: '#000000',
+            opacity: '0.67'
+        },
+
+        modalPlaceInput: {
+            width: '90%',
+            fontFamily: 'Open Sans, sans-serif',
+            fontSize: 'xx-large',
+            color: '#000000',
+            opacity: '0.67',
+
+            border: 'none',
+            borderBottom: '2px solid rgba(0, 0, 0, 0.12)'
+        },
+
+        buttonsContainer: {
+            ...container,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignSelf: 'flex-end',
+            width: '40%',
+            height: '70px',
+        },
+
+        modalPlaceButton: {
+            width: '60px',
+            height: '60px'
         }
     }
 )

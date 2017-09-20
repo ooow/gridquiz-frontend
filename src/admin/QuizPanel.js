@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getUsers} from "./actions/getusers";
-import {removeUsers} from "./actions/removeusers";
+import {getUsers} from "../actions/getusers";
+import {removeUsers} from "../actions/removeusers";
 
 class QuizPanel extends Component {
 
