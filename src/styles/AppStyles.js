@@ -9,6 +9,7 @@ export default StyleSheet.create(
         container: {
             ...container,
             height: '80%',
+            zIndex: '0',
 
             minHeight: '512px',
             minWidth: '320px'
@@ -42,7 +43,7 @@ export default StyleSheet.create(
             textAlign: 'center',
             fontFamily: 'WanderlustLetters, sans-serif',
             fontSize: '500%',
-            color: 'white',
+            color: '#FFFFFF',
 
             height: '75%',
 
@@ -57,11 +58,11 @@ export default StyleSheet.create(
             height: '25%',
 
             fontFamily: 'Roboto, sans-serif',
-            color: 'black',
+            color: '#000000',
 
             boxShadow: '0 10px 20px rgba(0, 0, 0, .3)',
             borderRadius: '0 0 8px 8px',
-            background: 'white'
+            background: '#FFFFFF'
         },
 
         descriptionText: {
@@ -73,6 +74,14 @@ export default StyleSheet.create(
             fontWeight: 'bold',
             fontSize: 'large',
             color: '#9B9B9B',
+
+            opacity: '0.75'
+        },
+
+        questionScore: {
+            fontWeight: 'bold',
+            fontSize: 'large',
+            color: '#2DCCAB',
 
             opacity: '0.75'
         },
@@ -94,7 +103,7 @@ export default StyleSheet.create(
         modalPlaceTitle: {
             fontFamily: 'WanderlustLetters, sans-serif',
             fontSize: '5vw',
-            color: '#4A4A4A',
+            color: '#4A4A4A'
         },
 
         modalPlaceComment: {
@@ -124,7 +133,7 @@ export default StyleSheet.create(
             justifyContent: 'space-around',
             alignSelf: 'flex-end',
             width: '40%',
-            height: '70px',
+            height: '70px'
         },
 
         modalPlaceButton: {

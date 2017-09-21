@@ -1,16 +1,18 @@
 import Request from 'superagent';
 
-export const startQuiz = (timestamp) => dispatch => {
+export const startQuiz = (quizId, userToken) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/quiz/startquiz')
-        .send(timestamp)
+        .post('http://localhost:8080/api/gridquiz/quiz/start')
+        .send(quizId)
+        .set('X-User-Token', userToken)
         .set('accept', 'application/json')
+        .set('Content-Type', 'application/json')
         .set('verbose', true)
         .end((err, res) => {
             if (err) {
                 console.log("err", err);
             } else {
-                dispatch({type: 'START_QUIZ', payload: res.body});
+                dispatch({type: 'LOAD_QUIZ', payload: res.body});
             }
         });
 };

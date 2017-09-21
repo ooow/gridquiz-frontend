@@ -10,21 +10,21 @@ import {css} from 'aphrodite';
 import styles from './styles/QuizStyles';
 
 import StopWatch from "./Stopwatch";
-import {startQuiz} from "./actions/startquiz";
 import Back from './img/back.svg';
-import {loadQuiz} from "./actions/loadquiz";
-import UserStartQuiz from "./models/UserStartQuiz";
+import {startQuiz} from "./actions/startquiz";
 
 
 class Quiz extends Component {
 
     constructor(props) {
         super(props);
-
-        this.user = JSON.parse(localStorage.getItem('user'));
         this.quiz = this.props.quiz;
 
-        this.props.loadQuiz(new UserStartQuiz(Number(this.props.match.params.id), this.user.token));
+        this.state = {
+            user: JSON.parse(localStorage.getItem('user'))
+        };
+
+        this.props.startQuiz(Number(this.props.match.params.id), this.state.user.token);
     }
 
     showHead() {
@@ -97,31 +97,21 @@ class Quiz extends Component {
         );
     }
 
-    formatTime(timerResult) {
-        return Math.floor(timerResult / 60000) + ':' + ('0' + Math.floor(timerResult / 1000) % 60).slice(-2);
-    }
-
     showResult() {
         this.props.stopWatch(Date.now());
-        let timerResult = this.formatTime(this.props.stopwatch.end - this.props.stopwatch.start);
-
         return (
-            <div className="result">
-                <div className="modal-backdrop">
-                </div>
-                <div className="modal-window">
-                    <h1 className="modal-title">Well Done!</h1>
-                    <div className="result-window">
-                        <div className="result-window-total">
+            <div className={css(styles.resultForm)}>
+                <div className={css(styles.backdrop)}/>
+                <div className={css(styles.modalPlace)}>
+                    <div className={css(styles.modalPlaceTitle)}>Well Done!</div>
+                    <div className={css(styles.resultContainer)}>
+                        <div className={css(styles.result)}>
                             {this.res.points}/{this.quiz.questions.length}
                         </div>
-                        <div className="result-window-text">QUESTIONS</div>
+                        <div className={css(styles.resultText)}>QUESTIONS</div>
                     </div>
-                    <div className="result-time">
-                        <h1>{timerResult}</h1>
-                    </div>
-                    <div className="modal-comment">{this.res.comment.message}</div>
-                    <Link to="/" className="result-link">See result</Link>
+                    <div className={css(styles.modalPlaceComment)}>{this.res.comment.message}</div>
+                    <Link to="/" className={css(styles.resultButton)}>SEE RESULTS</Link>
                 </div>
             </div>
         );
@@ -130,10 +120,10 @@ class Quiz extends Component {
     submit(answerId, sendResults) {
         let userAnswer = new UserAnswer(this.quiz.id, this.question.id, answerId);
         this.props.submit(userAnswer);
-        this.questions.push(userAnswer);
+        this.useranswers.push(userAnswer);
 
         if (sendResults) {
-            this.props.sendForReview(this.questions);
+            this.props.sendForReview(this.useranswers, this.state.user.token);
         }
     }
 
@@ -142,7 +132,7 @@ class Quiz extends Component {
     }
 
     render() {
-        this.questions = this.props.questions;
+        this.useranswers = this.props.useranswers;
         this.res = this.props.result;
         this.quiz = this.props.quiz;
 
@@ -161,7 +151,7 @@ class Quiz extends Component {
 export default connect(
     state => ({
         quiz: state.quiz,
-        questions: state.questions,
+        useranswers: state.useranswers,
         result: state.result,
         stopwatch: state.stopwatch
     }),
@@ -172,13 +162,10 @@ export default connect(
         stopWatch: (date) => {
             dispatch({type: 'STOP_WATCH', payload: date});
         },
-        sendForReview: (results) => {
-            dispatch(sendForReview(results));
+        sendForReview: (results, userToken) => {
+            dispatch(sendForReview(results, userToken));
         },
-        startQuiz(timestamp) {
-            dispatch(startQuiz(timestamp));
-        },
-        loadQuiz: (userStartQuiz) => {
-            dispatch(loadQuiz(userStartQuiz));
+        startQuiz: (quizId, userToken) => {
+            dispatch(startQuiz(quizId, userToken));
         }
     }))(Quiz);

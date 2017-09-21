@@ -11,6 +11,8 @@ import Close from './img/close.svg';
 import HomeHead from "./Homehead";
 import {authUser} from "./actions/authuser";
 import User from "./models/User";
+import {loadQuizzes} from "./actions/loadquizess";
+import {loadUserHistory} from "./actions/loaduserhistory";
 
 class App extends Component {
 
@@ -23,22 +25,45 @@ class App extends Component {
 
         this.state = {
             showRegistration: false,
+            quizzes: [],
             user: JSON.parse(localStorage.getItem('user'))
+        };
+
+        if (this.state.user !== null) {
+            this.props.checkAuth(this.state.user);
+            this.user = this.state.user;
         }
     }
 
-    showQuiz(quiz) {
+    showCommonQuiz(quiz) {
+        let quizColor = `url(${Back})` + ", linear-gradient(180deg, " + quiz.colors[0].code + " 0%, " + quiz.colors[1].code + " 100%)";
+        return (
+            <div onClick={this.showRegistration} key={quiz.id} className={css(styles.quiz)}>
+                <div className={css(styles.quizName)} style={{background: quizColor}}>
+                    {quiz.name}
+                </div>
+                <div className={css(styles.description)}>
+                    <div className={css(styles.descriptionText)}>{quiz.description}</div>
+                    <div className={css(styles.questionText)}>{quiz.questionsSize}</div>
+                </div>
+            </div>
+        )
+    }
+
+    showUserQuiz(quiz) {
         let quizColor = `url(${Back})` + ", linear-gradient(180deg, " + quiz.colors[0].code + " 0%, " + quiz.colors[1].code + " 100%)";
 
-        if (this.state.user === null) {
+        if (quiz.attempt) {
             return (
-                <div onClick={this.showRegistration} key={quiz.id} className={css(styles.quiz)}>
+                <div key={quiz.id} className={css(styles.quiz)}>
                     <div className={css(styles.quizName)} style={{background: quizColor}}>
                         {quiz.name}
                     </div>
                     <div className={css(styles.description)}>
                         <div className={css(styles.descriptionText)}>{quiz.description}</div>
-                        <div className={css(styles.questionText)}>{quiz.questionsSize}</div>
+                        <div className={css(styles.questionScore)}>
+                            {quiz.questionsComplete}/{quiz.questionsSize} your score!
+                        </div>
                     </div>
                 </div>
             )
@@ -51,7 +76,7 @@ class App extends Component {
                     </div>
                     <div className={css(styles.description)}>
                         <div className={css(styles.descriptionText)}>{quiz.description}</div>
-                        <div className={css(styles.questionText)}>{quiz.questionsSize}</div>
+                        <div className={css(styles.questionText)}>{quiz.questionsComplete}/{quiz.questionsSize}</div>
                     </div>
                 </Link>
             )
@@ -59,7 +84,10 @@ class App extends Component {
     }
 
     authUser() {
-        this.props.authUser(new User(0, this.name.value, this.email.value, this.phone.value));
+        if (this.state.user === null) {
+            this.props.authUser(new User(0, this.name.value, this.email.value, this.phone.value));
+            this.closeRegistrationForm();
+        }
     }
 
     closeRegistrationForm() {
@@ -93,13 +121,27 @@ class App extends Component {
 
                     <div className={css(styles.buttonsContainer)}>
                         <img className={css(styles.modalPlaceButton)} src={Close}
-                             onClick={this.closeRegistrationForm}/>
+                             onClick={this.closeRegistrationForm} alt="Close"/>
                         <img className={css(styles.modalPlaceButton)} src={Send}
-                             onClick={this.authUser}/>
+                             onClick={this.authUser} alt="Send"/>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    showQuizzes() {
+        return (
+            <div className={css(styles.container)}>
+                <div className={css(styles.quizzes)}>
+                    {this.props.quizzes.map(i =>
+                        !this.props.user && this.showCommonQuiz(i)
+                        ||
+                        this.props.user && this.showUserQuiz(i)
+                    )}
+                </div>
+            </div>
+        )
     }
 
     componentWillUnmount() {
@@ -108,23 +150,24 @@ class App extends Component {
     }
 
     componentWillMount() {
+        if (this.state.user === null) {
+            this.props.loadQuizzes();
+        }
+        else {
+            this.props.loadUserHistory(this.state.user.token)
+        }
+
         this.props.cleanQuiz();
     }
 
     render() {
         return (
-            <div className="page">
+            <div className=" page">
                 {this.state.showRegistration && this.showRegistrationForm()}
 
                 <HomeHead/>
 
-                <div className={css(styles.container)}>
-                    <div className={css(styles.quizzes)}>
-                        {this.props.quizzes.map(i =>
-                            this.showQuiz(i)
-                        )}
-                    </div>
-                </div>
+                {this.showQuizzes()}
             </div>
         );
     }
@@ -132,7 +175,8 @@ class App extends Component {
 
 export default connect(
     state => ({
-        quizzes: state.quizzes
+        quizzes: state.quizzes,
+        user: state.user
     }),
     dispatch => ({
         cleanAnswersStory: () => {
@@ -144,8 +188,17 @@ export default connect(
         cleanQuiz: () => {
             dispatch({type: 'CLEAN_QUIZ', payload: []});
         },
+        loadQuizzes: () => {
+            dispatch(loadQuizzes());
+        },
+        loadUserHistory: (userToken) => {
+            dispatch(loadUserHistory(userToken));
+        },
         authUser: (user) => {
             dispatch(authUser(user));
+        },
+        checkAuth: (user) => {
+            dispatch({type: 'AUTHENTICATION_USER', payload: user})
         }
     })
 )(App);

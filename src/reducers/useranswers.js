@@ -1,4 +1,4 @@
-export default function questions(state = [], action) {
+export default function useranswers(state = [], action) {
     if (action.type === 'SUBMIT_ANSWER') {
 
         let hasExist = state.findIndex(i =>

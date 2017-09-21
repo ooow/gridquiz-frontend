@@ -16,18 +16,18 @@ export default StyleSheet.create(
 
         mainLogoContainer: {
             ...container,
-            height: '60%',
+            height: '60%'
         },
 
         nextArrowContainer: {
             ...container,
 
-            height: '20%',
+            height: '20%'
         },
 
         logo: {
             width: '100%',
-            height: '60%',
+            height: '60%'
         },
 
         companyTitle: {
@@ -41,7 +41,7 @@ export default StyleSheet.create(
 
             fontFamily: 'Roboto, sans-serif',
             fontWeight: 'normal',
-            color: 'white',
+            color: '#FFFFFF'
         },
 
         quizTitle: {
@@ -53,8 +53,7 @@ export default StyleSheet.create(
             fontSize: '650%',
 
             fontFamily: 'WanderlustLetters, sans-serif',
-            color: '#B5ECD5',
-
+            color: '#B5ECD5'
         },
 
     }

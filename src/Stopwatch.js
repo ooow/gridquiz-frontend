@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {startQuiz} from "./actions/startquiz";
 
 class Stopwatch extends Component {
     constructor(props) {
@@ -38,6 +37,11 @@ class Stopwatch extends Component {
         this.props.startWatch(Date.now());
     }
 
+    componentWillUnmount() {
+        this.stop();
+        this.props.stopWatch(Date.now());
+    }
+
     render() {
         if (!this.props.stopwatch.run) {
             this.stop();
@@ -53,5 +57,8 @@ export default connect(
     dispatch => ({
         startWatch: (date) => {
             dispatch({type: 'START_WATCH', payload: date});
+        },
+        stopWatch: (date) => {
+            dispatch({type: 'STOP_WATCH', payload: date});
         },
     }))(Stopwatch);

@@ -10,5 +10,6 @@ export const modalwindow = {
     minHeight: '640px',
     minWidth: '640px',
 
-    position: 'fixed'
+    position: 'fixed',
+    zIndex: '999'
 };

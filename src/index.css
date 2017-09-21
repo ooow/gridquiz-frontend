@@ -21,56 +21,12 @@ a {
     color: black;
 }
 
-.next {
-    align-content: flex-end;
-}
-
 .test-2 {
     background: linear-gradient(180deg, #FAB361 0%, #D98C3F 100%);
 }
 
 .test-3 {
     background: linear-gradient(180deg, #82D4E3 0%, #58B1C6 100%);
-}
-
-/* RESULT */
-
-.result {
-    position: absolute;
-
-    height: 100%;
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.result-window {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    width: 40%;
-    height: 40%;
-
-    border-radius: 8px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.24);
-    background: linear-gradient(180deg, #EA3440 0%, #DA3A4C 100%);
-}
-
-.modal-form {
-    width: 80%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.modal-submit {
-
 }
 
 /* --------------------------------------------- ADMIN PANEL */
