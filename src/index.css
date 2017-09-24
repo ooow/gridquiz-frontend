@@ -1,6 +1,6 @@
 html, body, .page {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 
     min-height: 640px;
     min-width: 640px;
@@ -14,6 +14,19 @@ body {
 @font-face {
     font-family: WanderlustLetters;
     src: url("font/WanderlustLetters-Regular.otf");
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    src: url("font/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: Roboto;
+    font-weight: 700;
+    src: url("font/Roboto-Bold.ttf");
 }
 
 a {

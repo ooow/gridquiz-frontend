@@ -1,7 +1,7 @@
 export default class UserAnswer {
-    constructor(quizId, questionId, answerId) {
+    constructor(quizId, questionId, answer) {
         this.quizId = quizId;
         this.questionId = questionId;
-        this.answerId = answerId;
+        this.answer = answer;
     }
 }

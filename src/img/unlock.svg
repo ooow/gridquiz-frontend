@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="30px" viewBox="0 0 22 30" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>unlock</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="quiz-list" transform="translate(-1230.000000, -21.000000)" fill="#FFFFFF">
+            <g id="header-footer">
+                <g id="unlock" transform="translate(1230.000000, 21.000000)">
+                    <path d="M3.93,13 L2.07,13 L2.07,9 C2.07,4.076 6.076,0.07 11,0.07 C15.496,0.07 19.306,3.43 19.861,7.885 L18.016,8.115 C17.576,4.589 14.56,1.93 11,1.93 C7.102,1.93 3.93,5.102 3.93,9 L3.93,13"
+                          id="Fill-70" opacity="0.5"></path>
+                    <path d="M19,30 L3,30 C1.346,30 0,28.654 0,27 L0,15 C0,13.346 1.346,12 3,12 L19,12 C20.654,12 22,13.346 22,15 L22,27 C22,28.654 20.654,30 19,30 L19,30 Z M3,14 C2.448,14 2,14.449 2,15 L2,27 C2,27.551 2.448,28 3,28 L19,28 C19.552,28 20,27.551 20,27 L20,15 C20,14.449 19.552,14 19,14 L3,14 L3,14 Z"
+                          id="Fill-71" opacity="0.649999976"></path>
+                    <path d="M12.2590541,19.5543245 C12.7111548,19.1877164 13,18.6277451 13,18 C13,16.895 12.105,16 11,16 C9.895,16 9,16.895 9,18 C9,18.9929863 9.72274481,19.81639 10.6711462,19.9731229 L10,24 L13,24 L12.2590541,19.5543245 Z"
+                          id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -6,8 +6,10 @@ import {modalplace} from "./elements/modalplace";
 
 export default StyleSheet.create(
     {
-        container: {
-            ...container
+        quizContainer: {
+            ...container,
+            minHeight: '100vh',
+            minWidth: '100vw'
         },
 
         // HEAD
@@ -15,77 +17,54 @@ export default StyleSheet.create(
         head: {
             ...container,
             flexDirection: 'row',
-            height: '20%'
+            alignItems: 'flex-start',
+            minHeight: '20vh',
+            minWidth: '100vw'
         },
 
         logoContainer: {
             ...container,
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-start',
 
-            height: '80%',
+            minHeight: '20vh',
+            minWidth: '100px',
             width: '10%'
         },
 
         logo: {
+            height: '90%',
             width: '90%'
         },
 
-        quizTitle: {
+        quizTitleContainer: {
             ...container,
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start',
 
-            height: '50%',
-            width: '5%',
+            minHeight: '20vh',
+            width: '10%',
 
-            fontSize: '3vw',
+            fontSize: '3em',
             fontFamily: 'WanderlustLetters, sans-serif',
-            color: '#B5ECD5'
-        },
-
-        lineContainer: {
-            ...container,
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-
-            height: '80%',
-            width: '20%'
-        },
-
-        line: {
-            height: '50%',
-            width: '6%',
-            minWidth: '18px',
-
-            paddingLeft: '10px',
-
-            ontSize: '16px',
-            fontFamily: 'Roboto, sans-serif',
-            fontWeight: 'lighter',
-            color: '#FFFFFF',
-
-            borderLeft: '1px solid #FFFFFF'
-        },
-
-        quizAuthor: {
-            width: '84%',
-
-            fontSize: '16px',
-            fontFamily: 'Roboto, sans-serif',
-            fontWeight: 'lighter',
             color: '#FFFFFF'
+        },
+
+        quizTitle: {
+            width: '90%',
+            minWidth: '100px',
+            borderRight: '1px solid #FFFFFF',
         },
 
         quizName: {
             ...container,
-            width: '35%',
+            minHeight: '20vh',
+            width: '60%',
 
-            fontSize: '5vw',
+            fontSize: '7em',
             fontFamily: 'WanderlustLetters, sans-serif',
-            color: '#B5ECD5'
+            color: '#FFFFFF'
+        },
+
+        space: {
+            minHeight: '20vh',
+            width: '20%'
         },
 
         stopwatchContainer: {
@@ -136,38 +115,50 @@ export default StyleSheet.create(
 
         bodyContainer: {
             ...container,
-            height: '80%'
+            justifyContent: 'space-around',
+            minHeight: '80vh',
+            minWidth: '100vw'
         },
 
-        question: {
+        questionContainer: {
             ...container,
-            justifyContent: 'flex-start',
-            height: '50%',
-
-            marginTop: '15px'
+            flexDirection: 'row',
+            minHeight: '30vh',
+            width: '85vw',
+            minWidth: '640px'
         },
 
-        counter: {
+        valueContainer: {
             ...container,
-            width: '80px',
-            height: '60px',
+            width: '30vh',
+            height: '12.5vw',
+            minHeight: '100px',
+            minWidth: '100px',
 
-            fontSize: 'large',
+            maxWidth: '150px'
+        },
+
+        value: {
+            ...container,
+            width: '100%',
+            height: '80%',
+
+            fontSize: 'xx-large',
             fontFamily: 'Open Sans, sans-serif',
 
             borderRadius: '8px 8px 0 0',
             boxShadow: '0 0 20px rgba(0, 0, 0, .3)',
+            borderBottom: '1px solid #CCCCCC',
 
-            opacity: '.60',
-
-            background: '#FFFFFF'
+            background: '#F8F8F8'
         },
 
-        counterText: {
+        valueText: {
             ...container,
             justifyContent: 'space-around',
-            width: '80px',
-            height: '20px',
+            width: '100%',
+            height: '20%',
+
 
             fontSize: 'small',
             fontFamily: 'Roboto, sans-serif',
@@ -177,19 +168,33 @@ export default StyleSheet.create(
             boxShadow: '0 10px 20px rgba(0, 0, 0, .3)',
             borderRadius: '0 0 8px 8px',
 
-            opacity: '.75',
-            background: '#FFFFFF'
+            background: '#F8F8F8'
         },
 
-        questionText: {
-            fontFamily: 'Roboto, sans-serif'
+        questionTitle: {
+            ...container,
+            height: '30vh',
+            width: '60vw',
+
+            minHeight: '160px',
+            minWidth: '520px',
+
+            paddingLeft: '10px',
+            paddingRight: '10px',
+
+            textAlign: 'center',
+            fontSize: 'xx-large',
+            fontFamily: 'Roboto, sans-serif',
+            color: '#FFFFFF'
         },
 
         answersContainer: {
             ...container,
             flexDirection: 'row',
-            flexWrap: 'wrap',
-            width: '80%'
+            minHeight: '50vh',
+            width: '85vw',
+            minWidth: '640px',
+            flexWrap: 'wrap'
         },
 
         answer: {
@@ -197,15 +202,191 @@ export default StyleSheet.create(
             justifyContent: 'center',
             alignItems: 'center',
 
-            fontSize: '300%',
+            textAlign: 'center',
+            fontSize: '1.5em',
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: '400',
+            color: '#000000',
 
-            margin: '20px',
+            marginLeft: '20px',
+            marginRight: '20px',
+            marginTop: '10px',
+            marginBottom: '10px',
 
-            height: '30%',
-            width: '40%',
+            paddingLeft: '5px',
+            paddingRight: '5px',
+
+            height: '12vh',
+            width: '450px',
+            minHeight: '100px',
+            minWidth: '450px',
+
             borderRadius: '8px',
-            backgroundColor: '#FFFFFF',
-            boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.54)'
+            backgroundColor: '#DEDEDE',
+            boxShadow: '0 3px 4px 0 rgba(0,0,0,0.3)',
+
+            ':hover': {
+                backgroundColor: '#FFFFFF'
+            }
+        },
+
+
+        // INPUT STYLE
+
+        questionInputContainer: {
+            ...container,
+            justifyContent: 'space-around',
+            width: '100%',
+        },
+
+        questionInputTitle: {
+            height: '30%',
+            width: '60%',
+
+            minHeight: '100px',
+            minWidth: '520px',
+
+            paddingLeft: '10px',
+            paddingRight: '10px',
+
+            textAlign: 'center',
+            fontSize: 'xx-large',
+            fontFamily: 'Roboto, sans-serif',
+            color: '#FFFFFF'
+        },
+
+        questionInputText: {
+            height: '40%',
+            width: '90%',
+
+            minHeight: '100px',
+            minWidth: '520px',
+
+            paddingLeft: '10px',
+            paddingRight: '10px',
+
+            textAlign: 'center',
+            fontSize: 'x-large',
+            fontFamily: 'Roboto, sans-serif',
+            color: '#FFFFFF'
+        },
+
+        answerInputContainer: {
+            ...container,
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            height: '20vh',
+            width: '80%'
+        },
+
+        inputContainer: {
+            ...container,
+            height: '20vh',
+            width: '80%',
+            minWidth: '520px',
+
+            borderRadius: '8px 0 0 8px',
+            background: '#DEDEDE'
+        },
+
+        inputText: {
+            height: '20%',
+            width: '90%',
+
+            fontFamily: 'Roboto, sans-serif',
+            fontSize: 'large',
+            color: '#666666',
+
+            opacity: '0.6'
+        },
+
+        answerInput: {
+            height: '60%',
+            width: '90%',
+
+            fontFamily: 'Roboto, sans-serif',
+            fontSize: '300%',
+            color: '#4A4A4A',
+
+            border: 'none',
+            background: '#DEDEDE',
+
+            ':focus:': {
+                outline: 'none'
+            }
+        },
+
+        inputLineContainer: {
+            ...container,
+            height: '20%',
+            width: '90%'
+        },
+
+        inputLine: {
+            width: '100%',
+
+            border: 'none',
+            backgroundColor: '#666666',
+            color: '#666666',
+            height: '1px'
+        },
+
+        answerButton: {
+            ...container,
+            height: '100%',
+            width: '20%',
+
+            fontSize: 'xx-large',
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: 'bold',
+            color: '#9B9B9B',
+
+            borderRadius: '0 8px 8px 0',
+            background: '#CCCCCC',
+
+            ':hover': {
+                backgroundColor: '#FFFFFF'
+            }
+        },
+
+
+        // CODE STYLE
+
+        questionContainerCode: {
+            ...container,
+            flexDirection: 'row',
+            width: '85vw',
+            minWidth: '640px'
+        },
+
+        codeContainer: {
+            ...container,
+            minWidth: '100vw',
+            justifyContent: 'flex-start',
+            marginTop: '15px'
+        },
+
+        codeQuestionText: {
+            maxWidth: '80vw',
+
+            fontSize: 'x-large',
+
+            opacity: '0.85',
+            borderRadius: '8px'
+        },
+
+        codeQuestionTitle: {
+            ...container,
+            height: '20%',
+            width: '90%',
+
+            paddingLeft: '10px',
+            paddingRight: '10px',
+
+            textAlign: 'center',
+            fontSize: 'x-large',
+            fontFamily: 'Roboto, sans-serif',
+            color: '#FFFFFF'
         },
 
         // RESULT

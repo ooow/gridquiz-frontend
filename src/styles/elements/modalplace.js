@@ -6,8 +6,11 @@ export const modalplace = {
     justifyContent: 'space-around',
     alignItems: 'center',
 
-    height: '40%',
-    width: '40%',
+    width: '50%',
+    height: '60%',
+
+    minWidth: '500px',
+    minHeight: '500px',
 
     zIndex: '1000',
     opacity: '1',

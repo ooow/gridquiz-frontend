@@ -8,16 +8,33 @@ export default StyleSheet.create(
     {
         container: {
             ...container,
-            height: '80%',
-            zIndex: '0',
+            minHeight: '80vh',
+            minWidth: '100vw',
+            zIndex: '0'
+        },
 
-            minHeight: '512px',
-            minWidth: '320px'
+        unlockContainer: {
+            ...container,
+            minHeight: '7vh',
+            minWidth: '100vw',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignSelf: 'flex-end',
+
+            position: 'fixed',
+            height: '5%'
+        },
+
+        unlock: {
+            marginTop: '20px',
+            marginRight: '20px',
+            height: '90%'
         },
 
         quizzes: {
             ...container,
-            width: '80%',
+            minHeight: '80vh',
+            minWidth: '80vw',
 
             flexDirection: 'row',
             justifyContent: 'space-around',
@@ -26,26 +43,25 @@ export default StyleSheet.create(
         },
 
         quiz: {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
+            ...container,
+            alignItems: 'stretch',
 
             margin: '15px',
 
-            width: '30%',
-            height: '30%',
+            height: '300px',
+            width: '400px',
 
-            minWidth: '300px',
-            minHeight: '300px'
+            minWidth: '30%',
+            minHeight: '30%',
         },
 
         quizName: {
             textAlign: 'center',
             fontFamily: 'WanderlustLetters, sans-serif',
-            fontSize: '500%',
+            fontSize: '5em',
             color: '#FFFFFF',
 
-            height: '75%',
+            minHeight: '75%',
 
             borderRadius: '8px 8px 0 0',
             boxShadow: '0 0 20px rgba(0, 0, 0, .3)'
@@ -95,22 +111,26 @@ export default StyleSheet.create(
         },
 
         modalPlace: {
-            ...modalplace,
-            minWidth: '500px',
-            minHeight: '500px'
+            ...modalplace
         },
 
         modalPlaceTitle: {
+            width: '80%',
+            height: '20%',
+
+            textAlign: 'center',
             fontFamily: 'WanderlustLetters, sans-serif',
-            fontSize: '5vw',
+            fontSize: '5em',
             color: '#4A4A4A'
         },
 
         modalPlaceComment: {
             width: '80%',
+            height: '15%',
+            minHeight: '80px',
 
             fontFamily: 'Open Sans, sans-serif',
-            fontSize: 'large',
+            fontSize: '1.5em',
             textAlign: 'center',
             color: '#000000',
             opacity: '0.67'
@@ -118,8 +138,9 @@ export default StyleSheet.create(
 
         modalPlaceInput: {
             width: '90%',
+            height: '15%',
             fontFamily: 'Open Sans, sans-serif',
-            fontSize: 'xx-large',
+            fontSize: '3em',
             color: '#000000',
             opacity: '0.67',
 
@@ -133,12 +154,13 @@ export default StyleSheet.create(
             justifyContent: 'space-around',
             alignSelf: 'flex-end',
             width: '40%',
-            height: '70px'
+            height: '20%',
+            minHeight: '70px'
         },
 
         modalPlaceButton: {
             width: '60px',
-            height: '60px'
+            minHeight: '60px'
         }
     }
 )

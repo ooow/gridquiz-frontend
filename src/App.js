@@ -3,10 +3,13 @@ import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import {css} from 'aphrodite';
 import styles from './styles/AppStyles';
+import {isAlpha, isEmail, isMobilePhone} from 'validator';
 
 import Back from './img/back.svg';
 import Send from './img/send.svg';
 import Close from './img/close.svg';
+import Lock from './img/lock.svg';
+import Unlock from './img/unlock.svg';
 
 import HomeHead from "./Homehead";
 import {authUser} from "./actions/authuser";
@@ -19,7 +22,7 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        ["showRegistration", "authUser", "closeRegistrationForm"].forEach((method) => {
+        ["showRegistration", "authUser", "showRegForm", "logout"].forEach((method) => {
             this[method] = this[method].bind(this);
         });
 
@@ -31,7 +34,41 @@ class App extends Component {
 
         if (this.state.user !== null) {
             this.props.checkAuth(this.state.user);
-            this.user = this.state.user;
+        }
+    }
+
+    validateFields() {
+        let validate = true;
+
+        if (!isAlpha(this.name.value, 'en-US')) {
+            this.name.value = "";
+            this.name.placeholder = "Please set Name (a-z, A-Z)";
+            validate = false;
+        }
+
+        if (isEmail(this.email.value) || isMobilePhone(this.phone.value, 'ru-RU')) {
+            return validate;
+        }
+
+        if (!isEmail(this.email.value)) {
+            this.email.value = "";
+            this.email.placeholder = "Please set Email";
+            validate = false;
+        }
+
+        if (!isMobilePhone(this.phone.value, 'ru-RU')) {
+            this.phone.value = "";
+            this.phone.placeholder = "or Phone";
+            validate = false;
+        }
+
+        return validate;
+    }
+
+    authUser() {
+        if (this.state.user === null && this.validateFields()) {
+            this.props.authUser(new User(0, this.name.value, this.email.value, this.phone.value));
+            this.showRegForm();
         }
     }
 
@@ -83,17 +120,6 @@ class App extends Component {
         }
     }
 
-    authUser() {
-        if (this.state.user === null) {
-            this.props.authUser(new User(0, this.name.value, this.email.value, this.phone.value));
-            this.closeRegistrationForm();
-        }
-    }
-
-    closeRegistrationForm() {
-        this.setState({showRegistration: false});
-    }
-
     showRegistration() {
         if (this.state.user === null) {
             this.setState({showRegistration: true});
@@ -106,22 +132,22 @@ class App extends Component {
     showRegistrationForm() {
         return (
             <div className={css(styles.registrationForm)}>
-                <div className={css(styles.backdrop)}/>
+                <div className={css(styles.backdrop)} onClick={this.showRegForm}/>
                 <div className={css(styles.modalPlace)}>
                     <div className={css(styles.modalPlaceTitle)}>Registration</div>
                     <div className={css(styles.modalPlaceComment)}>
                         You might be a happy winner! Register to get a chance to win amazing prizes! Good luck!
                     </div>
-                    <input className={css(styles.modalPlaceInput)} type="text" placeholder="Name"
+                    <input className={css(styles.modalPlaceInput)} type="text" placeholder="Name" maxLength="24"
                            ref={(input) => this.name = input}/>
-                    <input className={css(styles.modalPlaceInput)} type="text" placeholder="Email"
+                    <input className={css(styles.modalPlaceInput)} type="text" placeholder="Email" maxLength="40"
                            ref={(input) => this.email = input}/>
-                    <input className={css(styles.modalPlaceInput)} type="text" placeholder="Phone"
+                    <input className={css(styles.modalPlaceInput)} type="text" placeholder="Phone" maxLength="12"
                            ref={(input) => this.phone = input}/>
 
                     <div className={css(styles.buttonsContainer)}>
                         <img className={css(styles.modalPlaceButton)} src={Close}
-                             onClick={this.closeRegistrationForm} alt="Close"/>
+                             onClick={this.showRegForm} alt="Close"/>
                         <img className={css(styles.modalPlaceButton)} src={Send}
                              onClick={this.authUser} alt="Send"/>
                     </div>
@@ -132,7 +158,7 @@ class App extends Component {
 
     showQuizzes() {
         return (
-            <div className={css(styles.container)}>
+            <div className={css(styles.container)} style={{background: `url(${Back})`}}>
                 <div className={css(styles.quizzes)}>
                     {this.props.quizzes.map(i =>
                         !this.props.user && this.showCommonQuiz(i)
@@ -142,6 +168,33 @@ class App extends Component {
                 </div>
             </div>
         )
+    }
+
+    logout() {
+        localStorage.clear();
+        this.setState({user: null, quizzes: []});
+        this.props.logout();
+        this.props.loadQuizzes();
+    }
+
+    showLogin() {
+        return (
+            <div className={css(styles.unlockContainer)}>
+                <img onClick={this.showRegForm} src={Lock} className={css(styles.unlock)} alt="logout"/>
+            </div>
+        )
+    }
+
+    showLogout() {
+        return (
+            <div className={css(styles.unlockContainer)}>
+                <img onClick={this.logout} src={Unlock} className={css(styles.unlock)} alt="login"/>
+            </div>
+        )
+    }
+
+    showRegForm() {
+        this.setState({showRegistration: !this.state.showRegistration});
     }
 
     componentWillUnmount() {
@@ -164,10 +217,12 @@ class App extends Component {
         return (
             <div className=" page">
                 {this.state.showRegistration && this.showRegistrationForm()}
+                {this.props.user && this.showLogout()}
+                {!this.props.user && this.showLogin()}
 
                 <HomeHead/>
 
-                {this.showQuizzes()}
+                {this.props.quizzes && this.showQuizzes()}
             </div>
         );
     }
@@ -196,6 +251,9 @@ export default connect(
         },
         authUser: (user) => {
             dispatch(authUser(user));
+        },
+        logout: () => {
+            dispatch({type: 'LOGOUT_USER', payload: null})
         },
         checkAuth: (user) => {
             dispatch({type: 'AUTHENTICATION_USER', payload: user})

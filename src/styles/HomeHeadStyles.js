@@ -4,25 +4,26 @@ import {container} from "./elements/flexContainer";
 
 export default StyleSheet.create(
     {
-        container: {
-            ...container
+        homeHeadContainer: {
+            ...container,
+            height: '100vh'
         },
 
         space: {
             ...container,
 
-            height: '20%'
+            height: '20vh'
         },
 
         mainLogoContainer: {
             ...container,
-            height: '60%'
+            height: '60vh'
         },
 
         nextArrowContainer: {
             ...container,
 
-            height: '20%'
+            height: '20vh'
         },
 
         logo: {
@@ -50,11 +51,10 @@ export default StyleSheet.create(
 
             textAlign: 'center',
 
-            fontSize: '650%',
+            fontSize: '9em',
 
             fontFamily: 'WanderlustLetters, sans-serif',
             color: '#B5ECD5'
-        },
-
+        }
     }
 )

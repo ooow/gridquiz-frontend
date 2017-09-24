@@ -8,6 +8,8 @@ import {sendForReview} from "./actions/sendresults";
 
 import {css} from 'aphrodite';
 import styles from './styles/QuizStyles';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import {idea} from 'react-syntax-highlighter/dist/styles';
 
 import StopWatch from "./Stopwatch";
 import Back from './img/back.svg';
@@ -28,24 +30,16 @@ class Quiz extends Component {
     }
 
     showHead() {
-        let quizColor = `url(${Back})` + ", linear-gradient(180deg, " + this.quiz.colors[0].code + " 0%, " + this.quiz.colors[1].code + " 100%)";
         return (
-            <div className={css(styles.head)} style={{background: quizColor}}>
+            <div className={css(styles.head)}>
                 <div className={css(styles.logoContainer)}>
-                    <img className={css(styles.logo)} src={Logo}/>
+                    <img className={css(styles.logo)} src={Logo} alt="logo"/>
                 </div>
-                <div className={css(styles.quizTitle)}>Quiz</div>
-                <div className={css(styles.lineContainer)}>
-                    <div className={css(styles.line)}>by</div>
-                    <div className={css(styles.quizAuthor)}>Grid Dynamics</div>
+                <div className={css(styles.quizTitleContainer)}>
+                    <div className={css(styles.quizTitle)}>Quiz</div>
                 </div>
-                <h1 className={css(styles.quizName)}>{this.quiz.name}</h1>
-                <div className={css(styles.stopwatchContainer)}>
-                    <div className={css(styles.stopwatch)}>
-                        <StopWatch/>
-                    </div>
-                    <div className={css(styles.stopwatchText)}>QUIZ TIMER</div>
-                </div>
+                <div className={css(styles.quizName)}>{this.quiz.name}</div>
+                <div className={css(styles.space)}/>
             </div>
         );
     }
@@ -64,13 +58,76 @@ class Quiz extends Component {
             )
         }
         return (
-            <div className={css(styles.answer)} onClick={this.submit.bind(this, answer.id, false)} key={answer.id}>
-                <Link to={link}>
-                    {answer.text}
+            <Link to={link} className={css(styles.answer)} onClick={this.submit.bind(this, answer.id, false)}
+                  key={answer.id}>
+                {answer.text}
+            </Link>
+        )
+    }
+
+    showInputTextField(answer) {
+        let link = "/quiz/" + this.quiz.id + "/question/";
+        let next = Number(this.props.match.params.qid) + 1;
+        if (next <= this.length) {
+            link += next;
+        }
+        else {
+            return (
+                <div className={css(styles.answerInputContainer)}>
+                    <div className={css(styles.inputContainer)}>
+                        <div className={css(styles.inputText)}>Type an answer</div>
+                        <input className={css(styles.answerInput)} type="text" maxLength="30"
+                               ref={(input) => this.inputAnswer = input}
+                               placeholder={answer.text}
+                        />
+                        <div className={css(styles.inputLineContainer)}>
+                            <hr className={css(styles.inputLine)}/>
+                        </div>
+                    </div>
+                    <div className={css(styles.answerButton)} onClick={this.submitInput.bind(this, true)}>
+                        SUBMIT
+                    </div>
+                </div>
+            )
+        }
+        return (
+            <div className={css(styles.answerInputContainer)}>
+                <div className={css(styles.inputContainer)}>
+                    <div className={css(styles.inputText)}>Type an answer</div>
+                    <input className={css(styles.answerInput)} type="text" maxLength="30"
+                           ref={(input) => this.inputAnswer = input}
+                           placeholder={answer.text}
+                    />
+                    <div className={css(styles.inputLineContainer)}>
+                        <hr className={css(styles.inputLine)}/>
+                    </div>
+                </div>
+                <Link to={link} className={css(styles.answerButton)} onClick={this.submitInput.bind(this, false)}>
+                    SUBMIT
                 </Link>
             </div>
         )
+    }
 
+    submitInput(sendResults) {
+        let userAnswer = new UserAnswer(this.quiz.id, this.question.id, this.inputAnswer.value);
+        this.inputAnswer.value = "";
+        this.props.submit(userAnswer);
+        this.useranswers.push(userAnswer);
+        console.log(userAnswer);
+        if (sendResults) {
+            this.props.sendForReview(this.useranswers, this.state.user.token);
+        }
+    }
+
+    submit(answerId, sendResults) {
+        let userAnswer = new UserAnswer(this.quiz.id, this.question.id, answerId);
+        this.props.submit(userAnswer);
+        this.useranswers.push(userAnswer);
+
+        if (sendResults) {
+            this.props.sendForReview(this.useranswers, this.state.user.token);
+        }
     }
 
     showQuestions() {
@@ -81,17 +138,86 @@ class Quiz extends Component {
         this.question = question;
         this.length = length;
 
-        let quizColor = `url(${Back})`;
 
+        if (this.question.type === "INPUT") {
+            return this.showQuestionWitchInput(question, index, length);
+        }
+        else if (this.question.type === "CODE") {
+            return this.showQuestionWitchCode(question, index, length);
+        }
+        else {
+            return this.showQuestionWitchText(question, index, length);
+        }
+    }
+
+    showStopwatch() {
         return (
-            <div className={css(styles.bodyContainer)} style={{background: quizColor}}>
-                <div className={css(styles.question)}>
-                    <div className={css(styles.counter)}>{index + 1}/{length}</div>
-                    <div className={css(styles.counterText)}>QUESTIONS</div>
-                    <div className={css(styles.questionText)}>{question.title}</div>
+            <div className={css(styles.valueContainer)}>
+                <div className={css(styles.value)}>
+                    <StopWatch/>
+                </div>
+                <div className={css(styles.valueText)}>QUIZ TIMER</div>
+            </div>
+        )
+    }
+
+    showCounter(index, length) {
+        return (
+            <div className={css(styles.valueContainer)}>
+                <div className={css(styles.value)}>{index + 1}/{length}</div>
+                <div className={css(styles.valueText)}>QUESTIONS</div>
+            </div>
+        )
+    }
+
+    showQuestionWitchText(question, index, length) {
+        return (
+            <div className={css(styles.bodyContainer)}>
+                <div className={css(styles.questionContainer)}>
+                    {this.showCounter(index, length)}
+                    <div className={css(styles.questionTitle)}>{question.title}</div>
+                    {this.showStopwatch()}
                 </div>
                 <div className={css(styles.answersContainer)}>
                     {question.answers.map(i => this.showAnswers(i))}
+                </div>
+            </div>
+        );
+    }
+
+    showQuestionWitchCode(question, index, length) {
+        return (
+            <div className={css(styles.bodyContainer)}>
+                <div className={css(styles.codeContainer)}>
+                    <div className={css(styles.questionContainerCode)}>
+                        {this.showCounter(index, length)}
+                        <div className={css(styles.codeQuestionTitle)}>{question.title}</div>
+                        {this.showStopwatch()}
+                    </div>
+                    <SyntaxHighlighter language='java' style={idea} className={css(styles.codeQuestionText)}>
+                        {question.text}
+                    </SyntaxHighlighter>
+                </div>
+                <div className={css(styles.answersContainer)}>
+                    {question.answers.map(i => this.showAnswers(i))}
+                </div>
+            </div>
+        );
+    }
+
+    showQuestionWitchInput(question, index, length) {
+        return (
+            <div className={css(styles.bodyContainer)}>
+                <div className={css(styles.questionContainer)}>
+                    {this.showCounter(index, length)}
+                    <div className={css(styles.questionInputContainer)}>
+                        <div className={css(styles.questionInputTitle)}>{question.title}</div>
+                        <div className={css(styles.questionInputText)}>{question.text}</div>
+                    </div>
+                    {this.showStopwatch()}
+                </div>
+                <div className={css(styles.answersContainer)}>
+                    {this.showInputTextField(question.answers[0])}
                 </div>
             </div>
         );
@@ -117,16 +243,6 @@ class Quiz extends Component {
         );
     }
 
-    submit(answerId, sendResults) {
-        let userAnswer = new UserAnswer(this.quiz.id, this.question.id, answerId);
-        this.props.submit(userAnswer);
-        this.useranswers.push(userAnswer);
-
-        if (sendResults) {
-            this.props.sendForReview(this.useranswers, this.state.user.token);
-        }
-    }
-
     componentWillMount() {
         this.quiz = this.props.quiz;
     }
@@ -136,9 +252,15 @@ class Quiz extends Component {
         this.res = this.props.result;
         this.quiz = this.props.quiz;
 
+        let quizColor;
+        if (this.quiz.length !== 0) {
+            console.log(this.quiz);
+            quizColor = `url(${Back})` + ", linear-gradient(180deg, " + this.quiz.colors[0].code + " 0%, " + this.quiz.colors[1].code + " 100%)";
+        }
+
         return (
             <div className="page">
-                <div className={css(styles.container)}>
+                <div className={css(styles.quizContainer)} style={{background: quizColor}}>
                     {this.res && this.res.length !== 0 && this.showResult()}
                     {this.quiz && this.quiz.length !== 0 && this.showHead()}
                     {this.quiz && this.quiz.length !== 0 && this.showQuestions()}
