@@ -11,13 +11,12 @@ import reducer from "./reducers"
 import App from './App'
 import Quiz from "./Quiz";
 import Dashboard from "./Dashboard";
-import AdminPanel from "./admin/AdminPanel";
+import AdminPanel from "./AdminPanel";
 
 
 import registerServiceWorker from './registerServiceWorker';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
-const user = localStorage.getItem('user');
 
 ReactDOM.render((
         <Provider store={store}>

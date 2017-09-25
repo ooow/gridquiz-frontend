@@ -36,7 +36,7 @@ class Dashboard extends Component {
 
         return (
             <div className={css(styles.bodyContainer)} style={{background: bodyColor}}>
-                <Carousel autoplay={true} autoplayInterval={5000} wrapAround={true}>
+                <Carousel autoplay={true} autoplayInterval={5000} wrapAround={true} frameOverflow='visible'>
                     <div>
                         <DashboardResult result={this.props.dashboard[0]}/>
                     </div>

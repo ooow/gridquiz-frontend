@@ -162,9 +162,7 @@ class App extends Component {
             <div className={css(styles.container)} style={{background: `url(${Pattern})`}}>
                 <div className={css(styles.quizzes)}>
                     {this.props.quizzes.map(i =>
-                        !this.props.user && this.showCommonQuiz(i)
-                        ||
-                        this.props.user && this.showUserQuiz(i)
+                        !this.props.user && this.showCommonQuiz(i) || this.props.user && this.showUserQuiz(i)
                     )}
                 </div>
             </div>

@@ -2,18 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Logo from './img/logo.svg'
-import UserAnswer from "./models/UserAnswer";
-import {Link} from "react-router-dom";
-import {sendForReview} from "./actions/sendresults";
+import UserAnswer from './models/UserAnswer';
+import {Link} from 'react-router-dom';
+import {sendForReview} from './actions/sendresults';
 
 import {css} from 'aphrodite';
 import styles from './styles/QuizStyles';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {idea} from 'react-syntax-highlighter/dist/styles';
 
-import StopWatch from "./Stopwatch";
+import StopWatch from './Stopwatch';
 import Pattern from './img/background_pattern.svg';
-import {startQuiz} from "./actions/startquiz";
+import {startQuiz} from './actions/startquiz';
 
 
 class Quiz extends Component {
@@ -33,7 +33,7 @@ class Quiz extends Component {
         return (
             <div className={css(styles.head)}>
                 <div className={css(styles.logoContainer)}>
-                    <img className={css(styles.logo)} src={Logo} alt="logo"/>
+                    <img className={css(styles.logo)} src={Logo} alt='logo'/>
                 </div>
                 <div className={css(styles.quizTitleContainer)}>
                     <div className={css(styles.quizTitle)}>Quiz</div>
@@ -45,7 +45,7 @@ class Quiz extends Component {
     }
 
     showAnswers(answer) {
-        let link = "/quiz/" + this.quiz.id + "/question/";
+        let link = '/quiz/' + this.quiz.id + '/question/';
         let next = Number(this.props.match.params.qid) + 1;
         if (next <= this.length) {
             link += next;
@@ -66,7 +66,7 @@ class Quiz extends Component {
     }
 
     showInputTextField(answer) {
-        let link = "/quiz/" + this.quiz.id + "/question/";
+        let link = '/quiz/' + this.quiz.id + '/question/';
         let next = Number(this.props.match.params.qid) + 1;
         if (next <= this.length) {
             link += next;
@@ -76,7 +76,7 @@ class Quiz extends Component {
                 <div className={css(styles.answerInputContainer)}>
                     <div className={css(styles.inputContainer)}>
                         <div className={css(styles.inputText)}>Type an answer</div>
-                        <input className={css(styles.answerInput)} type="text" maxLength="30"
+                        <input className={css(styles.answerInput)} type='text' maxLength='30'
                                ref={(input) => this.inputAnswer = input}
                                placeholder={answer.text}
                         />
@@ -94,7 +94,7 @@ class Quiz extends Component {
             <div className={css(styles.answerInputContainer)}>
                 <div className={css(styles.inputContainer)}>
                     <div className={css(styles.inputText)}>Type an answer</div>
-                    <input className={css(styles.answerInput)} type="text" maxLength="30"
+                    <input className={css(styles.answerInput)} type='text' maxLength='30'
                            ref={(input) => this.inputAnswer = input}
                            placeholder={answer.text}
                     />
@@ -111,7 +111,7 @@ class Quiz extends Component {
 
     submitInput(sendResults) {
         let userAnswer = new UserAnswer(this.quiz.id, this.question.id, this.inputAnswer.value);
-        this.inputAnswer.value = "";
+        this.inputAnswer.value = '';
         this.props.submit(userAnswer);
         this.useranswers.push(userAnswer);
         console.log(userAnswer);
@@ -139,10 +139,10 @@ class Quiz extends Component {
         this.length = length;
 
 
-        if (this.question.type === "INPUT") {
+        if (this.question.type === 'INPUT') {
             return this.showQuestionWitchInput(question, index, length);
         }
-        else if (this.question.type === "CODE") {
+        else if (this.question.type === 'CODE') {
             return this.showQuestionWitchCode(question, index, length);
         }
         else {
@@ -237,7 +237,7 @@ class Quiz extends Component {
                         <div className={css(styles.resultText)}>QUESTIONS</div>
                     </div>
                     <div className={css(styles.modalPlaceComment)}>{this.res.comment.message}</div>
-                    <Link to="/dashboard" className={css(styles.resultButton)}>SEE RESULTS</Link>
+                    <Link to='/dashboard' className={css(styles.resultButton)}>SEE RESULTS</Link>
                 </div>
             </div>
         );
@@ -254,10 +254,10 @@ class Quiz extends Component {
 
         let quizColor;
         if (this.quiz.length !== 0 && this.quiz !== 'Quiz already complete.') {
-            quizColor = `url(${Pattern})` + ", linear-gradient(180deg, " + this.quiz.colors[0].code + " 0%, " + this.quiz.colors[1].code + " 100%)";
+            quizColor = `url(${Pattern})` + ', linear-gradient(180deg, ' + this.quiz.colors[0].code + ' 0%, ' + this.quiz.colors[1].code + ' 100%)';
 
             return (
-                <div className="page">
+                <div className='page'>
                     <div className={css(styles.quizContainer)} style={{background: quizColor}}>
                         {this.res && this.res.length !== 0 && this.showResult()}
                         {this.quiz && this.quiz.length !== 0 && this.showHead()}
@@ -268,7 +268,7 @@ class Quiz extends Component {
         }
         else {
             return (
-                <div className="page">
+                <div className='page'>
                     {this.quiz}
                 </div>
             );

@@ -3,24 +3,24 @@ import {connect} from 'react-redux';
 import {isAlpha, isEmail, isMobilePhone} from 'validator';
 
 import {css} from 'aphrodite';
-import styles from '../styles/AppStyles';
+import styles from './styles/AdminPanelStyles';
 
 
-import Send from '../img/send.svg';
-import Logo from '../img/logo.svg'
-import UsersGrid from "../UsersGrid";
-import QuizPanel from "./QuizPanel";
-import {authUser} from "../actions/authuser";
-import User from "../models/User";
-import NonApprovedUsersResults from "../NonApprovedUsersResults";
+import Send from './img/send.svg';
+import Logo from './img/logo.svg'
+import UsersGrid from "./UsersGrid";
+import {authUser} from "./actions/authuser";
+import User from "./models/User";
+import NonApprovedUsersResults from "./NonApprovedUsersResults";
+import {generateMainQuizzes} from "./actions/generatemainquizzes";
+import Link from "react-router-dom/es/Link";
 
 class AdminPanel extends Component {
 
     constructor(props) {
         super(props);
 
-
-        ["showRegistration", "authUser", "showRegForm", "logout"].forEach((method) => {
+        ["showRegistration", "authUser", "showRegForm", "logout", "generate"].forEach((method) => {
             this[method] = this[method].bind(this);
         });
 
@@ -38,15 +38,11 @@ class AdminPanel extends Component {
 
     showHead() {
         return (
-            <div className="a-container">
-                <div className="a-bar">
-                    <img className="a-logo" src={Logo}/>
-                    <div className="a-quiz-title">Quiz</div>
-                    <div className="a-line">
-                        <div className="a-author-text">by Grid Dynamics</div>
-                    </div>
-                    <h1 className="a-title">Admin Panel</h1>
+            <div className={css(styles.adminHeadContainer)}>
+                <div className={css(styles.logoContainer)}>
+                    <img className={css(styles.logo)} src={Logo} alt='logo'/>
                 </div>
+                <div className={css(styles.headTitle)}>Admin Panel</div>
             </div>
         );
     }
@@ -59,12 +55,8 @@ class AdminPanel extends Component {
         return <NonApprovedUsersResults/>
     }
 
-    showQuizPanel() {
-        return <QuizPanel/>
-    }
-
-    generateMainQuizzes() {
-
+    generate() {
+        this.props.generate(this.state.user.token);
     }
 
     validateFields() {
@@ -137,6 +129,7 @@ class AdminPanel extends Component {
         if (this.state.user === null && this.validateFields()) {
             this.props.authUser(new User(0, this.name.value, this.email.value, this.phone.value));
             this.showRegForm();
+            this.setState({user: this.props.admin});
         }
     }
 
@@ -159,6 +152,16 @@ class AdminPanel extends Component {
 
                 {this.props.admin && this.showHead()}
 
+                <div className={css(styles.menuContainer)}>
+                    {this.props.admin &&
+                    <div className={css(styles.adminButton)} onClick={this.generate}>Generate Main Quizzes</div>}
+
+                    {this.props.admin &&
+                    <Link to="/">
+                        <div className={css(styles.adminButton)}>Go To Home</div>
+                    </Link>}
+                </div>
+
                 {this.props.admin && this.showUsers()}
 
                 {this.props.admin && this.showNonApprovedUsersResults()}
@@ -180,6 +183,9 @@ export default connect(
         },
         checkAuth: (user) => {
             dispatch({type: 'AUTHENTICATION_USER', payload: user})
+        },
+        generate: (adminToken) => {
+            dispatch(generateMainQuizzes(adminToken));
         }
     })
 )(AdminPanel);

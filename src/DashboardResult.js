@@ -41,28 +41,14 @@ class DashboardResult extends Component {
         return Math.floor(timerResult / 60000) + ':' + ('0' + Math.floor(timerResult / 1000) % 60).slice(-2);
     }
 
-    showResult() {
-        return (
-            <div className={css(styles.slideContainer)}>
-                <div className={css(styles.slideTitleContainer)}>
-                    <div className={css(styles.slideTitle)}>Results / {this.result.quizName}</div>
-                </div>
-                <div className={css(styles.slideBodyContainer)}>
-                    {this.result.results.map((i, index) =>
-                        this.showPlace(i, this.colors[index].a, this.colors[index].b)
-                    )}
-                </div>
-            </div>
-        )
-    }
-
     showPlace(result, color1, color2) {
         let backgroundColor = 'linear-gradient(180deg, ' + color1 + ' 0%, ' + color2 + ' 100%';
         let backgroundColorPlace = 'linear-gradient(180deg, ' + color2 + ' 0%, ' + color1 + ' 100%';
         return (
-            <div className={css(styles.slideSpaceContainer)} style={{background: backgroundColor}}>
+            <div key={result.position} className={css(styles.slideSpaceContainer)}
+                 style={{background: backgroundColor}}>
                 <div className={css(styles.place)} style={{background: backgroundColorPlace}}>
-                    {result.position + 1}
+                    {parseInt(result.position) + 1}
                 </div>
                 <div className={css(styles.name)}>
                     {result.name}
@@ -79,10 +65,17 @@ class DashboardResult extends Component {
 
     render() {
         return (
-            <div>
-                {this.showResult()}
+            <div className={css(styles.slideContainer)}>
+                <div className={css(styles.slideTitleContainer)}>
+                    <div className={css(styles.slideTitle)}>Results / {this.result.quizName}</div>
+                </div>
+                <div className={css(styles.slideBodyContainer)}>
+                    {this.result.results.map((i, index) =>
+                        this.showPlace(i, this.colors[index].a, this.colors[index].b)
+                    )}
+                </div>
             </div>
-        );
+        )
     }
 }
 

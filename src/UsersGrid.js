@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import ReactDataGrid from 'react-data-grid';
 import {getUsers} from "./actions/getusers";
 import {removeUsers} from "./actions/removeusers";
+import styles from "./styles/AdminPanelStyles";
+import css from "react-syntax-highlighter/src/languages/css";
 
 class UsersGrid extends Component {
 
@@ -19,7 +21,8 @@ class UsersGrid extends Component {
             {key: 'id', name: 'ID', sortable: true},
             {key: 'name', name: 'NAME', sortable: true},
             {key: 'email', name: 'EMAIL', sortable: true},
-            {key: 'phone', name: 'PHONE', sortable: true}
+            {key: 'phone', name: 'PHONE', sortable: true},
+            {key: 'results', name: 'RESULTS', sortable: true}
         ];
 
         this.state = {
@@ -33,8 +36,21 @@ class UsersGrid extends Component {
         }
     }
 
+    formatTime(timerResult) {
+        return Math.floor(timerResult / 60000) + ':' + ('0' + Math.floor(timerResult / 1000) % 60).slice(-2);
+    }
+
     rowGetter(index) {
-        return this.users[index];
+        let results = this.users[index].results.map(i => i.position + ':{' + i.result + ', ' + this.formatTime(i.time) + '} ');
+
+        return {
+            id: this.users[index].user.id,
+            name: this.users[index].user.name,
+            email: this.users[index].user.email,
+            phone: this.users[index].user.phone,
+            results: results
+        };
+
     }
 
     onRowSelect(rows) {
@@ -69,7 +85,7 @@ class UsersGrid extends Component {
             <div className="users-grid">
                 <div>{this.state.selectedRows.length} {rowText} selected</div>
 
-                <button onClick={this.deleteUsers}>remove {rowText}</button>
+                <button className={css(styles.adminButton)} onClick={this.deleteUsers}>remove {rowText}</button>
 
                 <ReactDataGrid
                     ref={node => this.grid = node}
