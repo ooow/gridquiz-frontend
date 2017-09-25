@@ -22,12 +22,15 @@ class UsersGrid extends Component {
             {key: 'phone', name: 'PHONE', sortable: true}
         ];
 
-        this.props.getUsers();
-
         this.state = {
             columns: columnss,
-            selectedRows: []
+            selectedRows: [],
+            admin: JSON.parse(localStorage.getItem('user'))
         };
+
+        if (this.state.admin) {
+            this.props.getUsers(this.state.admin.token);
+        }
     }
 
     rowGetter(index) {
@@ -56,7 +59,7 @@ class UsersGrid extends Component {
     }
 
     deleteUsers() {
-        this.props.removeUsers(this.state.selectedRows.map(i => i.id));
+        this.props.removeUsers(this.state.admin.token, this.state.selectedRows.map(i => i.id));
         this.onRowsDelete();
     }
 
@@ -89,7 +92,7 @@ class UsersGrid extends Component {
         this.users = this.props.users;
         return (
             <div>
-                {this.users && this.users.length !== 0 && this.showGrid()}
+                {this.state.admin && this.users && this.users.length !== 0 && this.showGrid()}
             </div>
         );
     }
@@ -100,11 +103,11 @@ export default connect(
         users: state.users
     }),
     dispatch => ({
-        getUsers: () => {
-            dispatch(getUsers());
+        getUsers: (adminToken) => {
+            dispatch(getUsers(adminToken));
         },
-        removeUsers: (usersIds) => {
-            dispatch(removeUsers(usersIds));
+        removeUsers: (adminToken, usersIds) => {
+            dispatch(removeUsers(adminToken, usersIds));
         }
     })
 )(UsersGrid);

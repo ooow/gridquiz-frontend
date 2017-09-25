@@ -10,13 +10,11 @@ import reducer from "./reducers"
 
 import App from './App'
 import Quiz from "./Quiz";
+import Dashboard from "./Dashboard";
 import AdminPanel from "./admin/AdminPanel";
 
 
 import registerServiceWorker from './registerServiceWorker';
-
-
-//localStorage.clear();
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 const user = localStorage.getItem('user');
@@ -27,6 +25,7 @@ ReactDOM.render((
                 <div className="page">
                     <Route exact path="/" component={App}/>
                     <Route path="/quiz/:id/question/:qid" component={Quiz}/>
+                    <Route path="/dashboard" component={Dashboard}/>
                     <Route path="/admin/panel" component={AdminPanel}/>
                 </div>
             </BrowserRouter>

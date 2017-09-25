@@ -1,9 +1,9 @@
 import Request from 'superagent';
 
-export const removeUsers = (adminToken, usersIds) => dispatch => {
+export const approve = (adminToken, results) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/admin/users/remove')
-        .send(usersIds)
+        .post('http://localhost:8080/api/gridquiz/admin/dashboard/approve')
+        .send(results)
         .set('X-User-Token', adminToken)
         .set('accept', 'application/json')
         .set('verbose', true)
@@ -11,7 +11,7 @@ export const removeUsers = (adminToken, usersIds) => dispatch => {
             if (err) {
                 console.log("err", err);
             } else {
-                dispatch({type: 'REMOVE_USERS', payload: res.body});
+                dispatch({type: 'APPROVE_RESULTS', payload: res.body});
             }
         });
 };

@@ -7,6 +7,8 @@ import stopwatch from "./stopwatch";
 import users from "./admin/users";
 import quiz from "./quiz";
 import user from "./user";
+import dashboard from "./dashboard";
+import nonapproved from "./admin/nonapproved";
 
 export default combineReducers({
     quizzes,
@@ -15,5 +17,7 @@ export default combineReducers({
     stopwatch,
     users,
     quiz,
-    user
+    user,
+    dashboard,
+    nonapproved
 })

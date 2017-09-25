@@ -5,7 +5,7 @@ import {css} from 'aphrodite';
 import styles from './styles/AppStyles';
 import {isAlpha, isEmail, isMobilePhone} from 'validator';
 
-import Back from './img/back.svg';
+import Pattern from './img/background_pattern.svg';
 import Send from './img/send.svg';
 import Close from './img/close.svg';
 import Lock from './img/lock.svg';
@@ -73,7 +73,7 @@ class App extends Component {
     }
 
     showCommonQuiz(quiz) {
-        let quizColor = `url(${Back})` + ", linear-gradient(180deg, " + quiz.colors[0].code + " 0%, " + quiz.colors[1].code + " 100%)";
+        let quizColor = `url(${Pattern})` + ", linear-gradient(180deg, " + quiz.colors[0].code + " 0%, " + quiz.colors[1].code + " 100%)";
         return (
             <div onClick={this.showRegistration} key={quiz.id} className={css(styles.quiz)}>
                 <div className={css(styles.quizName)} style={{background: quizColor}}>
@@ -88,7 +88,7 @@ class App extends Component {
     }
 
     showUserQuiz(quiz) {
-        let quizColor = `url(${Back})` + ", linear-gradient(180deg, " + quiz.colors[0].code + " 0%, " + quiz.colors[1].code + " 100%)";
+        let quizColor = `url(${Pattern})` + ", linear-gradient(180deg, " + quiz.colors[0].code + " 0%, " + quiz.colors[1].code + " 100%)";
 
         if (quiz.attempt) {
             return (
@@ -158,7 +158,7 @@ class App extends Component {
 
     showQuizzes() {
         return (
-            <div className={css(styles.container)} style={{background: `url(${Back})`}}>
+            <div className={css(styles.container)} style={{background: `url(${Pattern})`}}>
                 <div className={css(styles.quizzes)}>
                     {this.props.quizzes.map(i =>
                         !this.props.user && this.showCommonQuiz(i)

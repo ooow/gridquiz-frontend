@@ -1,17 +1,16 @@
 import Request from 'superagent';
 
-export const getUsers = (adminToken) => dispatch => {
+export const loadDashboard = () => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/admin/users')
+        .get('http://localhost:8080/api/gridquiz/dashboard')
         .send()
-        .set('X-User-Token', adminToken)
         .set('accept', 'application/json')
         .set('verbose', true)
         .end((err, res) => {
             if (err) {
                 console.log("err", err);
             } else {
-                dispatch({type: 'LOAD_USERS', payload: res.body});
+                dispatch({type: 'LOAD_DASHBOARD', payload: res.body});
             }
         });
 };

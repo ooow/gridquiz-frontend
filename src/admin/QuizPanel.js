@@ -81,8 +81,8 @@ class QuizPanel extends Component {
 export default connect(
     state => ({}),
     dispatch => ({
-        getUsers: () => {
-            dispatch(getUsers());
+        getUsers: (adminToken) => {
+            dispatch(getUsers(adminToken));
         },
         removeUsers: (usersIds) => {
             dispatch(removeUsers(usersIds));

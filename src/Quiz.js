@@ -12,7 +12,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import {idea} from 'react-syntax-highlighter/dist/styles';
 
 import StopWatch from "./Stopwatch";
-import Back from './img/back.svg';
+import Pattern from './img/background_pattern.svg';
 import {startQuiz} from "./actions/startquiz";
 
 
@@ -253,20 +253,26 @@ class Quiz extends Component {
         this.quiz = this.props.quiz;
 
         let quizColor;
-        if (this.quiz.length !== 0) {
-            console.log(this.quiz);
-            quizColor = `url(${Back})` + ", linear-gradient(180deg, " + this.quiz.colors[0].code + " 0%, " + this.quiz.colors[1].code + " 100%)";
-        }
+        if (this.quiz.length !== 0 && this.quiz !== 'Quiz already complete.') {
+            quizColor = `url(${Pattern})` + ", linear-gradient(180deg, " + this.quiz.colors[0].code + " 0%, " + this.quiz.colors[1].code + " 100%)";
 
-        return (
-            <div className="page">
-                <div className={css(styles.quizContainer)} style={{background: quizColor}}>
-                    {this.res && this.res.length !== 0 && this.showResult()}
-                    {this.quiz && this.quiz.length !== 0 && this.showHead()}
-                    {this.quiz && this.quiz.length !== 0 && this.showQuestions()}
+            return (
+                <div className="page">
+                    <div className={css(styles.quizContainer)} style={{background: quizColor}}>
+                        {this.res && this.res.length !== 0 && this.showResult()}
+                        {this.quiz && this.quiz.length !== 0 && this.showHead()}
+                        {this.quiz && this.quiz.length !== 0 && this.showQuestions()}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <div className="page">
+                    {this.quiz}
+                </div>
+            );
+        }
     }
 }
 
