@@ -157,7 +157,7 @@ class AdminPanel extends Component {
             <div className="page">
                 {this.state.showRegistration && this.showRegistrationForm()}
 
-                {this.showHead()}
+                {this.props.admin && this.showHead()}
 
                 {this.props.admin && this.showUsers()}
 

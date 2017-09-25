@@ -1,40 +1,26 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {css} from 'aphrodite';
-import styles from "./styles/DashboardStyles";
+import styles from './styles/DashboardStyles';
+import Carousel from 'nuka-carousel';
 
-import Back from "./img/back.svg";
-import Pattern from "./img/background_pattern.svg";
+import Back from './img/back.svg';
+import Pattern from './img/background_pattern.svg';
 
-import {loadDashboard} from "./actions/loaddashboard";
+import {loadDashboard} from './actions/loaddashboard';
+import DashboardResult from './DashboardResult';
+import Link from 'react-router-dom/es/Link';
 
 class Dashboard extends Component {
-
-    constructor(props) {
-        super(props);
-
-        /* ["showRegistration", "authUser", "showRegForm", "logout"].forEach((method) => {
-             this[method] = this[method].bind(this);
-         });
-
-         this.state = {
-             showRegistration: false,
-             quizzes: [],
-             user: JSON.parse(localStorage.getItem('user'))
-         };
-
-         if (this.state.user !== null) {
-             this.props.checkAuth(this.state.user);
-         }*/
-    }
-
 
     showHead() {
         let headColor = `url(${Pattern})` + ', linear-gradient(180deg, #DB3B4C 0%, #E6515E 100%)';
         return (
             <div className={css(styles.headContainer)} style={{background: headColor}}>
                 <div className={css(styles.logoContainer)}>
-                    <img src={Back} alt="back"/>
+                    <Link to='/'>
+                        <img src={Back} alt='back'/>
+                    </Link>
                 </div>
                 <div className={css(styles.quizTitleContainer)}>
                     <div className={css(styles.quizTitle)}>Quiz</div>
@@ -45,11 +31,22 @@ class Dashboard extends Component {
         );
     }
 
-    showDashboard() {
+    showSlides() {
         let bodyColor = `url(${Pattern})` + ', linear-gradient(180deg, #508721 0%, #175A0A 100%)';
+
         return (
             <div className={css(styles.bodyContainer)} style={{background: bodyColor}}>
-                <div>{this.props.dashboard.results}</div>
+                <Carousel autoplay={true} autoplayInterval={5000} wrapAround={true}>
+                    <div>
+                        <DashboardResult result={this.props.dashboard[0]}/>
+                    </div>
+                    <div>
+                        <DashboardResult result={this.props.dashboard[1]}/>
+                    </div>
+                    <div>
+                        <DashboardResult result={this.props.dashboard[2]}/>
+                    </div>
+                </Carousel>
             </div>
         )
     }
@@ -58,11 +55,16 @@ class Dashboard extends Component {
         this.props.loadDashboard();
     }
 
+    componentWillUnmount() {
+        this.props.cleanDashboard();
+    }
+
     render() {
         return (
-            <div className=" page">
+            <div className='page'>
                 {this.showHead()}
-                {this.props.dashboard && this.showDashboard()}
+
+                {this.props.dashboard && this.props.dashboard.length > 0 && this.showSlides()}
             </div>
         );
     }
@@ -75,6 +77,9 @@ export default connect(
     dispatch => ({
         loadDashboard: () => {
             dispatch(loadDashboard());
+        },
+        cleanDashboard: () => {
+            dispatch({type: 'CLEAN_DASHBOARD', payload: []});
         }
     })
 )(Dashboard);

@@ -7,5 +7,9 @@ export default function quiz(state = [], action) {
         return action.payload;
     }
 
+    if (action.type === 'CLEAN_DASHBOARD') {
+        return action.payload;
+    }
+
     return state;
 }

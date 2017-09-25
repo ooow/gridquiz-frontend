@@ -1,8 +1,8 @@
 import {StyleSheet} from 'aphrodite';
 import {container} from './elements/flexContainer';
-import {modalwindow} from "./elements/modalwindow";
-import {modalbackdrop} from "./elements/modalbackdrop";
-import {modalplace} from "./elements/modalplace";
+import {modalwindow} from './elements/modalwindow';
+import {modalbackdrop} from './elements/modalbackdrop';
+import {modalplace} from './elements/modalplace';
 
 export default StyleSheet.create(
     {
@@ -101,7 +101,7 @@ export default StyleSheet.create(
 
             fontSize: 'large',
             fontFamily: 'Roboto, sans-serif',
-            fontWeight: 'lighter',
+            fontWeight: '400',
             color: '#000000',
 
             boxShadow: '0 10px 20px rgba(0, 0, 0, .3)',

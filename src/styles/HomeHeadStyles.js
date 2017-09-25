@@ -1,5 +1,5 @@
 import {StyleSheet} from 'aphrodite';
-import {container} from "./elements/flexContainer";
+import {container} from './elements/flexContainer';
 
 
 export default StyleSheet.create(

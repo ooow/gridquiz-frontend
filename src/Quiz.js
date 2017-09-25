@@ -237,7 +237,7 @@ class Quiz extends Component {
                         <div className={css(styles.resultText)}>QUESTIONS</div>
                     </div>
                     <div className={css(styles.modalPlaceComment)}>{this.res.comment.message}</div>
-                    <Link to="/" className={css(styles.resultButton)}>SEE RESULTS</Link>
+                    <Link to="/dashboard" className={css(styles.resultButton)}>SEE RESULTS</Link>
                 </div>
             </div>
         );

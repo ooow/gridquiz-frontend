@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import ReactDataGrid from 'react-data-grid';
-import {getNonApprovedUserResults} from "./actions/getnonapprovedresults";
-import {approve} from "./actions/approve";
+import {getNonApprovedUserResults} from './actions/getnonapprovedresults';
+import {approve} from './actions/approve';
 
 class NonApprovedUsersResults extends Component {
 
     constructor(props) {
         super(props);
 
-        ["rowGetter", "onRowSelect", "onRowsDelete", "handleGridSort", "showGrid", "approve"].forEach((method) => {
+        ['rowGetter', 'onRowSelect', 'onRowsDelete', 'handleGridSort', 'showGrid', 'approve'].forEach((method) => {
             this[method] = this[method].bind(this);
         });
 
@@ -66,18 +66,18 @@ class NonApprovedUsersResults extends Component {
     showGrid() {
         let rowText = this.state.sr.length === 1 ? 'result' : 'results';
         return (
-            <div className="users-grid">
+            <div className='users-grid'>
                 <div>{this.state.sr.length} {rowText} selected</div>
 
                 <button onClick={this.approve}>approve {rowText}</button>
 
                 <ReactDataGrid
                     ref={node => this.grid = node}
-                    rowKey="id"
+                    rowKey='id'
                     columns={this.state.columns}
                     rowGetter={this.rowGetter}
                     rowsCount={this.nonapproved.length}
-                    enableRowSelect="multi"
+                    enableRowSelect='multi'
                     minHeight={400}
                     onRowSelect={this.onRowSelect}
                     onGridSort={this.handleGridSort}
