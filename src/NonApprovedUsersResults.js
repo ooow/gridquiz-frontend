@@ -4,8 +4,6 @@ import {connect} from 'react-redux';
 import ReactDataGrid from 'react-data-grid';
 import {getNonApprovedUserResults} from './actions/getnonapprovedresults';
 import {approve} from './actions/approve';
-import styles from "./styles/AdminPanelStyles";
-import css from "react-syntax-highlighter/src/languages/css";
 
 class NonApprovedUsersResults extends Component {
 
@@ -70,9 +68,9 @@ class NonApprovedUsersResults extends Component {
         let rowText = this.state.sr.length === 1 ? 'result' : 'results';
         return (
             <div className='users-grid'>
-                <div className={css(styles.adminLabel)}>{this.state.sr.length} {rowText} selected</div>
+                <div>{this.state.sr.length} {rowText} selected</div>
 
-                <button className={css(styles.adminButton)} onClick={this.approve}>approve {rowText}</button>
+                <button onClick={this.approve}>approve {rowText}</button>
 
                 <ReactDataGrid
                     ref={node => this.grid = node}

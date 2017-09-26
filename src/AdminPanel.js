@@ -4,7 +4,6 @@ import {isAlpha, isEmail, isMobilePhone} from 'validator';
 import Link from 'react-router-dom/es/Link';
 
 import {css} from 'aphrodite';
-import styles from './styles/AdminPanelStyles';
 
 
 import Send from './img/send.svg';
@@ -42,11 +41,11 @@ class AdminPanel extends Component {
 
     showHead() {
         return (
-            <div className={css(styles.adminHeadContainer)}>
+            <div className='admin-head-container'>
                 <Link to='/'>
-                    <img className={css(styles.logo)} src={Logo} alt='logo'/>
+                    <img className='admin-logo' src={Logo} alt='logo'/>
                 </Link>
-                <div className={css(styles.headTitle)}>Admin Panel</div>
+                <div className='admin-head-title'>Admin Panel</div>
             </div>
         );
     }

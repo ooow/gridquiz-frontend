@@ -4,8 +4,6 @@ import {connect} from 'react-redux';
 import ReactDataGrid from 'react-data-grid';
 import {getUsers} from "./actions/getusers";
 import {removeUsers} from "./actions/removeusers";
-import styles from "./styles/AdminPanelStyles";
-import css from "react-syntax-highlighter/src/languages/css";
 
 class UsersGrid extends Component {
 
@@ -85,7 +83,7 @@ class UsersGrid extends Component {
             <div className="users-grid">
                 <div>{this.state.selectedRows.length} {rowText} selected</div>
 
-                <button className={css(styles.adminButton)} onClick={this.deleteUsers}>remove {rowText}</button>
+                <button onClick={this.deleteUsers}>remove {rowText}</button>
 
                 <ReactDataGrid
                     ref={node => this.grid = node}

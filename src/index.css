@@ -931,3 +931,33 @@ a {
     min-height: 9vh;
     width: 15%
 }
+
+/* --------------------------------------------- ADMIN PANEL */
+
+.admin-head-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 20vh;
+    min-width: 100vw;
+
+    background: linear-gradient(180deg, #82D4E3 0%, #58B1C6 100%)
+}
+
+.admin-logo {
+    height: 90%;
+    width: 90%
+}
+
+.admin-head-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 20vh;
+    width: 90%;
+
+    font-size: 7em;
+    font-family: WanderlustLetters, sans-serif;
+    color: #FFFFFF
+}
