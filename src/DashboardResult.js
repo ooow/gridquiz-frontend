@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {css} from 'aphrodite';
-import styles from './styles/DashboardStyles';
+
+import Pattern from './img/background_pattern.svg';
 
 class DashboardResult extends Component {
 
     constructor(props) {
         super(props);
-
         this.colors = [
             {
                 a: '#F9D56D',
@@ -33,7 +33,6 @@ class DashboardResult extends Component {
                 b: '#DEDEDE'
             }
         ];
-
         this.result = props.result;
     }
 
@@ -45,18 +44,17 @@ class DashboardResult extends Component {
         let backgroundColor = 'linear-gradient(180deg, ' + color1 + ' 0%, ' + color2 + ' 100%';
         let backgroundColorPlace = 'linear-gradient(180deg, ' + color2 + ' 0%, ' + color1 + ' 100%';
         return (
-            <div key={result.position} className={css(styles.slideSpaceContainer)}
-                 style={{background: backgroundColor}}>
-                <div className={css(styles.place)} style={{background: backgroundColorPlace}}>
+            <div key={result.position} className='slide-space-container' style={{background: backgroundColor}}>
+                <div className='place' style={{background: backgroundColorPlace}}>
                     {parseInt(result.position) + 1}
                 </div>
-                <div className={css(styles.name)}>
+                <div className='name'>
                     {result.name}
                 </div>
-                <div className={css(styles.points)}>
+                <div className='points'>
                     {result.result}
                 </div>
-                <div className={css(styles.time)}>
+                <div className='time'>
                     {this.formatTime(result.time)}
                 </div>
             </div>
@@ -64,12 +62,12 @@ class DashboardResult extends Component {
     }
 
     render() {
+        let bodyColor = `url(${Pattern})` + ', linear-gradient(180deg, #508721 0%, #175A0A 100%)';
+
         return (
-            <div className={css(styles.slideContainer)}>
-                <div className={css(styles.slideTitleContainer)}>
-                    <div className={css(styles.slideTitle)}>Results / {this.result.quizName}</div>
-                </div>
-                <div className={css(styles.slideBodyContainer)}>
+            <div className='dashboard-container' style={{background: bodyColor}}>
+                <div className='slide-title'>{this.result.quizName}</div>
+                <div className='slide-body-container'>
                     {this.result.results.map((i, index) =>
                         this.showPlace(i, this.colors[index].a, this.colors[index].b)
                     )}

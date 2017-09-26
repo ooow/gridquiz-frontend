@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {css} from 'aphrodite';
-import styles from './styles/AppStyles';
 import {isAlpha, isEmail, isMobilePhone} from 'validator';
 
 import Pattern from './img/background_pattern.svg';
@@ -22,7 +21,7 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        ['showRegistration', 'authUser', 'showRegForm', 'logout'].forEach((method) => {
+        ['showRegistration', 'authUser', 'showRegForm', 'logout', 'goToQuiz'].forEach((method) => {
             this[method] = this[method].bind(this);
         });
 
@@ -76,13 +75,13 @@ class App extends Component {
     showCommonQuiz(quiz) {
         let quizColor = `url(${Pattern})` + ', linear-gradient(180deg, ' + quiz.colors[0].code + ' 0%, ' + quiz.colors[1].code + ' 100%)';
         return (
-            <div onClick={this.showRegistration} key={quiz.id} className={css(styles.quiz)}>
-                <div className={css(styles.quizName)} style={{background: quizColor}}>
+            <div onClick={this.showRegistration.bind(this, quiz.id)} key={quiz.id} className='quiz'>
+                <div className='home-quiz-name' style={{background: quizColor}}>
                     {quiz.name}
                 </div>
-                <div className={css(styles.description)}>
-                    <div className={css(styles.descriptionText)}>{quiz.description}</div>
-                    <div className={css(styles.questionText)}>{quiz.questionsSize}</div>
+                <div className='description'>
+                    <div className='description-text'>{quiz.description}</div>
+                    <div className='home-question-text'>{quiz.questionsSize} QUESTIONS</div>
                 </div>
             </div>
         )
@@ -93,13 +92,13 @@ class App extends Component {
 
         if (quiz.attempt) {
             return (
-                <div key={quiz.id} className={css(styles.quiz)}>
-                    <div className={css(styles.quizName)} style={{background: quizColor}}>
+                <div key={quiz.id} className='quiz'>
+                    <div className='home-quiz-name' style={{background: quizColor}}>
                         {quiz.name}
                     </div>
-                    <div className={css(styles.description)}>
-                        <div className={css(styles.descriptionText)}>{quiz.description}</div>
-                        <div className={css(styles.questionScore)}>
+                    <div className='description'>
+                        <div className='description-text'>{quiz.description}</div>
+                        <div className='question-score'>
                             {quiz.questionsComplete}/{quiz.questionsSize} your score!
                         </div>
                     </div>
@@ -108,20 +107,24 @@ class App extends Component {
         }
         else {
             return (
-                <Link to={'/quiz/' + quiz.id + '/question/1'} key={quiz.id} className={css(styles.quiz)}>
-                    <div className={css(styles.quizName)} style={{background: quizColor}}>
+                <Link to={'/quiz/' + quiz.id + '/question/1'} key={quiz.id} className='quiz'>
+                    <div className='home-quiz-name' style={{background: quizColor}}>
                         {quiz.name}
                     </div>
-                    <div className={css(styles.description)}>
-                        <div className={css(styles.descriptionText)}>{quiz.description}</div>
-                        <div className={css(styles.questionText)}>{quiz.questionsComplete}/{quiz.questionsSize}</div>
+                    <div className='description'>
+                        <div className='description-text'>{quiz.description}</div>
+                        <div className='home-question-text'>{quiz.questionsComplete}/{quiz.questionsSize} QUESTIONS
+                        </div>
                     </div>
                 </Link>
             )
         }
     }
 
-    showRegistration() {
+    showRegistration(quizId) {
+        if (quizId) {
+            this.setState({want: quizId});
+        }
         if (this.state.user === null) {
             this.setState({showRegistration: true});
         }
@@ -132,25 +135,30 @@ class App extends Component {
 
     showRegistrationForm() {
         return (
-            <div className={css(styles.registrationForm)}>
-                <div className={css(styles.backdrop)} onClick={this.showRegForm}/>
-                <div className={css(styles.modalPlace)}>
-                    <div className={css(styles.modalPlaceTitle)}>Registration</div>
-                    <div className={css(styles.modalPlaceComment)}>
-                        You might be a happy winner! Register to get a chance to win amazing prizes! Good luck!
-                    </div>
-                    <input className={css(styles.modalPlaceInput)} type='text' placeholder='Name' maxLength='24'
-                           ref={(input) => this.name = input}/>
-                    <input className={css(styles.modalPlaceInput)} type='text' placeholder='Email' maxLength='40'
-                           ref={(input) => this.email = input}/>
-                    <input className={css(styles.modalPlaceInput)} type='text' placeholder='Phone' maxLength='12'
-                           ref={(input) => this.phone = input}/>
-
-                    <div className={css(styles.buttonsContainer)}>
-                        <img className={css(styles.modalPlaceButton)} src={Close}
-                             onClick={this.showRegForm} alt='Close'/>
-                        <img className={css(styles.modalPlaceButton)} src={Send}
-                             onClick={this.authUser} alt='Send'/>
+            <div>
+                <div className='backdrop' onClick={this.showRegForm}/>
+                <div className='registration-modal'>
+                    <div className='registration-modal-wrapper'>
+                        <div className='registration-modal-header'>
+                            <div className='registration-modal-title'>Registration</div>
+                        </div>
+                        <div className='registration-modal-content'>
+                            <div className='registration-modal-comment'>
+                                You might be a happy winner! Register to get a chance to win amazing prizes! Good luck!
+                            </div>
+                            <input className='registration-modal-input' type='text' placeholder='Name' maxLength='24'
+                                   ref={(input) => this.name = input}/>
+                            <input className='registration-modal-input' type='text' placeholder='Email' maxLength='40'
+                                   ref={(input) => this.email = input}/>
+                            <input className='registration-modal-input' type='text' placeholder='Phone' maxLength='12'
+                                   ref={(input) => this.phone = input}/>
+                        </div>
+                        <div className='registration-modal-footer'>
+                            <img className='registration-modal-button' src={Close}
+                                 onClick={this.showRegForm} alt='Close'/>
+                            <img className='registration-modal-button' src={Send}
+                                 onClick={this.authUser} alt='Send'/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,12 +167,10 @@ class App extends Component {
 
     showQuizzes() {
         return (
-            <div className={css(styles.container)} style={{background: `url(${Pattern})`}}>
-                <div className={css(styles.quizzes)}>
-                    {this.props.quizzes.map(i =>
-                        !this.props.user && this.showCommonQuiz(i) || this.props.user && this.showUserQuiz(i)
-                    )}
-                </div>
+            <div className='body-container' style={{background: `url(${Pattern})`}}>
+                {this.props.quizzes.map(i =>
+                    !this.props.user && this.showCommonQuiz(i) || this.props.user && this.showUserQuiz(i)
+                )}
             </div>
         )
     }
@@ -178,17 +184,13 @@ class App extends Component {
 
     showLogin() {
         return (
-            <div className={css(styles.unlockContainer)}>
-                <img onClick={this.showRegForm} src={Lock} className={css(styles.unlock)} alt='logout'/>
-            </div>
+            <img onClick={this.showRegForm} src={Lock} className='unlock' alt='logout'/>
         )
     }
 
     showLogout() {
         return (
-            <div className={css(styles.unlockContainer)}>
-                <img onClick={this.logout} src={Unlock} className={css(styles.unlock)} alt='login'/>
-            </div>
+            <img onClick={this.logout} src={Unlock} className='unlock' alt='login'/>
         )
     }
 
@@ -212,12 +214,18 @@ class App extends Component {
         this.props.cleanQuiz();
     }
 
+    goToQuiz(quizId) {
+        this.props.history.push('/quiz/' + quizId + '/question/1');
+    }
+
     render() {
         return (
             <div className=' page'>
                 {this.state.showRegistration && this.showRegistrationForm()}
                 {this.props.user && this.showLogout()}
                 {!this.props.user && this.showLogin()}
+
+                {this.props.user && this.props.user.token && this.state.want && this.goToQuiz(this.state.want)}
 
                 <HomeHead/>
 

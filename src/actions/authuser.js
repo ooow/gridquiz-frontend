@@ -10,8 +10,8 @@ export const authUser = (user) => dispatch => {
             if (err) {
                 console.log("err", err);
             } else {
-                dispatch({type: 'AUTHENTICATION_USER', payload: res.body});
                 localStorage.setItem('user', JSON.stringify(res.body));
+                dispatch({type: 'AUTHENTICATION_USER', payload: res.body});
             }
         });
 };

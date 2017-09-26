@@ -5,26 +5,22 @@ import {css} from 'aphrodite';
 import Logo from './img/logo.svg'
 import Next from './img/next.svg'
 import Pattern from './img/background_pattern.svg';
-import styles from './styles/HomeHeadStyles';
 
 
 class HomeHead extends Component {
     render() {
         return (
-            <div className={css(styles.homeHeadContainer)}
+            <div className='home-head-container'
                  style={{background: `url(${Pattern})` + ', linear-gradient(180deg, #DB3B4C 0%, #E6515E 100%)'}}>
-                <div className={css(styles.space)}/>
-                <div className={css(styles.mainLogoContainer)}>
-                    <img className={css(styles.logo)} src={Logo} alt='logo'/>
-                    <div className={css(styles.companyTitle)}>
-                        Welcome to Grid Dynamics
-                    </div>
-
-                    <div className={css(styles.quizTitle)}>
-                        Quiz
-                    </div>
+                <img className='home-head-logo' src={Logo} alt='logo'/>
+                <div className='home-head-welcome'>
+                    Welcome to Grid Dynamics
                 </div>
-                <div className={css(styles.nextArrowContainer)}>
+
+                <div className='home-head-quiz'>
+                    Quiz
+                </div>
+                <div className='home-head-arrow'>
                     <img src={Next} alt='next'/>
                 </div>
             </div>

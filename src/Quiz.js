@@ -7,9 +7,8 @@ import {Link} from 'react-router-dom';
 import {sendForReview} from './actions/sendresults';
 
 import {css} from 'aphrodite';
-import styles from './styles/QuizStyles';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {idea} from 'react-syntax-highlighter/dist/styles';
+import {xcode} from 'react-syntax-highlighter/dist/styles';
 
 import StopWatch from './Stopwatch';
 import Pattern from './img/background_pattern.svg';
@@ -31,15 +30,10 @@ class Quiz extends Component {
 
     showHead() {
         return (
-            <div className={css(styles.head)}>
-                <div className={css(styles.logoContainer)}>
-                    <img className={css(styles.logo)} src={Logo} alt='logo'/>
-                </div>
-                <div className={css(styles.quizTitleContainer)}>
-                    <div className={css(styles.quizTitle)}>Quiz</div>
-                </div>
-                <div className={css(styles.quizName)}>{this.quiz.name}</div>
-                <div className={css(styles.space)}/>
+            <div className='quiz-header'>
+                <img className='quiz-logo' src={Logo} alt='logo'/>
+                <div className='quiz-title'>Quiz</div>
+                <div className='quiz-author'>by Grid Dynamics</div>
             </div>
         );
     }
@@ -52,13 +46,13 @@ class Quiz extends Component {
         }
         else {
             return (
-                <div className={css(styles.answer)} onClick={this.submit.bind(this, answer.id, true)} key={answer.id}>
+                <div className='quiz-content-answer' onClick={this.submit.bind(this, answer.id, true)} key={answer.id}>
                     {answer.text}
                 </div>
             )
         }
         return (
-            <Link to={link} className={css(styles.answer)} onClick={this.submit.bind(this, answer.id, false)}
+            <Link to={link} className='quiz-content-answer' onClick={this.submit.bind(this, answer.id, false)}
                   key={answer.id}>
                 {answer.text}
             </Link>
@@ -68,45 +62,42 @@ class Quiz extends Component {
     showInputTextField(answer) {
         let link = '/quiz/' + this.quiz.id + '/question/';
         let next = Number(this.props.match.params.qid) + 1;
+        let last = false;
         if (next <= this.length) {
             link += next;
+            last = true;
+        }
+        return (
+            <div className='answer-input-container'>
+                <div className='input-container'>
+                    <div className='input-text'>Type an answer</div>
+                    <input className='answer-input' type='text' maxLength='40'
+                           ref={(input) => this.inputAnswer = input}
+                           placeholder={answer.text}/>
+                    <div className='input-line-container'>
+                        <hr className='input-line'/>
+                    </div>
+                </div>
+                {this.showSubmitButton(last, link)}
+            </div>
+        )
+    }
+
+    showSubmitButton(lastQuestion, link) {
+        if (lastQuestion) {
+            return (
+                <Link to={link} className='answer-button' onClick={this.submitInput.bind(this, false)}>
+                    SUBMIT
+                </Link>
+            )
         }
         else {
             return (
-                <div className={css(styles.answerInputContainer)}>
-                    <div className={css(styles.inputContainer)}>
-                        <div className={css(styles.inputText)}>Type an answer</div>
-                        <input className={css(styles.answerInput)} type='text' maxLength='30'
-                               ref={(input) => this.inputAnswer = input}
-                               placeholder={answer.text}
-                        />
-                        <div className={css(styles.inputLineContainer)}>
-                            <hr className={css(styles.inputLine)}/>
-                        </div>
-                    </div>
-                    <div className={css(styles.answerButton)} onClick={this.submitInput.bind(this, true)}>
-                        SUBMIT
-                    </div>
+                <div className='answer-button' onClick={this.submitInput.bind(this, true)}>
+                    SUBMIT
                 </div>
             )
         }
-        return (
-            <div className={css(styles.answerInputContainer)}>
-                <div className={css(styles.inputContainer)}>
-                    <div className={css(styles.inputText)}>Type an answer</div>
-                    <input className={css(styles.answerInput)} type='text' maxLength='30'
-                           ref={(input) => this.inputAnswer = input}
-                           placeholder={answer.text}
-                    />
-                    <div className={css(styles.inputLineContainer)}>
-                        <hr className={css(styles.inputLine)}/>
-                    </div>
-                </div>
-                <Link to={link} className={css(styles.answerButton)} onClick={this.submitInput.bind(this, false)}>
-                    SUBMIT
-                </Link>
-            </div>
-        )
     }
 
     submitInput(sendResults) {
@@ -114,7 +105,6 @@ class Quiz extends Component {
         this.inputAnswer.value = '';
         this.props.submit(userAnswer);
         this.useranswers.push(userAnswer);
-        console.log(userAnswer);
         if (sendResults) {
             this.props.sendForReview(this.useranswers, this.state.user.token);
         }
@@ -138,7 +128,6 @@ class Quiz extends Component {
         this.question = question;
         this.length = length;
 
-
         if (this.question.type === 'INPUT') {
             return this.showQuestionWitchInput(question, index, length);
         }
@@ -152,34 +141,37 @@ class Quiz extends Component {
 
     showStopwatch() {
         return (
-            <div className={css(styles.valueContainer)}>
-                <div className={css(styles.value)}>
+            <div className='value-container'>
+                <div className='value'>
                     <StopWatch/>
                 </div>
-                <div className={css(styles.valueText)}>QUIZ TIMER</div>
+                <div className='value-text'>QUIZ TIMER</div>
             </div>
         )
     }
 
     showCounter(index, length) {
         return (
-            <div className={css(styles.valueContainer)}>
-                <div className={css(styles.value)}>{index + 1}/{length}</div>
-                <div className={css(styles.valueText)}>QUESTIONS</div>
+            <div className='value-container'>
+                <div className='value'>{index + 1}/{length}</div>
+                <div className='value-text'>QUESTIONS</div>
             </div>
         )
     }
 
     showQuestionWitchText(question, index, length) {
         return (
-            <div className={css(styles.bodyContainer)}>
-                <div className={css(styles.questionContainer)}>
-                    {this.showCounter(index, length)}
-                    <div className={css(styles.questionTitle)}>{question.title}</div>
-                    {this.showStopwatch()}
-                </div>
-                <div className={css(styles.answersContainer)}>
-                    {question.answers.map(i => this.showAnswers(i))}
+            <div>
+                <div className='quiz-name'>{this.quiz.name}</div>
+                <div className='question-title'>{question.title}</div>
+                <div className='quiz-content-container'>
+                    <div className='question-block'>
+                        {this.showCounter(index, length)}
+                        {this.showStopwatch()}
+                    </div>
+                    <div className='quiz-content-answer-container'>
+                        {question.answers.map(i => this.showAnswers(i))}
+                    </div>
                 </div>
             </div>
         );
@@ -187,19 +179,20 @@ class Quiz extends Component {
 
     showQuestionWitchCode(question, index, length) {
         return (
-            <div className={css(styles.bodyContainer)}>
-                <div className={css(styles.codeContainer)}>
-                    <div className={css(styles.questionContainerCode)}>
+            <div>
+                <div className='quiz-content-container-code'>
+                    <div className='quiz-name'>{this.quiz.name}</div>
+                    <div className='question-title'>{question.title}</div>
+                    <div className='question-block'>
                         {this.showCounter(index, length)}
-                        <div className={css(styles.codeQuestionTitle)}>{question.title}</div>
                         {this.showStopwatch()}
                     </div>
-                    <SyntaxHighlighter language='java' style={idea} className={css(styles.codeQuestionText)}>
+                    <SyntaxHighlighter language='java' style={xcode} className='code-block'>
                         {question.text}
                     </SyntaxHighlighter>
-                </div>
-                <div className={css(styles.answersContainer)}>
-                    {question.answers.map(i => this.showAnswers(i))}
+                    <div className='quiz-content-answer-container'>
+                        {question.answers.map(i => this.showAnswers(i))}
+                    </div>
                 </div>
             </div>
         );
@@ -207,17 +200,18 @@ class Quiz extends Component {
 
     showQuestionWitchInput(question, index, length) {
         return (
-            <div className={css(styles.bodyContainer)}>
-                <div className={css(styles.questionContainer)}>
-                    {this.showCounter(index, length)}
-                    <div className={css(styles.questionInputContainer)}>
-                        <div className={css(styles.questionInputTitle)}>{question.title}</div>
-                        <div className={css(styles.questionInputText)}>{question.text}</div>
+            <div>
+                <div className='quiz-name'>{this.quiz.name}</div>
+                <div className='question-title'>{question.title}</div>
+                <div className='question-text'>{question.text}</div>
+                <div className='quiz-content-container'>
+                    <div className='question-block'>
+                        {this.showCounter(index, length)}
+                        {this.showStopwatch()}
                     </div>
-                    {this.showStopwatch()}
-                </div>
-                <div className={css(styles.answersContainer)}>
-                    {this.showInputTextField(question.answers[0])}
+                    <div className='quiz-content-answer-container'>
+                        {this.showInputTextField(question.answers[0])}
+                    </div>
                 </div>
             </div>
         );
@@ -226,18 +220,29 @@ class Quiz extends Component {
     showResult() {
         this.props.stopWatch(Date.now());
         return (
-            <div className={css(styles.resultForm)}>
-                <div className={css(styles.backdrop)}/>
-                <div className={css(styles.modalPlace)}>
-                    <div className={css(styles.modalPlaceTitle)}>Well Done!</div>
-                    <div className={css(styles.resultContainer)}>
-                        <div className={css(styles.result)}>
-                            {this.res.points}/{this.quiz.questions.length}
+            <div>
+                <div className='backdrop'/>
+                <div className='registration-modal'>
+                    <div className='registration-modal-wrapper'>
+                        <div className='registration-modal-header'>
+                            <div className='registration-modal-title'>Well Done!</div>
                         </div>
-                        <div className={css(styles.resultText)}>QUESTIONS</div>
+                        <div className='result-content-container'>
+                            <div className='result-container'>
+                                <div className='result'>
+                                    {this.res.points}/{this.quiz.questions.length}
+                                </div>
+                                <div className='result-text'>QUESTIONS</div>
+                            </div>
+                        </div>
+                        <div className='result-comment'>
+                            {this.res.comment.message}
+                        </div>
+
+                        <div className='result-modal-footer'>
+                            <Link to='/dashboard' className='result-button'>SEE RESULTS</Link>
+                        </div>
                     </div>
-                    <div className={css(styles.modalPlaceComment)}>{this.res.comment.message}</div>
-                    <Link to='/dashboard' className={css(styles.resultButton)}>SEE RESULTS</Link>
                 </div>
             </div>
         );
@@ -258,7 +263,7 @@ class Quiz extends Component {
 
             return (
                 <div className='page'>
-                    <div className={css(styles.quizContainer)} style={{background: quizColor}}>
+                    <div className='quiz-container' style={{background: quizColor}}>
                         {this.res && this.res.length !== 0 && this.showResult()}
                         {this.quiz && this.quiz.length !== 0 && this.showHead()}
                         {this.quiz && this.quiz.length !== 0 && this.showQuestions()}
