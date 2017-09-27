@@ -2,7 +2,7 @@ import Request from 'superagent';
 
 export const loadQuizzes = () => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/quizzes')
+        .post('http://quiz.griddynamics.com/api/gridquiz/quizzes')
         .send()
         .set('accept', 'application/json')
         .set('verbose', true)

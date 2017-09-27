@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {css} from 'aphrodite';
-import {isAlpha, isEmail, isMobilePhone} from 'validator';
+import {isEmail, isEmpty, isMobilePhone} from 'validator';
 
 import Pattern from './img/background_pattern.svg';
 import Send from './img/send.svg';
@@ -15,6 +14,7 @@ import {authUser} from './actions/authuser';
 import User from './models/User';
 import {loadQuizzes} from './actions/loadquizess';
 import {loadUserHistory} from './actions/loaduserhistory';
+import Footer from "./Footer";
 
 class App extends Component {
 
@@ -40,7 +40,7 @@ class App extends Component {
     validateFields() {
         let validate = true;
 
-        if (!isAlpha(this.name.value, 'en-US')) {
+        if (isEmpty(this.name.value, 'en-US')) {
             this.name.value = '';
             this.name.placeholder = 'Please set Name (a-z, A-Z)';
             validate = false;
@@ -73,7 +73,7 @@ class App extends Component {
     }
 
     showCommonQuiz(quiz) {
-        let quizColor = `url(${Pattern})` + ', linear-gradient(180deg, ' + quiz.colors[0].code + ' 0%, ' + quiz.colors[1].code + ' 100%)';
+        let quizColor = `url(${Pattern}), linear-gradient(180deg, ${quiz.colors[0].code} 0%, ${quiz.colors[1].code} 100%)`;
         return (
             <div onClick={this.showRegistration.bind(this, quiz.id)} key={quiz.id} className='quiz'>
                 <div className='home-quiz-name' style={{background: quizColor}}>
@@ -88,11 +88,11 @@ class App extends Component {
     }
 
     showUserQuiz(quiz) {
-        let quizColor = `url(${Pattern})` + ', linear-gradient(180deg, ' + quiz.colors[0].code + ' 0%, ' + quiz.colors[1].code + ' 100%)';
+        let quizColor = `url(${Pattern}), linear-gradient(180deg, ${quiz.colors[0].code} 0%, ${quiz.colors[1].code} 100%)`;
 
         if (quiz.attempt) {
             return (
-                <div key={quiz.id} className='quiz'>
+                <div key={quiz.id} className='quiz' onClick={this.alreadyComplete}>
                     <div className='home-quiz-name' style={{background: quizColor}}>
                         {quiz.name}
                     </div>
@@ -120,6 +120,11 @@ class App extends Component {
             )
         }
     }
+
+    alreadyComplete() {
+        return alert('Quiz already complete :)');
+    }
+
 
     showRegistration(quizId) {
         if (quizId) {
@@ -169,7 +174,9 @@ class App extends Component {
         return (
             <div className='body-container' style={{background: `url(${Pattern})`}}>
                 {this.props.quizzes.map(i =>
-                    !this.props.user && this.showCommonQuiz(i) || this.props.user && this.showUserQuiz(i)
+                    (!this.props.user && this.showCommonQuiz(i))
+                    ||
+                    (this.props.user && this.showUserQuiz(i))
                 )}
             </div>
         )
@@ -230,6 +237,8 @@ class App extends Component {
                 <HomeHead/>
 
                 {this.props.quizzes && this.showQuizzes()}
+
+                <Footer/>
             </div>
         );
     }

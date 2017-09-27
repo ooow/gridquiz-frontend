@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {isAlpha, isEmail, isMobilePhone} from 'validator';
+import {isEmail, isEmpty} from 'validator';
 import Link from 'react-router-dom/es/Link';
-
-import {css} from 'aphrodite';
-
 
 import Send from './img/send.svg';
 import Logo from './img/logo.svg'
@@ -71,9 +68,9 @@ class AdminPanel extends Component {
             validate = false;
         }
 
-        if (!isMobilePhone(this.phone.value, 'ru-RU')) {
-            this.phone.value = '';
-            this.phone.placeholder = 'or Phone';
+        if (!isEmpty(this.password.value)) {
+            this.password.value = '';
+            this.password.placeholder = 'and Password';
             validate = false;
         }
 
@@ -91,10 +88,14 @@ class AdminPanel extends Component {
                         <div className='registration-modal-content'>
                             <input className='registration-modal-input' type='text' placeholder='Email' maxLength='40'
                                    ref={(input) => this.email = input}/>
-                            <input className='registration-modal-input' type='text' placeholder='Phone' maxLength='12'
-                                   ref={(input) => this.phone = input}/>
+                            <input className='registration-modal-input' type='password' placeholder='Phone'
+                                   maxLength='12'
+                                   ref={(input) => this.password = input}/>
                         </div>
                         <div className='registration-modal-footer'>
+                            <Link to={'/'}>
+                                <img src={Logo} className='admin-home-logo' alt='Home'/>
+                            </Link>
                             <img className='registration-modal-button' src={Send}
                                  onClick={this.authUser} alt='Send'/>
                         </div>
@@ -119,11 +120,11 @@ class AdminPanel extends Component {
 
     authUser() {
         if (!this.isAdmin(this.props.admin) && this.validateFields()) {
-            this.props.authUser(new User(0, 'admin', this.email.value, this.phone.value));
+            this.props.authUser(new User(0, 'admin', this.email.value, this.password.value));
             this.showRegForm();
             this.setState({user: this.props.admin});
             this.email.value = '';
-            this.phone.value = '';
+            this.password.value = '';
         }
     }
 

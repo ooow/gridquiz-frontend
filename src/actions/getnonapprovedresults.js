@@ -2,7 +2,7 @@ import Request from 'superagent';
 
 export const getNonApprovedUserResults = (adminToken) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/admin/non/approved')
+        .post('http://quiz.griddynamics.com/api/gridquiz/admin/non/approved')
         .send()
         .set('X-User-Token', adminToken)
         .set('accept', 'application/json')

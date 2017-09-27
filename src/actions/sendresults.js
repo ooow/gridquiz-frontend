@@ -2,7 +2,7 @@ import Request from 'superagent';
 
 export const sendForReview = (results, userToken) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/quiz/result')
+        .post('http://quiz.griddynamics.com/api/gridquiz/quiz/result')
         .send(results)
         .set('X-User-Token', userToken)
         .set('accept', 'application/json')

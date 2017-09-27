@@ -2,7 +2,7 @@ import Request from 'superagent';
 
 export const loadUserHistory = (userToken) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/quizzes/history')
+        .post('http://quiz.griddynamics.com/api/gridquiz/quizzes/history')
         .send()
         .set('X-User-Token', userToken)
         .set('accept', 'application/json')

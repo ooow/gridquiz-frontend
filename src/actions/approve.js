@@ -2,7 +2,7 @@ import Request from 'superagent';
 
 export const approve = (adminToken, results) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/admin/dashboard/approve')
+        .post('http://quiz.griddynamics.com/api/gridquiz/admin/dashboard/approve')
         .send(results)
         .set('X-User-Token', adminToken)
         .set('accept', 'application/json')

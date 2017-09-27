@@ -6,13 +6,13 @@ import UserAnswer from './models/UserAnswer';
 import {Link} from 'react-router-dom';
 import {sendForReview} from './actions/sendresults';
 
-import {css} from 'aphrodite';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {xcode} from 'react-syntax-highlighter/dist/styles';
 
 import StopWatch from './Stopwatch';
 import Pattern from './img/background_pattern.svg';
 import {startQuiz} from './actions/startquiz';
+import Footer from "./Footer";
 
 
 class Quiz extends Component {
@@ -26,6 +26,17 @@ class Quiz extends Component {
         };
 
         this.props.startQuiz(Number(this.props.match.params.id), this.state.user.token);
+
+        this.useranswers = JSON.parse(localStorage.getItem('useranswers'));
+        if (this.useranswers && this.useranswers.length > 0) {
+            if (Number(this.props.match.params.id) === this.useranswers[0].quizId) {
+                this.useranswers.map(a => this.props.submit(a));
+            }
+            else {
+                localStorage.removeItem('useranswers');
+            }
+        }
+
     }
 
     showHead() {
@@ -105,6 +116,8 @@ class Quiz extends Component {
         this.inputAnswer.value = '';
         this.props.submit(userAnswer);
         this.useranswers.push(userAnswer);
+
+        localStorage.setItem('useranswers', JSON.stringify(this.props.useranswers));
         if (sendResults) {
             this.props.sendForReview(this.useranswers, this.state.user.token);
         }
@@ -115,6 +128,7 @@ class Quiz extends Component {
         this.props.submit(userAnswer);
         this.useranswers.push(userAnswer);
 
+        localStorage.setItem('useranswers', JSON.stringify(this.props.useranswers));
         if (sendResults) {
             this.props.sendForReview(this.useranswers, this.state.user.token);
         }
@@ -240,7 +254,8 @@ class Quiz extends Component {
                         </div>
 
                         <div className='result-modal-footer'>
-                            <Link to='/dashboard' className='result-button'>SEE RESULTS</Link>
+                            <Link to='/dashboard' className='result-button'>Your results will appear on the dashboard
+                                soon</Link>
                         </div>
                     </div>
                 </div>
@@ -252,6 +267,15 @@ class Quiz extends Component {
         this.quiz = this.props.quiz;
     }
 
+    componentWillUnmount() {
+        if (!this.res) {
+            localStorage.setItem('useranswers', JSON.stringify(this.props.useranswers));
+        }
+        else {
+            localStorage.removeItem('useranswers');
+        }
+    }
+
     render() {
         this.useranswers = this.props.useranswers;
         this.res = this.props.result;
@@ -259,7 +283,7 @@ class Quiz extends Component {
 
         let quizColor;
         if (this.quiz.length !== 0 && this.quiz !== 'Quiz already complete.') {
-            quizColor = `url(${Pattern})` + ', linear-gradient(180deg, ' + this.quiz.colors[0].code + ' 0%, ' + this.quiz.colors[1].code + ' 100%)';
+            quizColor = `url(${Pattern}), linear-gradient(180deg, ${this.quiz.colors[0].code} 0%, ${this.quiz.colors[1].code} 100%)`;
 
             return (
                 <div className='page'>
@@ -268,6 +292,7 @@ class Quiz extends Component {
                         {this.quiz && this.quiz.length !== 0 && this.showHead()}
                         {this.quiz && this.quiz.length !== 0 && this.showQuestions()}
                     </div>
+                    <Footer/>
                 </div>
             );
         }
@@ -289,8 +314,8 @@ export default connect(
         stopwatch: state.stopwatch
     }),
     dispatch => ({
-        submit: (answerId) => {
-            dispatch({type: 'SUBMIT_ANSWER', payload: answerId});
+        submit: (answer) => {
+            dispatch({type: 'SUBMIT_ANSWER', payload: answer});
         },
         stopWatch: (date) => {
             dispatch({type: 'STOP_WATCH', payload: date});

@@ -2,7 +2,7 @@ import Request from 'superagent';
 
 export const getUsers = (adminToken) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/admin/users')
+        .post('http://quiz.griddynamics.com/api/gridquiz/admin/users')
         .send()
         .set('X-User-Token', adminToken)
         .set('accept', 'application/json')

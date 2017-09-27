@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
 import {Route, Router} from 'react-router-dom';
-import {composeWithDevTools} from 'redux-devtools-extension';
 import createBrowserHistory from 'history/createBrowserHistory'
 import thunk from 'redux-thunk';
 import reducer from "./reducers"
@@ -14,10 +13,9 @@ import Quiz from "./Quiz";
 import Dashboard from "./Dashboard";
 import AdminPanel from "./AdminPanel";
 
-
 import registerServiceWorker from './registerServiceWorker';
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(reducer, applyMiddleware(thunk));
 const history = createBrowserHistory();
 
 ReactDOM.render((

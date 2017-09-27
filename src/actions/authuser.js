@@ -2,7 +2,7 @@ import Request from 'superagent';
 
 export const authUser = (user) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/auth/user')
+        .post('http://quiz.griddynamics.com/api/gridquiz/auth/user')
         .send(user)
         .set('accept', 'application/json')
         .set('verbose', true)

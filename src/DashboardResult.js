@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {css} from 'aphrodite';
 
 import Pattern from './img/background_pattern.svg';
 
@@ -41,12 +40,12 @@ class DashboardResult extends Component {
     }
 
     showPlace(result, color1, color2) {
-        let backgroundColor = 'linear-gradient(180deg, ' + color1 + ' 0%, ' + color2 + ' 100%';
-        let backgroundColorPlace = 'linear-gradient(180deg, ' + color2 + ' 0%, ' + color1 + ' 100%';
+        let backgroundColor = `linear-gradient(180deg, ${color1} 0%, ${color2} 100%`;
+        let backgroundColorPlace = `linear-gradient(180deg, ${color2} 0%, ${color1} 100%`;
         return (
             <div key={result.position} className='slide-space-container' style={{background: backgroundColor}}>
                 <div className='place' style={{background: backgroundColorPlace}}>
-                    {parseInt(result.position) + 1}
+                    {parseInt(result.position, 10) + 1}
                 </div>
                 <div className='name'>
                     {result.name}
@@ -62,7 +61,7 @@ class DashboardResult extends Component {
     }
 
     render() {
-        let bodyColor = `url(${Pattern})` + ', linear-gradient(180deg, #508721 0%, #175A0A 100%)';
+        let bodyColor = `url(${Pattern}), linear-gradient(180deg, #508721 0%, #175A0A 100%)`;
 
         return (
             <div className='dashboard-container' style={{background: bodyColor}}>

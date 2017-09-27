@@ -2,7 +2,7 @@ import Request from 'superagent';
 
 export const startQuiz = (quizId, userToken) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/quiz/start')
+        .post('http://quiz.griddynamics.com/api/gridquiz/quiz/start')
         .send(quizId)
         .set('X-User-Token', userToken)
         .set('accept', 'application/json')

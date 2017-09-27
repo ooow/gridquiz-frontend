@@ -2,7 +2,7 @@ import Request from 'superagent';
 
 export const removeUsers = (adminToken, usersIds) => dispatch => {
     Request
-        .post('http://localhost:8080/api/gridquiz/admin/users/remove')
+        .post('http://quiz.griddynamics.com/api/gridquiz/admin/users/remove')
         .send(usersIds)
         .set('X-User-Token', adminToken)
         .set('accept', 'application/json')
