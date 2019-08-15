@@ -3,7 +3,9 @@ import React, {Component} from 'react';
 class Main extends Component {
     render() {
         return (
-            <div>Welcome to Titanium</div>
+            <div className='container'>
+                <p className='text-center'>Welcome to Titanium</p>
+            </div>
         );
     }
 }

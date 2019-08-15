@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/scss/bootstrap.scss';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import Router from "./app/router";
