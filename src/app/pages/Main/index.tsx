@@ -1,10 +1,31 @@
 import React, {Component} from 'react';
-import LogoSvg from './../../assets/img/logo.svg'
-import ArrowSvg from './../../assets/img/arrow.svg'
-import LoginButton from "../../components/LoginButton";
+import {connect} from 'react-redux';
+import LogoSvg from './../../assets/img/logo.svg';
+import ArrowSvg from './../../assets/img/arrow.svg';
+import LoginButton from '../../components/LoginButton';
+import MiniQuiz from '../../components/MiniQuiz';
+import {AppState} from '../../redux/reducers';
+import {QuizState} from '../../redux/quiz/types';
+import fetchMiniQuizzes from '../../redux/quiz/thunk';
 import './main.scss';
 
-class Main extends Component {
+interface MainProps {
+    quizState: QuizState,
+    fetchMiniQuizzes: any,
+}
+
+class Main extends Component<MainProps> {
+
+    componentDidMount() {
+        this.props.fetchMiniQuizzes();
+    }
+
+    renderMiniQuizzes() {
+        return (
+            <MiniQuiz />
+        );
+    }
+
     render() {
         return (
             <div>
@@ -32,11 +53,15 @@ class Main extends Component {
                     </div>
                 </div>
                 <div className='main-background-accent h-100vh'>
-
+                    {this.renderMiniQuizzes()}
                 </div>
             </div>
         );
     }
 }
 
-export default Main;
+function mapStateToProps(state: AppState) {
+    return {miniQuizzes: state.quizState.miniQuizzes};
+}
+
+export default connect(mapStateToProps, {fetchMiniQuizzes})(Main);

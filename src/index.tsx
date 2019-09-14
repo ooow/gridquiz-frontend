@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/scss/bootstrap.scss';
-import './index.scss';
+import {Provider} from 'react-redux';
+import Router from './app/router';
+import store from './app/redux/store';
 import * as serviceWorker from './serviceWorker';
-import Router from "./app/router";
+import './index.scss';
 
-/** The GridQuiz App. */
+/** The GridQuiz app. */
 class GridQuiz extends Component {
     render() {
-        return (<Router />);
+        return (
+            <Provider store={store}>
+                <Router />
+            </Provider>);
     }
 }
 

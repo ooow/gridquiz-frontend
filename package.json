@@ -3,19 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "24.0.17",
-    "@types/node": "12.7.2",
-    "@types/react": "16.9.1",
-    "@types/react-dom": "16.8.5",
-    "@types/react-router-dom": "^4.3.4",
-    "bootstrap": "^4.3.1",
-    "node-sass": "^4.12.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "3.1.1",
-    "typescript": "3.5.3",
-    "reactstrap": "latest"
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/react-router-dom": "latest",
+    "bootstrap": "latest",
+    "node-sass": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "latest",
+    "react-scripts": "latest",
+    "typescript": "latest",
+    "reactstrap": "latest",
+    "react-redux": "latest",
+    "cross-fetch": "latest",
+    "redux": "latest",
+    "redux-thunk": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,6 +43,8 @@
     ]
   },
   "devDependencies": {
-    "@types/reactstrap": "^8.0.4"
+    "@types/reactstrap": "latest",
+    "@types/react-redux": "latest",
+    "redux-devtools-extension": "latest"
   }
 }
