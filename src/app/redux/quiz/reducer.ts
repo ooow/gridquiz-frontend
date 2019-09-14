@@ -14,6 +14,7 @@ export function quizReducer(state = initState, action: QuizActionTypes): QuizSta
                 ...state,
                 isFetching: false,
                 miniQuizzes: action.miniQuizzes,
+                error: undefined,
             };
         case FAILED_FETCHING_MINI_QUIZZES:
             return {

@@ -12,7 +12,7 @@ export function receiveMiniQuizzes(miniQuizzes: Array<MiniQuiz>): ReceiveMiniQui
     };
 }
 
-export function failedFetchingMiniQuizzes(error: Error): FailedFetchingMiniQuizzes {
+export function failedFetchingMiniQuizzes(error: string): FailedFetchingMiniQuizzes {
     return {
         type: FAILED_FETCHING_MINI_QUIZZES,
         error,

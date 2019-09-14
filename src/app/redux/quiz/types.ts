@@ -7,7 +7,7 @@ export const REQUEST_MINI_QUIZZES = 'REQUEST_MINI_QUIZZES';
 export interface QuizState {
     isFetching: boolean,
     miniQuizzes: Array<MiniQuiz>,
-    error?: Error,
+    error?: string,
 }
 
 export type QuizActionTypes = FailedFetchingMiniQuizzes
@@ -24,5 +24,5 @@ export interface ReceiveMiniQuizzes {
 
 export interface FailedFetchingMiniQuizzes {
     type: typeof FAILED_FETCHING_MINI_QUIZZES;
-    error: Error;
+    error: string;
 }

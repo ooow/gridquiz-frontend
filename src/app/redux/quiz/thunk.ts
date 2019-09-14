@@ -4,6 +4,7 @@ import {AppState} from '../reducers';
 import {Action, Dispatch} from 'redux';
 import {failedFetchingMiniQuizzes, receiveMiniQuizzes, requestMiniQuizzes} from './action';
 import {LOAD_MINI_QUIZZES_URL} from '../api';
+import MiniQuiz from '../../model/MiniQuiz';
 
 /** Fetches mini quizzes. */
 export default function fetchMiniQuizzes(): ThunkAction<void, AppState, null, Action<string>> {
@@ -11,10 +12,10 @@ export default function fetchMiniQuizzes(): ThunkAction<void, AppState, null, Ac
         dispatch(requestMiniQuizzes());
         try {
             const resp: Response = await fetch(LOAD_MINI_QUIZZES_URL);
-            const miniQuizzes = await resp.json();
+            const miniQuizzes: Array<MiniQuiz> = await resp.json();
             dispatch(receiveMiniQuizzes(miniQuizzes));
         } catch (e) {
-            dispatch(failedFetchingMiniQuizzes(e as Error));
+            dispatch(failedFetchingMiniQuizzes('Could not fetch mini quizzes'));
         }
     };
 }
