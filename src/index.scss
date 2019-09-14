@@ -1,3 +1,8 @@
+@import 'common/colors';
+@import 'common/configuration';
+@import 'common/fonts';
+@import 'common/jewel-bootstrap';
+
 body {
   margin: 0;
   padding: 0;
@@ -15,38 +20,6 @@ code {
 
 
 // TEMP
-
-html, body, .page {
-  height: 100vh;
-  width: 100vw;
-
-  min-height: 640px;
-  min-width: 640px;
-}
-
-@font-face {
-  font-family: WanderlustLetters;
-  src: url("/assets/font/WanderlustLetters-Regular.otf");
-}
-
-@font-face {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 400;
-  src: url("/assets/font/Roboto-Regular.ttf");
-}
-
-@font-face {
-  font-family: Roboto;
-  font-weight: 700;
-  src: url("/assets/font/Roboto-Bold.ttf");
-}
-
-@font-face {
-  font-family: Roboto;
-  font-weight: 100;
-  src: url("/assets/font/Roboto-Thin.ttf");
-}
 
 a {
   text-decoration: none;
@@ -137,7 +110,7 @@ a {
     justify-content: center !important;
   }
 
-  .quiz-title {
+  .main-title {
     font-size: 3vh !important;
 
   }
@@ -477,7 +450,7 @@ a {
   margin: 5px;
 }
 
-.quiz-title {
+.main-title {
   font-size: 3em;
   font-family: WanderlustLetters, sans-serif;
   color: #FFFFFF;

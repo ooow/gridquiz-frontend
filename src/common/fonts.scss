@@ -1,0 +1,31 @@
+/**
+ * General stylesheet file with all project fonts.
+ */
+
+/* TODO: Remove useless font faces before release */
+
+@font-face {
+  font-family: WanderlustLetters;
+  src: url("./../app/assets/font/WanderlustLetters-Regular.otf");
+}
+
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  src: url("./../app/assets/font/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: Roboto;
+  font-weight: 700;
+  src: url("./../app/assets/font/Roboto-Bold.ttf");
+}
+
+@font-face {
+  font-family: Roboto;
+  font-weight: 100;
+  src: url("./../app/assets/font/Roboto-Thin.ttf");
+}
+
+$font-family-sans-serif: Lato, sans-serif;

@@ -1,0 +1,18 @@
+@import './../../../common/colors';
+
+.main-background-primary {
+  background: url("./../../assets/img/background_pattern.svg"),
+  linear-gradient(180deg, $background-primary 0%, $background-accent 100%);
+}
+
+.main-background-accent {
+  background: url("./../../assets/img/background_pattern.svg");
+}
+
+.main-title {
+  color: $title;
+  font: {
+    family: WanderlustLetters, sans-serif;
+    size: 120px;
+  }
+}
