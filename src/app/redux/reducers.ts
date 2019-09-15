@@ -4,6 +4,7 @@ import {userReducer} from './user/reducer';
 
 export const rootReducer = combineReducers({
     quizState: quizReducer,
+    // @ts-ignore
     userState: userReducer,
 });
 

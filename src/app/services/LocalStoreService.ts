@@ -1,3 +1,5 @@
+export const userTokenKey = 'weidmwqrut';
+
 /**
  * LocalStorage service provides methods for getting/setting the project
  * variables from global local storage.
@@ -19,5 +21,12 @@ export default class LocalStoreService {
      */
     static write<T>(key: string, value: T) {
         window.localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    /**
+     * Saves to local storage object with key.
+     */
+    static remove(key: string) {
+        window.localStorage.removeItem(key);
     }
 }

@@ -3,7 +3,7 @@ import {ThunkAction} from 'redux-thunk';
 import {AppState} from '../reducers';
 import {Action, Dispatch} from 'redux';
 import {failedFetchingMiniQuizzes, failedFetchingQuiz, receiveMiniQuizzes, receiveQuiz, requestMiniQuizzes, requestQuiz} from './action';
-import {LOAD_MINI_QUIZZES_URL, LOAD_QUIZ_URL} from '../api';
+import {get, LOAD_MINI_QUIZZES_BY_USER_URL, LOAD_MINI_QUIZZES_URL, LOAD_QUIZ_URL, post} from '../api';
 import MiniQuiz from '../../model/MiniQuiz';
 import Quiz from '../../model/Quiz';
 import {User} from '../../model/User';
@@ -13,8 +13,22 @@ export function fetchMiniQuizzes(): ThunkAction<void, AppState, null, Action<str
     return async (dispatch: Dispatch) => {
         dispatch(requestMiniQuizzes());
         try {
-            const resp: Response = await fetch(LOAD_MINI_QUIZZES_URL);
-            const miniQuizzes: Array<MiniQuiz> = await resp.json();
+            const miniQuizzes = await get<Array<MiniQuiz>>(LOAD_MINI_QUIZZES_URL);
+            dispatch(receiveMiniQuizzes(miniQuizzes));
+        } catch (e) {
+            dispatch(failedFetchingMiniQuizzes('Could not fetch mini quizzes'));
+        }
+    };
+}
+
+/** Fetches mini quizzes by userId. */
+export function fetchMiniQuizzesByUser(userId: string): ThunkAction<void, AppState, null, Action<string>> {
+    return async (dispatch: Dispatch) => {
+        dispatch(requestMiniQuizzes());
+        try {
+            const miniQuizzes = await post<Array<MiniQuiz>>(
+                LOAD_MINI_QUIZZES_BY_USER_URL,
+                userId);
             dispatch(receiveMiniQuizzes(miniQuizzes));
         } catch (e) {
             dispatch(failedFetchingMiniQuizzes('Could not fetch mini quizzes'));

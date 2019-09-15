@@ -6,20 +6,23 @@ import LoginButton from '../../components/LoginButton';
 import MiniQuizView from '../../components/MiniQuizView';
 import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
-import {fetchMiniQuizzes} from '../../redux/quiz/thunk';
+import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
 import './style.scss';
 import {User} from '../../model/User';
 import LogoutButton from '../../components/LogoutButton';
 
 interface MainProps {
     fetchMiniQuizzes: any,
+    fetchMiniQuizzesByUser: any
     miniQuizzes: MiniQuiz[],
     user?: User,
 }
 
 class Main extends Component<MainProps> {
     componentDidMount() {
-        this.props.fetchMiniQuizzes();
+        const {user} = this.props;
+        user ? this.props.fetchMiniQuizzesByUser(user.id)
+            : this.props.fetchMiniQuizzes();
     }
 
     renderMiniQuizzes(miniQuizzes: MiniQuiz[]) {
@@ -73,4 +76,7 @@ function mapStateToProps(state: AppState) {
     };
 }
 
-export default connect(mapStateToProps, {fetchMiniQuizzes})(Main);
+export default connect(
+    mapStateToProps,
+    {fetchMiniQuizzes, fetchMiniQuizzesByUser},
+)(Main);
