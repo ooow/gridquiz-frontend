@@ -1,5 +1,5 @@
 import {User} from '../../model/User';
-import {FAILED_FETCHING_USER, FailedFetchingUser, RECEIVE_USER, ReceiveUser, REQUEST_USER, RequestUser} from './types';
+import {FAILED_FETCHING_USER, FailedFetchingUser, LOGOUT, Logout, RECEIVE_USER, ReceiveUser, REQUEST_USER, RequestUser} from './types';
 
 export function requestUser(): RequestUser {
     return {type: REQUEST_USER};
@@ -17,4 +17,8 @@ export function failedFetchingUser(error: string): FailedFetchingUser {
         type: FAILED_FETCHING_USER,
         error,
     };
+}
+
+export function logout(): Logout {
+    return {type: LOGOUT};
 }

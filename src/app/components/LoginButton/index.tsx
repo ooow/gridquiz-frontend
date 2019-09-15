@@ -1,8 +1,22 @@
-import React, {Component} from 'react';
+import React, {ChangeEvent, Component, FormEvent} from 'react';
 import {Modal} from 'reactstrap';
-import LockSvg from './../../assets/img/lock.svg'
+import LockSvg from './../../assets/img/lock.svg';
+import {connect} from 'react-redux';
+import {AppState} from '../../redux/reducers';
+import {login} from '../../redux/user/thunk';
 
-class LoginButton extends Component<any, any> {
+interface LoginButtonProps {
+    isFetching: boolean,
+    login: any;
+}
+
+interface LoginButtonState {
+    isDialogOpen: boolean,
+    valueEmail: string,
+    valueName: string,
+}
+
+class LoginButton extends Component<LoginButtonProps, LoginButtonState> {
     constructor(props: any) {
         super(props);
 
@@ -10,7 +24,6 @@ class LoginButton extends Component<any, any> {
             isDialogOpen: false,
             valueName: '',
             valueEmail: '',
-            valuePhone: '',
         };
         this.toggle = this.toggle.bind(this);
     }
@@ -19,24 +32,66 @@ class LoginButton extends Component<any, any> {
         this.setState((prevState: any) => ({isDialogOpen: !prevState.isDialogOpen}));
     }
 
-    changeName(event: any) {
+    changeName(event: ChangeEvent<HTMLInputElement>) {
         this.setState({valueName: event.target.value});
     }
 
-    changeEmail(event: any) {
+    changeEmail(event: ChangeEvent<HTMLInputElement>) {
         this.setState({valueEmail: event.target.value});
     }
 
-    changePhoto(event: any) {
-        this.setState({valuePhoto: event.target.value});
+    handleLogin(event: FormEvent<HTMLFormElement>) {
+        const {valueName, valueEmail} = this.state;
+        this.props.login({name: valueName, email: valueEmail});
+        event.preventDefault();
+    }
+
+    showSpinner() {
+        return (
+            <div className="spinner-border" role="status">
+                <span className="sr-only">Loading...</span>
+            </div>
+        );
+    }
+
+    showForm() {
+        const {valueName, valueEmail} = this.state;
+        return (
+            <form
+                className='d-flex flex-column w-100'
+                onSubmit={this.handleLogin.bind(this)}
+            >
+                <input
+                    className='my-3'
+                    type='text'
+                    placeholder='Name'
+                    value={valueName}
+                    onChange={this.changeName.bind(this)}
+                />
+                <input
+                    className='my-3'
+                    type='text'
+                    placeholder='Email or Phone'
+                    value={valueEmail}
+                    onChange={this.changeEmail.bind(this)}
+                />
+                <input type="submit" value="Login" />
+            </form>
+        );
     }
 
     render() {
-        const {isDialogOpen, valueName, valueEmail, valuePhone} = this.state;
+        const {isDialogOpen} = this.state;
+        const {isFetching} = this.props;
 
         return (
             <div>
-                <img className='cursor-pointer' onClick={this.toggle} src={LockSvg} />
+                <img
+                    alt='Login button'
+                    className='cursor-pointer'
+                    onClick={this.toggle}
+                    src={LockSvg}
+                />
 
                 <Modal fade={false} isOpen={isDialogOpen} toggle={this.toggle}>
                     <div className='modal-content'>
@@ -45,30 +100,16 @@ class LoginButton extends Component<any, any> {
                                 Registration
                             </div>
                             <button
-                                className='btn btn-link close'
+                                className='btn'
                                 type='button'
                                 onClick={this.toggle}
                             >
+                                Close
                             </button>
                         </div>
-                        <div className='modal-body'>
-                            <form>
-                                <input
-                                    type="text"
-                                    value={valueName}
-                                    onChange={this.changeName.bind(this)}
-                                />
-                                <input
-                                    type="text"
-                                    value={valueEmail}
-                                    onChange={this.changeEmail.bind(this)}
-                                />
-                                <input
-                                    type="text"
-                                    value={valuePhone}
-                                    onChange={this.changePhoto.bind(this)}
-                                />
-                            </form>
+                        <div className='modal-body d-flex justify-content-center'>
+                            {isFetching && this.showSpinner()}
+                            {!isFetching && this.showForm()}
                         </div>
                     </div>
                 </Modal>
@@ -77,4 +118,8 @@ class LoginButton extends Component<any, any> {
     }
 }
 
-export default LoginButton;
+function mapStateToProps(state: AppState) {
+    return {isFetching: state.userState.isFetching};
+}
+
+export default connect(mapStateToProps, {login})(LoginButton);

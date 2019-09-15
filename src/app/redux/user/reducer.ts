@@ -1,4 +1,4 @@
-import {FAILED_FETCHING_USER, RECEIVE_USER, REQUEST_USER, UserActionTypes, UserState} from './types';
+import {FAILED_FETCHING_USER, LOGOUT, RECEIVE_USER, REQUEST_USER, UserActionTypes, UserState} from './types';
 
 const initState = {
     isFetching: false,
@@ -20,6 +20,11 @@ export function userReducer(state = initState, action: UserActionTypes): UserSta
                 ...state,
                 isFetching: false,
                 error: action.error,
+            };
+        case LOGOUT:
+            return {
+                ...state,
+                user: undefined,
             };
         default:
             return state;

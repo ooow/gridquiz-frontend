@@ -8,18 +8,18 @@ import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes} from '../../redux/quiz/thunk';
 import './style.scss';
-import {getUser} from '../../redux/user/thunk';
+import {User} from '../../model/User';
+import LogoutButton from '../../components/LogoutButton';
 
 interface MainProps {
-    miniQuizzes: MiniQuiz[],
     fetchMiniQuizzes: any,
-    getUser: any,
+    miniQuizzes: MiniQuiz[],
+    user?: User,
 }
 
 class Main extends Component<MainProps> {
     componentDidMount() {
         this.props.fetchMiniQuizzes();
-        this.props.getUser(); //TODO: Temp.
     }
 
     renderMiniQuizzes(miniQuizzes: MiniQuiz[]) {
@@ -29,13 +29,14 @@ class Main extends Component<MainProps> {
     }
 
     render() {
-        const {miniQuizzes} = this.props;
+        const {user, miniQuizzes} = this.props;
         return (
             <div id='main'>
                 <div className='main-background-primary h-100vh'>
                     <div className='container-fluid p-5 h-100'>
                         <div className='row justify-content-end'>
-                            <LoginButton />
+                            {!user && <LoginButton />}
+                            {user && <LogoutButton />}
                         </div>
                         <div className='row justify-content-center mt-5'>
                             <img alt='logo' src={LogoSvg} />
@@ -66,7 +67,10 @@ class Main extends Component<MainProps> {
 }
 
 function mapStateToProps(state: AppState) {
-    return {miniQuizzes: state.quizState.miniQuizzes};
+    return {
+        miniQuizzes: state.quizState.miniQuizzes,
+        user: state.userState.user,
+    };
 }
 
-export default connect(mapStateToProps, {fetchMiniQuizzes, getUser})(Main);
+export default connect(mapStateToProps, {fetchMiniQuizzes})(Main);

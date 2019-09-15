@@ -21,14 +21,14 @@ class MiniQuizView extends Component<MainQuizProp> {
                 className='card wh-250px cursor-pointer m-5'
                 style={{background: background}}
             >
-                <div className="card-body d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="card-title text-white">
+                <div className='card-body d-flex flex-column align-items-center justify-content-center'>
+                    <h3 className='card-title text-white'>
                         {miniQuiz.name}
                     </h3>
-                    <h5 className="card-subtitle mt-4 text-white">
+                    <h5 className='card-subtitle mt-4 text-white'>
                         {miniQuiz.description}
                     </h5>
-                    <p className="text-white">
+                    <p className='text-white'>
                         {miniQuiz.questionsComplete} / {miniQuiz.questionsSize}
                     </p>
                 </div>

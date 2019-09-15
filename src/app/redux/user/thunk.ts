@@ -1,20 +1,17 @@
-import fetch from 'cross-fetch';
 import {ThunkAction} from 'redux-thunk';
 import {AppState} from '../reducers';
 import {Action, Dispatch} from 'redux';
 import {failedFetchingUser, receiveUser, requestUser} from './action';
-import {LOAD_USER_URL} from '../api';
+import {AUTH_URL, post} from '../api';
 import {User} from '../../model/User';
 
-//TODO: Temp.
-/** Fetches quiz by id. */
-export function getUser(): ThunkAction<void, AppState, null, Action<string>> {
+/** Authorizes the user. */
+export function login(user: User): ThunkAction<void, AppState, null, Action<string>> {
     return async (dispatch: Dispatch) => {
         dispatch(requestUser());
         try {
-            const resp: Response = await fetch(LOAD_USER_URL);
-            const user: User = await resp.json();
-            dispatch(receiveUser(user));
+            const authUser: User = await post<User>(AUTH_URL, user);
+            dispatch(receiveUser(authUser));
         } catch (e) {
             dispatch(failedFetchingUser('Could not fetch user'));
         }
