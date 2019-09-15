@@ -3,30 +3,30 @@ import {connect} from 'react-redux';
 import LogoSvg from './../../assets/img/logo.svg';
 import ArrowSvg from './../../assets/img/arrow.svg';
 import LoginButton from '../../components/LoginButton';
-import MiniQuiz from '../../components/MiniQuiz';
+import MiniQuizView from '../../components/MiniQuizView';
 import {AppState} from '../../redux/reducers';
-import {QuizState} from '../../redux/quiz/types';
 import fetchMiniQuizzes from '../../redux/quiz/thunk';
-import './main.scss';
+import MiniQuiz from '../../model/MiniQuiz';
+import './style.scss';
 
 interface MainProps {
-    quizState: QuizState,
+    miniQuizzes: MiniQuiz[],
     fetchMiniQuizzes: any,
 }
 
 class Main extends Component<MainProps> {
-
     componentDidMount() {
         this.props.fetchMiniQuizzes();
     }
 
-    renderMiniQuizzes() {
-        return (
-            <MiniQuiz />
-        );
+    renderMiniQuizzes(miniQuizzes: MiniQuiz[]) {
+        return miniQuizzes.map((q: MiniQuiz) => (
+            <MiniQuizView miniQuiz={q} key={q.id} />
+        ));
     }
 
     render() {
+        const {miniQuizzes} = this.props;
         return (
             <div>
                 <div className='main-background-primary h-100vh'>
@@ -53,7 +53,9 @@ class Main extends Component<MainProps> {
                     </div>
                 </div>
                 <div className='main-background-accent h-100vh'>
-                    {this.renderMiniQuizzes()}
+                    <div className='d-flex justify-content-center flex-wrap'>
+                        {miniQuizzes && this.renderMiniQuizzes(miniQuizzes)}
+                    </div>
                 </div>
             </div>
         );
