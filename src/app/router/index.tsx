@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Main from '../pages/Main';
 import NotFound from '../pages/NotFound';
-import Quiz from '../pages/Quiz';
+import QuizView from '../pages/Quiz';
 
 /** Main project routing configuration. */
 class Router extends Component {
@@ -11,7 +11,7 @@ class Router extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path='/' component={Main} />,
-                    <Route exact path='/quiz' component={Quiz} />,
+                    <Route exact path='/quiz' component={QuizView} />,
                     <Route component={NotFound} />
                 </Switch>
             </BrowserRouter>

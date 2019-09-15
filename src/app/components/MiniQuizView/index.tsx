@@ -16,7 +16,7 @@ class MiniQuizView extends Component<MainQuizProp> {
             <Link
                 to={{
                     pathname: '/quiz',
-                    state: {quiz: miniQuiz},
+                    state: {miniQuiz},
                 }}
                 className='card wh-250px cursor-pointer m-5'
                 style={{background: background}}

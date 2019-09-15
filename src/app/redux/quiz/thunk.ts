@@ -6,6 +6,7 @@ import {failedFetchingMiniQuizzes, failedFetchingQuiz, receiveMiniQuizzes, recei
 import {LOAD_MINI_QUIZZES_URL, LOAD_QUIZ_URL} from '../api';
 import MiniQuiz from '../../model/MiniQuiz';
 import Quiz from '../../model/Quiz';
+import {User} from '../../model/User';
 
 /** Fetches mini quizzes. */
 export function fetchMiniQuizzes(): ThunkAction<void, AppState, null, Action<string>> {
@@ -22,11 +23,22 @@ export function fetchMiniQuizzes(): ThunkAction<void, AppState, null, Action<str
 }
 
 /** Fetches quiz by id. */
-export function getQuiz(id: string): ThunkAction<void, AppState, null, Action<string>> {
+export function getQuiz(user: User, quizId: string): ThunkAction<void, AppState, null, Action<string>> {
     return async (dispatch: Dispatch) => {
         dispatch(requestQuiz());
         try {
-            const resp: Response = await fetch(LOAD_QUIZ_URL);
+            const resp: Response = await fetch(LOAD_QUIZ_URL,
+                {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        user: user,
+                        message: quizId,
+                    }),
+                });
             const quiz: Quiz = await resp.json();
             dispatch(receiveQuiz(quiz));
         } catch (e) {
