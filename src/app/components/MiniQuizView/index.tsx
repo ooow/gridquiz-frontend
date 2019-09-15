@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Pattern from '../../assets/img/background_pattern.svg';
 import MiniQuiz from '../../model/MiniQuiz';
+import {Link} from 'react-router-dom';
 
 interface MainQuizProp {
     miniQuiz: MiniQuiz;
@@ -12,7 +13,14 @@ class MiniQuizView extends Component<MainQuizProp> {
         let background = `url(${Pattern}), linear-gradient(180deg,
                          ${miniQuiz.colors[0]} 0%, ${miniQuiz.colors[1]} 100%)`;
         return (
-            <div className='card wh-250px cursor-pointer m-5' style={{background: background}}>
+            <Link
+                to={{
+                    pathname: '/quiz',
+                    state: {quiz: miniQuiz},
+                }}
+                className='card wh-250px cursor-pointer m-5'
+                style={{background: background}}
+            >
                 <div className="card-body d-flex flex-column align-items-center justify-content-center">
                     <h3 className="card-title text-white">
                         {miniQuiz.name}
@@ -24,7 +32,7 @@ class MiniQuizView extends Component<MainQuizProp> {
                         {miniQuiz.questionsComplete} / {miniQuiz.questionsSize}
                     </p>
                 </div>
-            </div>
+            </Link>
         );
     }
 }

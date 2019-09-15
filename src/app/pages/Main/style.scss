@@ -1,5 +1,11 @@
 @import './../../../common/colors';
 
+#main {
+  a {
+    text-decoration: none
+  }
+}
+
 .main-background-primary {
   background: url("./../../assets/img/background_pattern.svg"),
   linear-gradient(180deg, $background-primary 0%, $background-accent 100%);

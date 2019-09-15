@@ -5,18 +5,21 @@ import ArrowSvg from './../../assets/img/arrow.svg';
 import LoginButton from '../../components/LoginButton';
 import MiniQuizView from '../../components/MiniQuizView';
 import {AppState} from '../../redux/reducers';
-import fetchMiniQuizzes from '../../redux/quiz/thunk';
 import MiniQuiz from '../../model/MiniQuiz';
+import {fetchMiniQuizzes} from '../../redux/quiz/thunk';
 import './style.scss';
+import {getUser} from '../../redux/user/thunk';
 
 interface MainProps {
     miniQuizzes: MiniQuiz[],
     fetchMiniQuizzes: any,
+    getUser: any,
 }
 
 class Main extends Component<MainProps> {
     componentDidMount() {
         this.props.fetchMiniQuizzes();
+        this.props.getUser(); //TODO: Temp.
     }
 
     renderMiniQuizzes(miniQuizzes: MiniQuiz[]) {
@@ -28,7 +31,7 @@ class Main extends Component<MainProps> {
     render() {
         const {miniQuizzes} = this.props;
         return (
-            <div>
+            <div id='main'>
                 <div className='main-background-primary h-100vh'>
                     <div className='container-fluid p-5 h-100'>
                         <div className='row justify-content-end'>
@@ -66,4 +69,4 @@ function mapStateToProps(state: AppState) {
     return {miniQuizzes: state.quizState.miniQuizzes};
 }
 
-export default connect(mapStateToProps, {fetchMiniQuizzes})(Main);
+export default connect(mapStateToProps, {fetchMiniQuizzes, getUser})(Main);
