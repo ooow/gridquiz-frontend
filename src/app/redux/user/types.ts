@@ -1,4 +1,4 @@
-import {User} from '../../model/User';
+import {UserToken} from '../../model/User';
 
 export const FAILED_FETCHING_USER = 'FAILED_FETCHING_USER';
 export const RECEIVE_USER = 'RECEIVE_USER';
@@ -7,7 +7,7 @@ export const LOGOUT = 'LOGOUT';
 
 export interface UserState {
     isFetching: boolean,
-    user?: User,
+    userToken?: UserToken,
     error?: string,
 }
 
@@ -20,7 +20,7 @@ export interface RequestUser {
 
 export interface ReceiveUser {
     type: typeof RECEIVE_USER;
-    user: User
+    userToken: UserToken
 }
 
 export interface FailedFetchingUser {

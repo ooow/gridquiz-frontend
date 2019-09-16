@@ -8,20 +8,20 @@ import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
 import './style.scss';
-import {User} from '../../model/User';
+import {UserToken} from '../../model/User';
 import LogoutButton from '../../components/LogoutButton';
 
 interface MainProps {
     fetchMiniQuizzes: any,
     fetchMiniQuizzesByUser: any
     miniQuizzes: MiniQuiz[],
-    user?: User,
+    userToken?: UserToken,
 }
 
 class Main extends Component<MainProps> {
     componentDidMount() {
-        const {user} = this.props;
-        user ? this.props.fetchMiniQuizzesByUser(user.id)
+        const {userToken} = this.props;
+        userToken ? this.props.fetchMiniQuizzesByUser(userToken.user.id)
             : this.props.fetchMiniQuizzes();
     }
 
@@ -32,14 +32,14 @@ class Main extends Component<MainProps> {
     }
 
     render() {
-        const {user, miniQuizzes} = this.props;
+        const {userToken, miniQuizzes} = this.props;
         return (
             <div id='main'>
                 <div className='main-background-primary h-100vh'>
                     <div className='container-fluid p-5 h-100'>
                         <div className='row justify-content-end'>
-                            {!user && <LoginButton />}
-                            {user && <LogoutButton />}
+                            {!userToken && <LoginButton />}
+                            {userToken && <LogoutButton />}
                         </div>
                         <div className='row justify-content-center mt-5'>
                             <img alt='logo' src={LogoSvg} />
@@ -72,7 +72,7 @@ class Main extends Component<MainProps> {
 function mapStateToProps(state: AppState) {
     return {
         miniQuizzes: state.quizState.miniQuizzes,
-        user: state.userState.user,
+        userToken: state.userState.userToken,
     };
 }
 

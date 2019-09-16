@@ -10,3 +10,8 @@ export enum Role {
     USER,
     ADMIN
 }
+
+export interface UserToken {
+    user: User;
+    message: string;
+}

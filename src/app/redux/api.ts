@@ -1,6 +1,6 @@
-import Axios from 'axios';
 import EnvService from '../services/EnvService';
 import LocalStoreService, {userTokenKey} from '../services/LocalStoreService';
+import {UserToken} from '../model/User';
 
 const CURRENT_HOST = EnvService.getCurrentHost();
 
@@ -11,13 +11,23 @@ export const LOAD_MINI_QUIZZES_URL = `${CURRENT_HOST}/open/mini/quizzes`;
 export const LOAD_QUIZ_URL = `${CURRENT_HOST}/quiz/load`;
 
 export async function get<T>(url: string): Promise<T> {
-    const response = await Axios.get<T>(url);
-    return response.data;
+    const response: Response = await fetch(url);
+    return response.json();
 }
 
 export async function post<T>(url: string, body: any): Promise<T> {
-    const ut = LocalStoreService.read<any>(userTokenKey);
-    const token = ut ? `Bearer ${ut.message}` : '';
+    const response: Response = await fetch(url, {
+        method: 'post',
+        headers: getHeaders(),
+        body: JSON.stringify(body),
+    });
+    return response.json();
+
+}
+
+function getHeaders(): any {
+    const userToken: UserToken = LocalStoreService.read<any>(userTokenKey);
+    const token = userToken ? `Bearer ${userToken.message}` : '';
 
     let headers: any = {
         'Accept': 'application/json',
@@ -28,35 +38,5 @@ export async function post<T>(url: string, body: any): Promise<T> {
         headers['Authorization'] = token;
     }
 
-    const response = await Axios.post(url, headers, body);
-    return response.data;
-
+    return headers;
 }
-
-//
-// export const approve = (adminToken, results) => dispatch => {
-//     Request
-//         .post(
-//             'http://quiz.griddynamics.com/api/gridquiz/admin/dashboard/approve')
-// .send(results) .set('X-User-Token', adminToken) .set('accept',
-// 'application/json') .set('verbose', true) .end((err, res) => { if (err) {
-// console.log('err', err); } else { dispatch({type: 'APPROVE_RESULTS',
-// payload: res.body}); } }); };
-
-// SUPER AGENT
-// const req = Request.post(url).send(body)
-//                    .set('Content-Type', 'application/json');
-// if (token) {
-//     req.set('Authorization', token);
-// }
-//
-// const response = await req;
-// return response.body;
-
-// FETCH
-// const response: Response = await fetch(url, {
-//     method: 'post',
-//     headers,
-//     body: JSON.stringify(body),
-// });
-// return response.json();
