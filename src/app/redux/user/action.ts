@@ -6,17 +6,11 @@ export function requestUser(): RequestUser {
 }
 
 export function receiveUser(userToken: UserToken): ReceiveUser {
-    return {
-        type: RECEIVE_USER,
-        userToken,
-    };
+    return {type: RECEIVE_USER, userToken};
 }
 
 export function failedFetchingUser(error: string): FailedFetchingUser {
-    return {
-        type: FAILED_FETCHING_USER,
-        error,
-    };
+    return {type: FAILED_FETCHING_USER, error};
 }
 
 export function logout(): Logout {

@@ -2,7 +2,7 @@ import {FAILED_FETCHING_USER, LOGOUT, RECEIVE_USER, REQUEST_USER, UserActionType
 import LocalStoreService, {userTokenKey} from '../../services/LocalStoreService';
 import {UserToken} from '../../model/User';
 
-const initState = {
+const initState: UserState = {
     isFetching: false,
     userToken: LocalStoreService.read<UserToken>(userTokenKey),
 };

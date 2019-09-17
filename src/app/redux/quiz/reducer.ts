@@ -1,6 +1,6 @@
 import {FAILED_FETCHING_ATTEMPT, FAILED_FETCHING_MINI_QUIZZES, QuizActionTypes, QuizState, RECEIVE_ATTEMPT, RECEIVE_MINI_QUIZZES, REQUEST_ATTEMPT, REQUEST_MINI_QUIZZES} from './types';
 
-const initState = {
+const initState: QuizState = {
     isFetching: false,
     miniQuizzes: Array(0),
 };

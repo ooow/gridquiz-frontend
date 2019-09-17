@@ -9,6 +9,7 @@ export const AUTH_URL = `${CURRENT_HOST}/auth/login`;
 export const LOAD_MINI_QUIZZES_BY_USER_URL = `${CURRENT_HOST}/quiz/mini`;
 export const LOAD_MINI_QUIZZES_URL = `${CURRENT_HOST}/open/mini/quizzes`;
 export const LOAD_ATTEMPT_URL = `${CURRENT_HOST}/quiz/attempt`;
+export const SUBMIT_ANSWERS_URL = `${CURRENT_HOST}/result/submit`;
 
 export async function get<T>(url: string): Promise<T> {
     const response: Response = await fetch(url);
