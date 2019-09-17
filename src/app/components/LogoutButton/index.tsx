@@ -26,4 +26,6 @@ class LogoutButton extends Component<LogoutButtonProps> {
     }
 }
 
-export default connect(() => {}, {logout})(LogoutButton);
+function mapStateToProps() {return {};}
+
+export default connect(mapStateToProps, {logout})(LogoutButton);

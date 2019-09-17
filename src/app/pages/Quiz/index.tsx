@@ -8,6 +8,7 @@ import {getAttempt} from '../../redux/quiz/thunk';
 import Attempt from '../../model/Attempt';
 import Logo from '../../components/Logo';
 import NavbarBrand from 'reactstrap/lib/NavbarBrand';
+import Stopwatch from '../../components/Stopwatch';
 
 interface QuizProps {
     attempt: Attempt
@@ -22,7 +23,9 @@ class QuizView extends Component<QuizProps> {
         this.props.getAttempt(userToken.user, match.params.id);
     }
 
-    renderToolbar() {
+    renderNavBar() {
+        const {attempt} = this.props;
+        const start = new Date(attempt.result.startTime);
         return (
             <Navbar color="bg-light" light>
                 <NavbarBrand>
@@ -31,7 +34,7 @@ class QuizView extends Component<QuizProps> {
                 </NavbarBrand>
 
                 <NavItem>
-                    Timer
+                    <Stopwatch start={start} />
                 </NavItem>
             </Navbar>
         );
@@ -42,7 +45,11 @@ class QuizView extends Component<QuizProps> {
 
         return (
             <div>
-                {this.renderToolbar()}
+                {attempt &&
+                <div>
+                    {this.renderNavBar()}
+                </div>
+                }
             </div>
         );
     }
