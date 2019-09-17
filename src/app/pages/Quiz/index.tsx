@@ -13,6 +13,7 @@ import Question from '../../model/Question';
 import {submit} from '../../redux/result/thunk';
 import {Answer, Answers} from '../../model/Answers';
 import Result from '../../model/Result';
+import {Link} from 'react-router-dom';
 
 interface QuizProps {
     attempt?: Attempt;
@@ -134,9 +135,12 @@ class QuizView extends Component<QuizProps, QuizState> {
                 }
                 {
                     finished && result &&
-                    <div className='row justify-content-center mt-5 pt-5'>
+                    <div className='row justify-content-center mt-5 pt-5 text-center'>
                         Quiz is Finished!
-                        {result.points}
+                        {result.points}/{result.outOf}
+                        <Link to="/" className='p-4 bg-info'>
+                            Go home
+                        </Link>
                     </div>
                 }
             </div>

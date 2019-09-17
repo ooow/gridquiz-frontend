@@ -1,18 +1,20 @@
 import {UserToken} from '../../model/User';
 
 export const FAILED_FETCHING_USER = 'FAILED_FETCHING_USER';
+export const LOGOUT = 'LOGOUT';
 export const RECEIVE_USER = 'RECEIVE_USER';
 export const REQUEST_USER = 'REQUEST_USER';
-export const LOGOUT = 'LOGOUT';
+export const TOGGLE_LOGIN_DIALOG = 'TOGGLE_LOGIN_DIALOG';
 
 export interface UserState {
     isFetching: boolean,
+    showLoginDialog: boolean,
     userToken?: UserToken,
     error?: string,
 }
 
 export type UserActionTypes = FailedFetchingUser
-    | ReceiveUser | RequestUser | Logout;
+    | ReceiveUser | RequestUser | Logout | ToggleLoginDialog;
 
 export interface RequestUser {
     type: typeof REQUEST_USER;
@@ -20,7 +22,7 @@ export interface RequestUser {
 
 export interface ReceiveUser {
     type: typeof RECEIVE_USER;
-    userToken: UserToken
+    userToken: UserToken;
 }
 
 export interface FailedFetchingUser {
@@ -30,5 +32,9 @@ export interface FailedFetchingUser {
 
 export interface Logout {
     type: typeof LOGOUT;
+}
+
+export interface ToggleLoginDialog {
+    type: typeof TOGGLE_LOGIN_DIALOG;
 }
 

@@ -4,5 +4,6 @@ export default interface Result {
     startTime: Date;
     endTime: Date;
     points: number;
+    outOf: number;
     approved: boolean;
 }

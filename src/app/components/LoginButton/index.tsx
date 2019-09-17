@@ -4,14 +4,16 @@ import LockSvg from './../../assets/img/lock.svg';
 import {connect} from 'react-redux';
 import {AppState} from '../../redux/reducers';
 import {login} from '../../redux/user/thunk';
+import {toggleLoginDialog} from '../../redux/user/action';
 
 interface LoginButtonProps {
     isFetching: boolean,
+    showLoginDialog: boolean,
     login: any;
+    toggleLoginDialog: any,
 }
 
 interface LoginButtonState {
-    isDialogOpen: boolean,
     valueEmail: string,
     valueName: string,
 }
@@ -21,15 +23,9 @@ class LoginButton extends Component<LoginButtonProps, LoginButtonState> {
         super(props);
 
         this.state = {
-            isDialogOpen: false,
             valueName: '',
             valueEmail: '',
         };
-        this.toggle = this.toggle.bind(this);
-    }
-
-    toggle() {
-        this.setState((prevState: any) => ({isDialogOpen: !prevState.isDialogOpen}));
     }
 
     changeName(event: ChangeEvent<HTMLInputElement>) {
@@ -81,19 +77,22 @@ class LoginButton extends Component<LoginButtonProps, LoginButtonState> {
     }
 
     render() {
-        const {isDialogOpen} = this.state;
-        const {isFetching} = this.props;
+        const {isFetching, showLoginDialog, toggleLoginDialog} = this.props;
 
         return (
             <div>
                 <img
                     alt='Login button'
                     className='cursor-pointer'
-                    onClick={this.toggle}
+                    onClick={toggleLoginDialog}
                     src={LockSvg}
                 />
 
-                <Modal fade={false} isOpen={isDialogOpen} toggle={this.toggle}>
+                <Modal
+                    fade={false}
+                    isOpen={showLoginDialog}
+                    toggle={toggleLoginDialog}
+                >
                     <div className='modal-content'>
                         <div className='modal-header'>
                             <div className='modal-title'>
@@ -102,7 +101,7 @@ class LoginButton extends Component<LoginButtonProps, LoginButtonState> {
                             <button
                                 className='btn'
                                 type='button'
-                                onClick={this.toggle}
+                                onClick={toggleLoginDialog}
                             >
                                 Close
                             </button>
@@ -119,7 +118,12 @@ class LoginButton extends Component<LoginButtonProps, LoginButtonState> {
 }
 
 function mapStateToProps(state: AppState) {
-    return {isFetching: state.userState.isFetching};
+    return {
+        isFetching: state.userState.isFetching,
+        showLoginDialog: state.userState.showLoginDialog,
+    };
 }
 
-export default connect(mapStateToProps, {login})(LoginButton);
+export default connect(
+    mapStateToProps, {login, toggleLoginDialog},
+)(LoginButton);

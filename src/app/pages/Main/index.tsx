@@ -7,9 +7,9 @@ import MiniQuizView from '../../components/MiniQuizView';
 import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
-import './style.scss';
 import {UserToken} from '../../model/User';
 import LogoutButton from '../../components/LogoutButton';
+import './style.scss';
 
 interface MainProps {
     fetchMiniQuizzes: any,
@@ -45,6 +45,7 @@ class Main extends Component<MainProps> {
 
     render() {
         const {userToken, miniQuizzes} = this.props;
+
         return (
             <div id='main'>
                 <div className='main-background-primary h-100vh'>
