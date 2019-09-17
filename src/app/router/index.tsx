@@ -11,7 +11,7 @@ class Router extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path='/' component={Main} />,
-                    <Route exact path='/quiz' component={QuizView} />,
+                    <Route exact path='/quiz/:id' component={QuizView} />,
                     <Route component={NotFound} />
                 </Switch>
             </BrowserRouter>

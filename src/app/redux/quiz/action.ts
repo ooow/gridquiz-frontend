@@ -1,6 +1,6 @@
-import {FAILED_FETCHING_MINI_QUIZZES, FAILED_FETCHING_QUIZ, FailedFetchingMiniQuizzes, FailedFetchingQuiz, RECEIVE_MINI_QUIZZES, RECEIVE_QUIZ, ReceiveMiniQuizzes, ReceiveQuiz, REQUEST_MINI_QUIZZES, REQUEST_QUIZ, RequestMiniQuizzes, RequestQuiz} from './types';
 import MiniQuiz from '../../model/MiniQuiz';
-import Quiz from '../../model/Quiz';
+import Attempt from '../../model/Attempt';
+import {FAILED_FETCHING_ATTEMPT, FAILED_FETCHING_MINI_QUIZZES, FailedFetchingAttempt, FailedFetchingMiniQuizzes, RECEIVE_ATTEMPT, RECEIVE_MINI_QUIZZES, ReceiveAttempt, ReceiveMiniQuizzes, REQUEST_ATTEMPT, REQUEST_MINI_QUIZZES, RequestAttempt, RequestMiniQuizzes} from './types';
 
 // MINI QUIZZES
 export function requestMiniQuizzes(): RequestMiniQuizzes {
@@ -8,34 +8,22 @@ export function requestMiniQuizzes(): RequestMiniQuizzes {
 }
 
 export function receiveMiniQuizzes(miniQuizzes: Array<MiniQuiz>): ReceiveMiniQuizzes {
-    return {
-        type: RECEIVE_MINI_QUIZZES,
-        miniQuizzes,
-    };
+    return {type: RECEIVE_MINI_QUIZZES, miniQuizzes};
 }
 
 export function failedFetchingMiniQuizzes(error: string): FailedFetchingMiniQuizzes {
-    return {
-        type: FAILED_FETCHING_MINI_QUIZZES,
-        error,
-    };
+    return {type: FAILED_FETCHING_MINI_QUIZZES, error};
 }
 
-// QUIZ
-export function requestQuiz(): RequestQuiz {
-    return {type: REQUEST_QUIZ};
+// Attempt
+export function requestAttempt(): RequestAttempt {
+    return {type: REQUEST_ATTEMPT};
 }
 
-export function receiveQuiz(quiz: Quiz): ReceiveQuiz {
-    return {
-        type: RECEIVE_QUIZ,
-        quiz,
-    };
+export function receiveAttempt(attempt: Attempt): ReceiveAttempt {
+    return {type: RECEIVE_ATTEMPT, attempt};
 }
 
-export function failedFetchingQuiz(error: string): FailedFetchingQuiz {
-    return {
-        type: FAILED_FETCHING_QUIZ,
-        error,
-    };
+export function failedFetchingAttempt(error: string): FailedFetchingAttempt {
+    return {type: FAILED_FETCHING_ATTEMPT, error};
 }

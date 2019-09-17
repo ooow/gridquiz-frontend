@@ -1,29 +1,48 @@
 import React, {Component} from 'react';
-import {AppState} from '../../redux/reducers';
-import {User} from '../../model/User';
-import Quiz from '../../model/Quiz';
+import Navbar from 'reactstrap/lib/Navbar';
+import NavItem from 'reactstrap/lib/NavItem';
 import {connect} from 'react-redux';
-import {getQuiz} from '../../redux/quiz/thunk';
+import {AppState} from '../../redux/reducers';
+import {UserToken} from '../../model/User';
+import {getAttempt} from '../../redux/quiz/thunk';
+import Attempt from '../../model/Attempt';
+import Logo from '../../components/Logo';
+import NavbarBrand from 'reactstrap/lib/NavbarBrand';
 
 interface QuizProps {
-    quiz?: Quiz
-    user?: User;
-    location: any;
-    getQuiz: any
+    attempt: Attempt
+    userToken: UserToken;
+    match: any;
+    getAttempt: any
 }
 
-//TODO: Read quiz ID from url. To allow reload page. :(
 class QuizView extends Component<QuizProps> {
     componentDidMount() {
-        const {user, location} = this.props;
-        const {miniQuiz} = location.state;
-        this.props.getQuiz(user, miniQuiz.id);
+        const {userToken, match} = this.props;
+        this.props.getAttempt(userToken.user, match.params.id);
+    }
+
+    renderToolbar() {
+        return (
+            <Navbar color="bg-light" light>
+                <NavbarBrand>
+                    <Logo />
+                    <h1>QUIZ</h1>
+                </NavbarBrand>
+
+                <NavItem>
+                    Timer
+                </NavItem>
+            </Navbar>
+        );
     }
 
     render() {
+        const {attempt} = this.props;
+
         return (
             <div>
-                Hi
+                {this.renderToolbar()}
             </div>
         );
     }
@@ -31,9 +50,9 @@ class QuizView extends Component<QuizProps> {
 
 function mapStateToProps(state: AppState) {
     return {
-        quiz: state.quizState.quiz,
-        user: state.userState.user,
+        attempt: state.quizState.attempt,
+        userToken: state.userState.userToken,
     };
 }
 
-export default connect(mapStateToProps, {getQuiz})(QuizView);
+export default connect(mapStateToProps, {getAttempt})(QuizView);

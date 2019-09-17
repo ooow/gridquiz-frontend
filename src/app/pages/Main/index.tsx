@@ -25,10 +25,22 @@ class Main extends Component<MainProps> {
             : this.props.fetchMiniQuizzes();
     }
 
-    renderMiniQuizzes(miniQuizzes: MiniQuiz[]) {
+    componentDidUpdate(prevProps: MainProps) {
+        if (this.props.userToken !== prevProps.userToken) {
+            this.updateMiniQuizzes();
+        }
+    }
+
+    private renderMiniQuizzes(miniQuizzes: MiniQuiz[]) {
         return miniQuizzes.map((q: MiniQuiz) => (
             <MiniQuizView miniQuiz={q} key={q.id} />
         ));
+    }
+
+    private updateMiniQuizzes() {
+        const {userToken} = this.props;
+        userToken ? this.props.fetchMiniQuizzesByUser(userToken.user.id)
+            : this.props.fetchMiniQuizzes();
     }
 
     render() {

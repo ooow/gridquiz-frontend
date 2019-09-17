@@ -8,7 +8,7 @@ const CURRENT_HOST = EnvService.getCurrentHost();
 export const AUTH_URL = `${CURRENT_HOST}/auth/login`;
 export const LOAD_MINI_QUIZZES_BY_USER_URL = `${CURRENT_HOST}/quiz/mini`;
 export const LOAD_MINI_QUIZZES_URL = `${CURRENT_HOST}/open/mini/quizzes`;
-export const LOAD_QUIZ_URL = `${CURRENT_HOST}/quiz/load`;
+export const LOAD_ATTEMPT_URL = `${CURRENT_HOST}/quiz/attempt`;
 
 export async function get<T>(url: string): Promise<T> {
     const response: Response = await fetch(url);
