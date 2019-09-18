@@ -1,0 +1,95 @@
+@import './../../../common/colors';
+
+#navbar {
+  background: $background-primary;
+
+  .header {
+    height: 100vh;
+
+    -webkit-transition: 1s ease;
+    transition: 1s ease;
+
+    &.coll {
+      height: 200px;
+
+      -webkit-transition: 1s ease;
+      transition: 1s ease;
+
+      .collapsed {
+        opacity: 1;
+        visibility: visible;
+
+        -webkit-transition: 1.6s ease;
+        transition: 1.6s ease;
+
+        .logo {
+          width: 65px;
+
+          -webkit-transition: opacity 1.6s ease;
+          transition: opacity 1.6s ease;
+        }
+
+        .title {
+          font-size: 50px;
+          margin: 0;
+
+          -webkit-transition: opacity 1.6s ease;
+          transition: opacity 1.6s ease;
+        }
+      }
+
+      .full {
+        opacity: 0;
+        visibility: hidden;
+
+        -webkit-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+      }
+    }
+  }
+
+  .collapsed {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .full {
+    -webkit-transition: 1s ease;
+    transition: 1s ease;
+  }
+
+  .logo {
+    width: 250px;
+  }
+
+  .welcome-text {
+    font: {
+      family: SourceSansPro;
+      size: 20px;
+    };
+  }
+
+  .title {
+    font: {
+      family: FiraSans;
+      size: 120px;
+      weight: bold;
+    }
+  }
+
+  .subtitle {
+    margin-top: -5px;
+    opacity: 0.6;
+    font: {
+      size: 14px;
+      family: SourceSansPro;
+    }
+  }
+
+  .user-info {
+    font: {
+      family: SourceSansPro;
+      weight: bold;
+    };
+  }
+}
