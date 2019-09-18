@@ -1,24 +1,93 @@
 @import './../../../common/colors';
 
 #main {
-  a {
-    text-decoration: none
+
+  .header {
+    height: 100vh;
+
+    &.collapsed {
+
+      height: 200px;
+      min-height: 200px;
+      //position: fixed;
+
+      -webkit-transition: 2s ease;
+      transition: 2s ease;
+
+      .logo {
+        width: 65px;
+        position: fixed;
+        left: 20px;
+        top: 20px;
+      }
+
+      .welcome-text {
+        visibility: hidden;
+      }
+
+      .title {
+        font-size: 40px;
+        position: fixed;
+        left: 90px;
+        top: 20px;
+      }
+
+      .subtitle {
+        visibility: visible;
+        position: fixed;
+        left: 90px;
+        top: 60px;
+      }
+
+      .arrow {
+        visibility: hidden;
+      }
+    }
+  }
+
+  .background-primary {
+    background: $background-primary;
+  }
+
+  .panel {
+    position: fixed;
+    right: 50px;
+    top: 30px;
+  }
+
+  .logo {
+    width: 250px;
+  }
+
+  .welcome-text {
+    font: {
+      family: SourceSansPro;
+      size: 20px;
+    };
+  }
+
+  .title {
+    color: white;
+    font: {
+      family: FiraSans;
+      size: 120px;
+      weight: bold;
+    }
+  }
+
+  .subtitle {
+    color: white;
+    opacity: 0.6;
+    visibility: hidden;
+    font: {
+      size: 13px;
+      family: SourceSansPro;
+    }
+  }
+
+  .content {
+    height: calc(100vh - 199px);
   }
 }
 
-.main-background-primary {
-  background: url("./../../assets/img/background_pattern.svg"),
-  linear-gradient(180deg, $background-primary 0%, $background-accent 100%);
-}
 
-.main-background-accent {
-  background: url("./../../assets/img/background_pattern.svg");
-}
-
-.main-title {
-  color: $title;
-  font: {
-    family: WanderlustLetters, sans-serif;
-    size: 120px;
-  }
-}
