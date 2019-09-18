@@ -1,93 +1,16 @@
 @import './../../../common/colors';
 
 #main {
-
-  .header {
-    height: 100vh;
-
-    &.collapsed {
-
-      height: 200px;
-      min-height: 200px;
-      //position: fixed;
-
-      -webkit-transition: 2s ease;
-      transition: 2s ease;
-
-      .logo {
-        width: 65px;
-        position: fixed;
-        left: 20px;
-        top: 20px;
-      }
-
-      .welcome-text {
-        visibility: hidden;
-      }
-
-      .title {
-        font-size: 40px;
-        position: fixed;
-        left: 90px;
-        top: 20px;
-      }
-
-      .subtitle {
-        visibility: visible;
-        position: fixed;
-        left: 90px;
-        top: 60px;
-      }
-
-      .arrow {
-        visibility: hidden;
-      }
-    }
-  }
-
-  .background-primary {
-    background: $background-primary;
-  }
-
-  .panel {
-    position: fixed;
-    right: 50px;
-    top: 30px;
-  }
-
-  .logo {
-    width: 250px;
-  }
-
-  .welcome-text {
-    font: {
-      family: SourceSansPro;
-      size: 20px;
-    };
-  }
-
-  .title {
-    color: white;
-    font: {
-      family: FiraSans;
-      size: 120px;
-      weight: bold;
-    }
-  }
-
-  .subtitle {
-    color: white;
-    opacity: 0.6;
-    visibility: hidden;
-    font: {
-      size: 13px;
-      family: SourceSansPro;
-    }
+  a {
+    text-decoration: none;
   }
 
   .content {
+    /**
+     * The Navbar component in takes 100vh in full mode and 200px in collapsed.
+     * It is necessary to leave 1px left to keep the Navbar in collapsed
+     * mode, otherwise it will reopen in full mode again after the animation.
+     */
     height: calc(100vh - 199px);
   }
 }
-
-
