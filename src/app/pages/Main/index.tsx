@@ -7,10 +7,11 @@ import MiniQuizView from '../../components/MiniQuizView';
 import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
-import {UserToken} from '../../model/User';
+import {Role, UserToken} from '../../model/User';
 import LogoutButton from '../../components/LogoutButton';
 import LoginDialog from '../../components/LoginDialog';
 import './style.scss';
+import AdminButton from '../../components/AdminButton';
 
 interface MainProps {
     fetchMiniQuizzes: any,
@@ -53,6 +54,11 @@ class Main extends Component<MainProps> {
                 <div className='main-background-primary h-100vh'>
                     <div className='container-fluid p-5 h-100'>
                         <div className='row justify-content-end'>
+                            {
+                                userToken &&
+                                userToken.user.role === Role.ADMIN &&
+                                <AdminButton />
+                            }
                             {!userToken && <LoginButton />}
                             {userToken && <LogoutButton />}
                         </div>

@@ -7,8 +7,8 @@ export interface User {
 }
 
 export enum Role {
-    USER,
-    ADMIN
+    ADMIN = 'ADMIN',
+    USER = 'USER',
 }
 
 export interface UserToken {
