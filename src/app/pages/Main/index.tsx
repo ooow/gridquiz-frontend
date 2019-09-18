@@ -9,6 +9,7 @@ import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
 import {UserToken} from '../../model/User';
 import LogoutButton from '../../components/LogoutButton';
+import LoginDialog from '../../components/LoginDialog';
 import './style.scss';
 
 interface MainProps {
@@ -48,6 +49,7 @@ class Main extends Component<MainProps> {
 
         return (
             <div id='main'>
+                {!userToken && <LoginDialog />}
                 <div className='main-background-primary h-100vh'>
                     <div className='container-fluid p-5 h-100'>
                         <div className='row justify-content-end'>

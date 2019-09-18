@@ -36,7 +36,7 @@ class QuizView extends Component<QuizProps, QuizState> {
         this.state = {currentQuestionIndex: 0, finished: false};
     }
 
-    private answers: Answer[] = [];
+    answers: Answer[] = [];
 
     componentDidMount() {
         const {userToken, match} = this.props;
@@ -46,7 +46,7 @@ class QuizView extends Component<QuizProps, QuizState> {
     nextQuestion(answer: string, questionId: string) {
         const {quiz} = this.props.attempt!;
 
-        this.answers.push({questionId, answer}); // Push answer to the question.
+        this.storeAnswer(answer, questionId);
 
         if (this.state.currentQuestionIndex < quiz.questions.length - 1) {
             this.setState((prevState: QuizState) =>
@@ -55,6 +55,10 @@ class QuizView extends Component<QuizProps, QuizState> {
             this.setState({finished: true});
             this.sendAnswers();
         }
+    }
+
+    storeAnswer(answer: string, questionId: string) {
+        this.answers.push({questionId, answer}); // Push answer to the question.
     }
 
     sendAnswers() {

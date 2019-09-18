@@ -1,4 +1,5 @@
 export const userTokenKey = 'weidmwqrut';
+export const answersKey = 'viuuwqnje';
 
 /**
  * LocalStorage service provides methods for getting/setting the project

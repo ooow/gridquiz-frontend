@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Main from '../pages/Main';
-import NotFound from '../pages/NotFound';
 import QuizView from '../pages/Quiz';
+import NotFound from '../pages/NotFound';
 
 /** Main project routing configuration. */
 class Router extends Component {

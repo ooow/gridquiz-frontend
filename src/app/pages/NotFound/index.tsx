@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 const REDIRECT_DELAY = 3000;
 
@@ -8,7 +7,7 @@ const REDIRECT_DELAY = 3000;
  * the main page.
  */
 class NotFound extends Component {
-    constructor(props) {
+    constructor(props: any) {
         super(props);
 
         setTimeout(() => {
@@ -18,19 +17,19 @@ class NotFound extends Component {
 
     render() {
         return (
-          <div className='align-items-center container d-flex flex-column h-100vh justify-content-center'>
-              <h2>4
-                  <span role='img' aria-label='face-screaming-in-fear'>
+            <div className='align-items-center container d-flex flex-column h-100vh justify-content-center'>
+                <h2>4
+                    <span role='img' aria-label='face-screaming-in-fear'>
                       😱
                   </span>
-                  4
-              </h2>
-              <h1>Oops! This page not found!</h1>
-              <span>
+                    4
+                </h2>
+                <h1>Oops! This page not found!</h1>
+                <span>
           You will be redirect to the <a href='/'>home page</a> in a few
           secs.
         </span>
-          </div>
+            </div>
         );
     }
 }

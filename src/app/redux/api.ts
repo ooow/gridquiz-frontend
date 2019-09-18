@@ -17,10 +17,11 @@ export async function get<T>(url: string): Promise<T> {
 }
 
 export async function post<T>(url: string, body: any): Promise<T> {
+    const preparedBody = typeof body === 'string' ? body : JSON.stringify(body);
     const response: Response = await fetch(url, {
         method: 'post',
         headers: getHeaders(),
-        body: JSON.stringify(body),
+        body: preparedBody,
     });
     return response.json();
 

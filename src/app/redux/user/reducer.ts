@@ -15,6 +15,7 @@ export function userReducer(state = initState, action: UserActionTypes): UserSta
             return {
                 ...state,
                 isFetching: false,
+                showLoginDialog: false,
                 userToken: action.userToken,
                 error: undefined,
             };
