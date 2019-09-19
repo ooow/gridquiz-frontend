@@ -1,16 +1,18 @@
-import React, {Component} from 'react';
+import React, {Component, CSSProperties} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../redux/reducers';
 import {UserToken} from '../../model/User';
 import {getAttempt} from '../../redux/quiz/thunk';
+import {submit} from '../../redux/result/thunk';
+import {Answer, Answers} from '../../model/Answers';
+import {Link} from 'react-router-dom';
 import Attempt from '../../model/Attempt';
 import Navbar from '../../components/Navbar';
 import Question from '../../model/Question';
-import {submit} from '../../redux/result/thunk';
-import {Answer, Answers} from '../../model/Answers';
 import Result from '../../model/Result';
-import {Link} from 'react-router-dom';
 import Stopwatch from '../../components/Navbar/Stopwatch';
+import {defaultColor} from '../../components/Miniquiz';
+import './style.scss';
 
 interface QuizProps {
     attempt?: Attempt;
@@ -88,7 +90,7 @@ class QuizView extends Component<QuizProps, QuizState> {
         const question: Question = quiz.questions[currentQuestionIndex];
 
         return (
-            <div className='container bg-light'>
+            <div className='container text-white'>
                 <div className='row justify-content-center'>
                     {quiz.name}
                 </div>
@@ -105,19 +107,28 @@ class QuizView extends Component<QuizProps, QuizState> {
         );
     }
 
+    renderNavbar(startTime: Date) {
+        return (
+            <Navbar>
+                <Stopwatch start={startTime} className='stopwatch' />
+            </Navbar>
+        );
+    }
+
     render() {
         const {attempt, result} = this.props;
         const {finished} = this.state;
+        let style: CSSProperties = {background: defaultColor};
 
-        //const start = new Date(attempt!.result.startTime);
+        if (attempt) {
+            style = {background: attempt.quiz.color};
+        }
 
         return (
-            <div>
+            <div className='h-100vh' style={style}>
                 {!finished && attempt &&
                 <div>
-                    <Navbar>
-                        <Stopwatch />
-                    </Navbar>
+                    {this.renderNavbar(new Date(attempt.result.startTime))}
                     {this.renderQuizBody()}
                 </div>
                 }

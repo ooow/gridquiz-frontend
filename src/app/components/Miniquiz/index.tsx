@@ -7,7 +7,7 @@ import {toggleLoginDialog} from '../../redux/user/action';
 import {UserToken} from '../../model/User';
 import './style.scss';
 
-const defaultColor = '#197E92';
+export const defaultColor = '#197E92';
 
 interface MainQuizProp {
     miniQuiz: MiniQuiz;

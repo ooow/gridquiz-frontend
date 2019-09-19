@@ -1,19 +1,19 @@
 import React, {Component, ReactNode} from 'react';
-import ArrowSvg from '../../assets/img/arrow.svg';
-import Logo from '../Logo';
-import Navbar from '../Navbar';
+import ArrowSvg from '../../../assets/img/arrow.svg';
+import Logo from '../../Logo';
+import Navbar from '../index';
 import './style.scss';
 
-interface NavbarFullProps {
+interface NavbarWrapperProps {
     children?: ReactNode,
 }
 
-interface NavbarFullState {
+interface NavbarWrapperState {
     collapsed: boolean,
 }
 
-class NavbarFull extends Component<NavbarFullProps, NavbarFullState> {
-    constructor(props: NavbarFullProps) {
+class NavbarWrapper extends Component<NavbarWrapperProps, NavbarWrapperState> {
+    constructor(props: NavbarWrapperProps) {
         super(props);
 
         this.state = {collapsed: false};
@@ -69,4 +69,4 @@ class NavbarFull extends Component<NavbarFullProps, NavbarFullState> {
     }
 }
 
-export default NavbarFull;
+export default NavbarWrapper;
