@@ -10,8 +10,12 @@
 
 @font-face {
   font-family: FiraSans;
+  font-weight: 400;
+  src: url("./../app/assets/font/FiraSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: FiraSans;
   font-weight: 700;
   src: url("./../app/assets/font/FiraSans-Bold.ttf");
 }
-
-$font-family-sans-serif: Lato, sans-serif;
