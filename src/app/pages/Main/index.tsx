@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import MiniQuizView from '../../components/MiniQuizView';
+import MiniQuizView from '../../components/Miniquiz';
 import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
@@ -49,7 +49,7 @@ class Main extends Component<MainProps> {
                 {!userToken && <LoginDialog />}
                 <Navbar />
                 <div className='content'>
-                    <div className='d-flex justify-content-center flex-wrap'>
+                    <div className='d-flex justify-content-center align-items-center h-100'>
                         {miniQuizzes && this.renderMiniQuizzes(miniQuizzes)}
                     </div>
                 </div>

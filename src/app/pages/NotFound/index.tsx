@@ -21,14 +21,13 @@ class NotFound extends Component {
                 <h2>4
                     <span role='img' aria-label='face-screaming-in-fear'>
                       😱
-                  </span>
+                    </span>
                     4
                 </h2>
                 <h1>Oops! This page not found!</h1>
                 <span>
-          You will be redirect to the <a href='/'>home page</a> in a few
-          secs.
-        </span>
+                    You will be redirect to the <a href='/'>home page</a> in a few secs.
+                </span>
             </div>
         );
     }

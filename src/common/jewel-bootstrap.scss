@@ -6,6 +6,12 @@
   cursor: pointer;
 }
 
+.text-inline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /** Sizing */
 .w-20 {
   width: 20%;

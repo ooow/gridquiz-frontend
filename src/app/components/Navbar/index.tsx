@@ -66,8 +66,8 @@ class Navbar extends Component<NavbarProps, NavbarState> {
                     <div className='d-flex align-items-start'>
                         <Logo className='logo' />
                         <div className='d-flex flex-column ml-2'>
-                            <h1 className='title text-white'>Quiz</h1>
-                            <p className='subtitle text-white'>
+                            <h1 className='title'>Quiz</h1>
+                            <p className='subtitle'>
                                 by Grid Dynamics
                             </p>
                         </div>
@@ -89,7 +89,7 @@ class Navbar extends Component<NavbarProps, NavbarState> {
                     <Logo className='logo' />
                 </div>
                 <div className='row justify-content-center mt-5'>
-                    <h1 className='text-white welcome-text'>
+                    <h1 className='welcome-text'>
                         Welcome to Grid Dynamics
                     </h1>
                 </div>

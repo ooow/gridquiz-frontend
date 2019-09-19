@@ -12,5 +12,6 @@
      * mode, otherwise it will reopen in full mode again after the animation.
      */
     height: calc(100vh - 199px);
+    background: $background-accent;
   }
 }
