@@ -1,0 +1,50 @@
+@import './../../../common/colors';
+
+#navbar-full {
+  background: $background-primary;
+
+  .header {
+    height: 100vh;
+
+    -webkit-transition: 1s ease;
+    transition: 1s ease;
+
+    &.coll {
+      height: 200px;
+
+      .full {
+        opacity: 0;
+        visibility: hidden;
+
+        -webkit-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+      }
+    }
+  }
+
+  .full {
+    -webkit-transition: 1s ease;
+    transition: 1s ease;
+  }
+
+  .logo {
+    width: 250px;
+  }
+
+  .welcome-text {
+    color: white;
+    font: {
+      family: SourceSansPro;
+      size: 20px;
+    };
+  }
+
+  .title {
+    color: white;
+    font: {
+      family: FiraSans;
+      size: 120px;
+      weight: bold;
+    }
+  }
+}

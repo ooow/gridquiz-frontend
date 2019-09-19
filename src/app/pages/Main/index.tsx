@@ -6,8 +6,8 @@ import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
 import {UserToken} from '../../model/User';
 import LoginDialog from '../../components/LoginDialog';
-import Navbar from '../../components/Navbar';
 import './style.scss';
+import NavbarFull from '../../components/NavbarFull';
 
 interface MainProps {
     fetchMiniQuizzes: any,
@@ -47,7 +47,7 @@ class Main extends Component<MainProps> {
         return (
             <div id='main'>
                 {!userToken && <LoginDialog />}
-                <Navbar />
+                <NavbarFull />
                 <div className='content'>
                     <div className='d-flex justify-content-center align-items-center h-100'>
                         {miniQuizzes && this.renderMiniQuizzes(miniQuizzes)}
