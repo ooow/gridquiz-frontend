@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
-import Navbar from 'reactstrap/lib/Navbar';
-import NavItem from 'reactstrap/lib/NavItem';
 import {connect} from 'react-redux';
 import {AppState} from '../../redux/reducers';
 import {UserToken} from '../../model/User';
 import {getAttempt} from '../../redux/quiz/thunk';
 import Attempt from '../../model/Attempt';
-import Logo from '../../components/Logo';
-import NavbarBrand from 'reactstrap/lib/NavbarBrand';
-import Stopwatch from '../../components/Stopwatch';
+import Navbar from '../../components/Navbar';
 import Question from '../../model/Question';
 import {submit} from '../../redux/result/thunk';
 import {Answer, Answers} from '../../model/Answers';
 import Result from '../../model/Result';
 import {Link} from 'react-router-dom';
+import Stopwatch from '../../components/Navbar/Stopwatch';
 
 interface QuizProps {
     attempt?: Attempt;
@@ -71,23 +68,6 @@ class QuizView extends Component<QuizProps, QuizState> {
         this.props.submit(userToken!.user, userAnswers);
     }
 
-    renderNavbar() {
-        const {attempt} = this.props;
-        const start = new Date(attempt!.result.startTime);
-        return (
-            <Navbar color="bg-light" light>
-                <NavbarBrand>
-                    <Logo />
-                    <h1>QUIZ</h1>
-                </NavbarBrand>
-
-                <NavItem>
-                    <Stopwatch start={start} />
-                </NavItem>
-            </Navbar>
-        );
-    }
-
     renderAnswer(answerBody: string, answerIndex: number, questionId: string) {
         return (
             <div
@@ -129,11 +109,15 @@ class QuizView extends Component<QuizProps, QuizState> {
         const {attempt, result} = this.props;
         const {finished} = this.state;
 
+        //const start = new Date(attempt!.result.startTime);
+
         return (
             <div>
                 {!finished && attempt &&
                 <div>
-                    {this.renderNavbar()}
+                    <Navbar>
+                        <Stopwatch />
+                    </Navbar>
                     {this.renderQuizBody()}
                 </div>
                 }

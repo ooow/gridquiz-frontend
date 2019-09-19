@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, ReactNode} from 'react';
 import ArrowSvg from '../../assets/img/arrow.svg';
 import Logo from '../Logo';
 import Navbar from '../Navbar';
 import './style.scss';
 
-interface NavbarFullProps {}
+interface NavbarFullProps {
+    children?: ReactNode,
+}
 
 interface NavbarFullState {
     collapsed: boolean,
@@ -30,6 +32,7 @@ class NavbarFull extends Component<NavbarFullProps, NavbarFullState> {
     }
 
     render() {
+        const {children} = this.props;
         const {collapsed} = this.state;
 
         let className = 'header';
@@ -40,7 +43,7 @@ class NavbarFull extends Component<NavbarFullProps, NavbarFullState> {
             <div id='navbar-full'>
                 <div className={className}>
                     <div>
-                        {collapsed && <Navbar />}
+                        {collapsed && <Navbar>{children}</Navbar>}
                     </div>
                     <div className='container-fluid p-5 h-100 full'>
                         <div className='row justify-content-center mt-5'>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 interface StopwatchProps {
+    className?: string;
     start?: Date;
 }
 
@@ -54,8 +55,10 @@ class Stopwatch extends Component<StopwatchProps, StopwatchState> {
     }
 
     render() {
+        const {className} = this.props;
         const {secondsElapsed} = this.state;
-        return <div>{this.format(secondsElapsed)}</div>;
+
+        return <div className={className}>{this.format(secondsElapsed)}</div>;
     }
 }
 

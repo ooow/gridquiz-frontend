@@ -14,4 +14,12 @@
     height: calc(100vh - 199px);
     background: $background-accent;
   }
+
+  .user-info {
+    color: white;
+    font: {
+      family: SourceSansPro;
+      weight: bold;
+    };
+  }
 }
