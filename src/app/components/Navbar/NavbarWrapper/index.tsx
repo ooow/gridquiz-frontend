@@ -24,7 +24,7 @@ class NavbarWrapper extends Component<NavbarWrapperProps, NavbarWrapperState> {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll);
+        window.removeEventListener('scroll', this.onScroll.bind(this));
     }
 
     onScroll() {
