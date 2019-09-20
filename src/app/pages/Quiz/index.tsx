@@ -13,6 +13,7 @@ import Result from '../../model/Result';
 import Stopwatch from '../../components/Navbar/Stopwatch';
 import {defaultColor} from '../../components/Miniquiz';
 import './style.scss';
+import OptionButton from '../../components/OptionButton';
 
 interface QuizProps {
     attempt?: Attempt;
@@ -70,37 +71,31 @@ class QuizView extends Component<QuizProps, QuizState> {
         this.props.submit(userToken!.user, userAnswers);
     }
 
-    renderAnswer(answerBody: string, answerIndex: number, questionId: string) {
-        return (
-            <div
-                className='d-flex m-5 p-3 cursor-pointer border border-info'
-                onClick={this.nextQuestion.bind(this, answerBody, questionId)}
-                key={answerIndex}
-            >
-                <div>{answerIndex + 1}</div>
-                |
-                <div>{answerBody}</div>
-            </div>
-        );
-    }
-
     renderQuizBody() {
         const {quiz} = this.props.attempt!;
         const {currentQuestionIndex} = this.state;
         const question: Question = quiz.questions[currentQuestionIndex];
 
         return (
-            <div className='container text-white'>
+            <div className='container'>
                 <div className='row justify-content-center'>
-                    {quiz.name}
+                    <p className='quiz-name'>{quiz.name}</p>
                 </div>
-                <div className='row justify-content-center mt-5'>
-                    {question.title}
+                <div className='row justify-content-center mt-3'>
+                    <p className='question-text'>{question.title}</p>
                 </div>
                 <div className='row justify-content-center mt-5'>
                     {
                         question.answers.map((a, i) =>
-                            this.renderAnswer(a, i, question.id))
+                            <OptionButton
+                                index={i + 1}
+                                indexColor={quiz.color}
+                                text={a} key={i}
+                                onClick={this.nextQuestion.bind(this,
+                                    a,
+                                    question.id)}
+                            />,
+                        )
                     }
                 </div>
             </div>

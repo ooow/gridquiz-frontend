@@ -1,7 +1,17 @@
 .stopwatch {
   color: white;
+  font-size: 36px;
+}
+
+.quiz-name {
+  color: white;
   font: {
-    family: SourceSansPro;
-    size: 36px;
-  };
+    size: 56px;
+    weight: 600;
+  }
+}
+
+.question-text {
+  color: white;
+  font-size: 24px;
 }
