@@ -23,7 +23,9 @@ class Stopwatch extends Component<StopwatchProps, StopwatchState> {
     private incrementer?: NodeJS.Timeout;
 
     componentDidMount() {
-        this.start();
+        this.incrementer = setInterval(() => {
+            this.setState({secondsElapsed: (this.state.secondsElapsed + 1)});
+        }, 1000);
     }
 
     componentWillUnmount() {
@@ -38,12 +40,6 @@ class Stopwatch extends Component<StopwatchProps, StopwatchState> {
 
         const timeBetween = Math.abs(new Date().getTime() - start.getTime());
         return Math.round(timeBetween / 1000);
-    }
-
-    private start() {
-        this.incrementer = setInterval(() => {
-            this.setState({secondsElapsed: (this.state.secondsElapsed + 1)});
-        }, 1000);
     }
 
     /** Formats seconds to human readable label.
