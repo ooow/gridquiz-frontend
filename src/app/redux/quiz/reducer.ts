@@ -18,8 +18,10 @@ export function quizReducer(state = initState, action: QuizActionTypes): QuizSta
             return {
                 ...state,
                 isFetching: false,
+                currentColor: action.progress.quiz.color,
                 progress: {
-                    ...action.progress,
+                    quiz: action.progress.quiz,
+                    start: action.progress.start,
                     // Set first question.
                     question: action.progress.quiz.questions[0],
                     answers: [],

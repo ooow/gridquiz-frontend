@@ -15,6 +15,7 @@ export const NEXT_QUESTION = 'NEXT_QUESTION';
 
 export interface QuizState {
     attempt?: Progress;
+    currentColor?: string;
     error?: string;
     isFetching: boolean;
     miniQuizzes: Array<MiniQuiz>;

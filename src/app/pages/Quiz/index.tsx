@@ -15,6 +15,7 @@ import {nextQuestion, storeAnswer} from '../../redux/quiz/action';
 import './style.scss';
 
 interface QuizProps {
+    currentColor: string;
     getProgress: any;
     match: any;
     nextQuestion: any;
@@ -22,7 +23,7 @@ interface QuizProps {
     result?: Result;
     storeAnswer: any;
     submit: any;
-    userToken?: UserToken;
+    userToken: UserToken;
 }
 
 interface QuizState {
@@ -38,7 +39,7 @@ class QuizView extends Component<QuizProps, QuizState> {
 
     componentDidMount() {
         const {userToken, match} = this.props;
-        this.props.getProgress(userToken!.user, match.params.id);
+        this.props.getProgress(userToken.user, match.params.id);
     }
 
     handelAnswer(index: number) {
@@ -50,7 +51,7 @@ class QuizView extends Component<QuizProps, QuizState> {
         if (nextIndex < quiz.questions.length) {
             nextQuestion(nextIndex);
         } else {
-            submit(userToken!.user, {quizId: quiz.id, answers});
+            submit(userToken.user, {quizId: quiz.id, answers});
             this.setState({finished: true});
         }
     }
@@ -74,13 +75,9 @@ class QuizView extends Component<QuizProps, QuizState> {
     }
 
     render() {
-        const {progress, result} = this.props;
+        const {progress, result, currentColor} = this.props;
         const {finished} = this.state;
-        let style: CSSProperties = {background: defaultColor};
-
-        if (progress) {
-            style = {background: progress.quiz.color};
-        }
+        const style: CSSProperties = {background: currentColor || defaultColor};
 
         return (
             <div className='h-100vh' style={style}>
@@ -94,7 +91,7 @@ class QuizView extends Component<QuizProps, QuizState> {
                     finished && result && progress &&
                     <ResultDialog
                       result={`${result.points}/${result.outOf}`}
-                      resultColor={progress.quiz.color}
+                      resultColor={currentColor}
                     />
                 }
             </div>
@@ -106,10 +103,16 @@ function mapStateToProps(state: AppState) {
     return {
         progress: state.quizState.progress,
         result: state.resultState.result,
-        userToken: state.userState.userToken,
+        userToken: state.userState.userToken!,
+        currentColor: state.quizState.currentColor!,
     };
 }
 
 export default connect(mapStateToProps,
-    {getProgress, submit, nextQuestion, storeAnswer})(
-    QuizView);
+    {
+        getProgress,
+        submit,
+        nextQuestion,
+        storeAnswer,
+    },
+)(QuizView);
