@@ -1,24 +1,29 @@
 import MiniQuiz from '../../model/MiniQuiz';
-import Attempt from '../../model/Attempt';
+import Progress from '../../model/Progress';
+import {Answer} from '../../model/Answers';
 
 export const FAILED_FETCHING_MINI_QUIZZES = 'FAILED_FETCHING_MINI_QUIZZES';
 export const RECEIVE_MINI_QUIZZES = 'RECEIVE_MINI_QUIZZES';
 export const REQUEST_MINI_QUIZZES = 'REQUEST_MINI_QUIZZES';
 
-export const FAILED_FETCHING_ATTEMPT = 'FAILED_FETCHING_ATTEMPT';
-export const RECEIVE_ATTEMPT = 'RECEIVE_ATTEMPT';
-export const REQUEST_ATTEMPT = 'REQUEST_ATTEMPT';
+export const FAILED_FETCHING_PROGRESS = 'FAILED_FETCHING_PROGRESS';
+export const START_PROGRESS = 'START_PROGRESS';
+export const RECEIVE_PROGRESS = 'RECEIVE_PROGRESS';
+export const CLEAN_PROGRESS = 'CLEAN_PROGRESS';
+export const STORE_ANSWER = 'STORE_ANSWER';
+export const NEXT_QUESTION = 'NEXT_QUESTION';
 
 export interface QuizState {
-    isFetching: boolean,
-    miniQuizzes: Array<MiniQuiz>,
-    attempt?: Attempt,
-    error?: string,
+    attempt?: Progress;
+    error?: string;
+    isFetching: boolean;
+    miniQuizzes: Array<MiniQuiz>;
+    progress?: Progress;
 }
 
 export type QuizActionTypes = FailedFetchingMiniQuizzes
-    | ReceiveMiniQuizzes | RequestMiniQuizzes | RequestAttempt | ReceiveAttempt
-    | FailedFetchingAttempt;
+    | ReceiveMiniQuizzes | RequestMiniQuizzes | ReceiveProgress
+    | FailedFetchingProgress | StartProgress | StoreAnswer | NextQuestion;
 
 export interface RequestMiniQuizzes {
     type: typeof REQUEST_MINI_QUIZZES;
@@ -34,16 +39,26 @@ export interface FailedFetchingMiniQuizzes {
     error: string;
 }
 
-export interface RequestAttempt {
-    type: typeof REQUEST_ATTEMPT;
+export interface StartProgress {
+    type: typeof START_PROGRESS;
 }
 
-export interface ReceiveAttempt {
-    type: typeof RECEIVE_ATTEMPT;
-    attempt: Attempt;
+export interface ReceiveProgress {
+    type: typeof RECEIVE_PROGRESS;
+    progress: Progress;
 }
 
-export interface FailedFetchingAttempt {
-    type: typeof FAILED_FETCHING_ATTEMPT;
+export interface FailedFetchingProgress {
+    type: typeof FAILED_FETCHING_PROGRESS;
     error: string;
+}
+
+export interface StoreAnswer {
+    type: typeof STORE_ANSWER;
+    answer: Answer;
+}
+
+export interface NextQuestion {
+    type: typeof NEXT_QUESTION;
+    index: number;
 }

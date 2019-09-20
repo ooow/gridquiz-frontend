@@ -1,4 +1,4 @@
-import {FAILED_FETCHING_ATTEMPT, FAILED_FETCHING_MINI_QUIZZES, QuizActionTypes, QuizState, RECEIVE_ATTEMPT, RECEIVE_MINI_QUIZZES, REQUEST_ATTEMPT, REQUEST_MINI_QUIZZES} from './types';
+import {FAILED_FETCHING_MINI_QUIZZES, FAILED_FETCHING_PROGRESS, NEXT_QUESTION, QuizActionTypes, QuizState, RECEIVE_MINI_QUIZZES, RECEIVE_PROGRESS, REQUEST_MINI_QUIZZES, START_PROGRESS, STORE_ANSWER} from './types';
 
 const initState: QuizState = {
     isFetching: false,
@@ -14,18 +14,39 @@ export function quizReducer(state = initState, action: QuizActionTypes): QuizSta
                 miniQuizzes: action.miniQuizzes,
                 error: undefined,
             };
-        case RECEIVE_ATTEMPT:
+        case RECEIVE_PROGRESS:
             return {
                 ...state,
                 isFetching: false,
-                attempt: action.attempt,
+                progress: {
+                    ...action.progress,
+                    // Set first question.
+                    question: action.progress.quiz.questions[0],
+                    answers: [],
+                },
                 error: undefined,
             };
+        case STORE_ANSWER:
+            return {
+                ...state,
+                progress: {
+                    ...state.progress!,
+                    answers: [...state.progress!.answers, action.answer],
+                },
+            };
+        case NEXT_QUESTION:
+            return {
+                ...state,
+                progress: {
+                    ...state.progress!,
+                    question: state.progress!.quiz.questions[action.index],
+                },
+            };
         case REQUEST_MINI_QUIZZES:
-        case REQUEST_ATTEMPT:
+        case START_PROGRESS:
             return {...state, isFetching: true};
         case FAILED_FETCHING_MINI_QUIZZES:
-        case FAILED_FETCHING_ATTEMPT:
+        case FAILED_FETCHING_PROGRESS:
             return {
                 ...state,
                 isFetching: false,

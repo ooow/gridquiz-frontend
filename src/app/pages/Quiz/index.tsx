@@ -2,31 +2,30 @@ import React, {Component, CSSProperties} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../redux/reducers';
 import {UserToken} from '../../model/User';
-import {getAttempt} from '../../redux/quiz/thunk';
 import {submit} from '../../redux/result/thunk';
-import {Answer, Answers} from '../../model/Answers';
-import {Link} from 'react-router-dom';
-import Attempt from '../../model/Attempt';
+import {getProgress} from '../../redux/quiz/thunk';
 import Navbar from '../../components/Navbar';
-import Question from '../../model/Question';
 import Result from '../../model/Result';
 import Stopwatch from '../../components/Navbar/Stopwatch';
 import {defaultColor} from '../../components/Miniquiz';
-import './style.scss';
-import OptionButton from '../../components/OptionButton';
 import ResultDialog from '../../components/ResultDialog';
+import QuestionView from '../../components/QuestionView';
+import Progress from '../../model/Progress';
+import {nextQuestion, storeAnswer} from '../../redux/quiz/action';
+import './style.scss';
 
 interface QuizProps {
-    attempt?: Attempt;
-    userToken?: UserToken;
-    result?: Result;
+    getProgress: any;
     match: any;
-    getAttempt: any;
+    nextQuestion: any;
+    progress?: Progress;
+    result?: Result;
+    storeAnswer: any;
     submit: any;
+    userToken?: UserToken;
 }
 
 interface QuizState {
-    currentQuestionIndex: number;
     finished: boolean;
 }
 
@@ -34,73 +33,36 @@ class QuizView extends Component<QuizProps, QuizState> {
     constructor(props: QuizProps) {
         super(props);
 
-        this.state = {currentQuestionIndex: 0, finished: false};
+        this.state = {finished: false};
     }
-
-    answers: Answer[] = [];
 
     componentDidMount() {
         const {userToken, match} = this.props;
-        this.props.getAttempt(userToken!.user, match.params.id);
+        this.props.getProgress(userToken!.user, match.params.id);
     }
 
-    nextQuestion(answer: string, questionId: string) {
-        const {quiz} = this.props.attempt!;
+    handelAnswer(index: number) {
+        const {nextQuestion, storeAnswer, submit, userToken, progress} = this.props;
+        const {quiz, question, answers} = progress!;
 
-        this.storeAnswer(answer, questionId);
-
-        if (this.state.currentQuestionIndex < quiz.questions.length - 1) {
-            this.setState((prevState: QuizState) =>
-                ({currentQuestionIndex: prevState.currentQuestionIndex + 1}));
+        storeAnswer({questionId: question.id, answer: question.answers[index]});
+        const nextIndex = quiz.questions.findIndex(q => question.id === q.id) + 1;
+        if (nextIndex < quiz.questions.length) {
+            nextQuestion(nextIndex);
         } else {
+            submit(userToken!.user, {quizId: quiz.id, answers});
             this.setState({finished: true});
-            this.sendAnswers();
         }
     }
 
-    storeAnswer(answer: string, questionId: string) {
-        this.answers.push({questionId, answer}); // Push answer to the question.
-    }
-
-    sendAnswers() {
-        const {userToken, attempt} = this.props;
-        const userAnswers: Answers = {
-            quizId: attempt!.quiz.id,
-            answers: this.answers,
-        };
-
-        this.props.submit(userToken!.user, userAnswers);
-    }
-
     renderQuizBody() {
-        const {quiz} = this.props.attempt!;
-        const {currentQuestionIndex} = this.state;
-        const question: Question = quiz.questions[currentQuestionIndex];
+        const {quiz, question} = this.props.progress!;
 
-        return (
-            <div className='container'>
-                <div className='row justify-content-center'>
-                    <p className='quiz-name'>{quiz.name}</p>
-                </div>
-                <div className='row justify-content-center mt-3'>
-                    <p className='question-text'>{question.title}</p>
-                </div>
-                <div className='row justify-content-center mt-5'>
-                    {
-                        question.answers.map((a, i) =>
-                            <OptionButton
-                                index={i + 1}
-                                indexColor={quiz.color}
-                                text={a} key={i}
-                                onClick={this.nextQuestion.bind(this,
-                                    a,
-                                    question.id)}
-                            />,
-                        )
-                    }
-                </div>
-            </div>
-        );
+        return <QuestionView
+            quiz={quiz}
+            question={question}
+            onClick={this.handelAnswer.bind(this)}
+        />;
     }
 
     renderNavbar(startTime: Date) {
@@ -112,33 +74,28 @@ class QuizView extends Component<QuizProps, QuizState> {
     }
 
     render() {
-        const {attempt, result} = this.props;
+        const {progress, result} = this.props;
         const {finished} = this.state;
         let style: CSSProperties = {background: defaultColor};
 
-        if (attempt) {
-            style = {background: attempt.quiz.color};
+        if (progress) {
+            style = {background: progress.quiz.color};
         }
 
         return (
             <div className='h-100vh' style={style}>
-                {attempt &&
-                <ResultDialog result={'9/10'} resultColor={attempt.quiz.color} />}
-                {!finished && attempt &&
+                {!finished && progress &&
                 <div>
-                    {this.renderNavbar(new Date(attempt.result.startTime))}
+                    {this.renderNavbar(new Date(progress.start))}
                     {this.renderQuizBody()}
                 </div>
                 }
                 {
-                    finished && result &&
-                    <div className='row justify-content-center mt-5 pt-5 text-center'>
-                        Quiz is Finished!
-                        {result.points}/{result.outOf}
-                        <Link to="/" className='p-4 bg-info'>
-                            Go home
-                        </Link>
-                    </div>
+                    finished && result && progress &&
+                    <ResultDialog
+                      result={`${result.points}/${result.outOf}`}
+                      resultColor={progress.quiz.color}
+                    />
                 }
             </div>
         );
@@ -147,10 +104,12 @@ class QuizView extends Component<QuizProps, QuizState> {
 
 function mapStateToProps(state: AppState) {
     return {
-        attempt: state.quizState.attempt,
+        progress: state.quizState.progress,
         result: state.resultState.result,
         userToken: state.userState.userToken,
     };
 }
 
-export default connect(mapStateToProps, {getAttempt, submit})(QuizView);
+export default connect(mapStateToProps,
+    {getProgress, submit, nextQuestion, storeAnswer})(
+    QuizView);

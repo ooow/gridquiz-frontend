@@ -1,8 +1,9 @@
+import {FAILED_FETCHING_MINI_QUIZZES, FAILED_FETCHING_PROGRESS, FailedFetchingMiniQuizzes, FailedFetchingProgress, NEXT_QUESTION, NextQuestion, RECEIVE_MINI_QUIZZES, RECEIVE_PROGRESS, ReceiveMiniQuizzes, ReceiveProgress, REQUEST_MINI_QUIZZES, RequestMiniQuizzes, START_PROGRESS, StartProgress, STORE_ANSWER, StoreAnswer} from './types';
 import MiniQuiz from '../../model/MiniQuiz';
-import Attempt from '../../model/Attempt';
-import {FAILED_FETCHING_ATTEMPT, FAILED_FETCHING_MINI_QUIZZES, FailedFetchingAttempt, FailedFetchingMiniQuizzes, RECEIVE_ATTEMPT, RECEIVE_MINI_QUIZZES, ReceiveAttempt, ReceiveMiniQuizzes, REQUEST_ATTEMPT, REQUEST_MINI_QUIZZES, RequestAttempt, RequestMiniQuizzes} from './types';
+import Progress from '../../model/Progress';
+import {Answer} from '../../model/Answers';
 
-// MINI QUIZZES
+// Mini Quizzes
 export function requestMiniQuizzes(): RequestMiniQuizzes {
     return {type: REQUEST_MINI_QUIZZES};
 }
@@ -15,15 +16,23 @@ export function failedFetchingMiniQuizzes(error: string): FailedFetchingMiniQuiz
     return {type: FAILED_FETCHING_MINI_QUIZZES, error};
 }
 
-// Attempt
-export function requestAttempt(): RequestAttempt {
-    return {type: REQUEST_ATTEMPT};
+// Progress
+export function startProgress(): StartProgress {
+    return {type: START_PROGRESS};
 }
 
-export function receiveAttempt(attempt: Attempt): ReceiveAttempt {
-    return {type: RECEIVE_ATTEMPT, attempt};
+export function receiveProgress(progress: Progress): ReceiveProgress {
+    return {type: RECEIVE_PROGRESS, progress};
 }
 
-export function failedFetchingAttempt(error: string): FailedFetchingAttempt {
-    return {type: FAILED_FETCHING_ATTEMPT, error};
+export function storeAnswer(answer: Answer): StoreAnswer {
+    return {type: STORE_ANSWER, answer};
+}
+
+export function nextQuestion(index: number): NextQuestion {
+    return {type: NEXT_QUESTION, index};
+}
+
+export function failedFetchingProgress(error: string): FailedFetchingProgress {
+    return {type: FAILED_FETCHING_PROGRESS, error};
 }

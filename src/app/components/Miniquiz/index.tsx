@@ -1,24 +1,21 @@
-import React, {Component, CSSProperties} from 'react';
+import React, {Component, CSSProperties, ReactNode} from 'react';
 import MiniQuiz from '../../model/MiniQuiz';
-import {Link} from 'react-router-dom';
-import {AppState} from '../../redux/reducers';
-import {connect} from 'react-redux';
-import {toggleLoginDialog} from '../../redux/user/action';
-import {UserToken} from '../../model/User';
 import './style.scss';
 
 export const defaultColor = '#197E92';
 
 interface MainQuizProp {
     miniQuiz: MiniQuiz;
-    userToken?: UserToken,
-    toggleLoginDialog: any;
+    children?: ReactNode,
 }
 
 class MiniQuizView extends Component<MainQuizProp> {
-    renderMiniQuiz() {
-        const {miniQuiz} = this.props;
-        const style: CSSProperties = {background: miniQuiz.color || defaultColor};
+    render() {
+        const {miniQuiz, children} = this.props;
+        const style: CSSProperties = {
+            background: miniQuiz.color || defaultColor,
+            opacity: miniQuiz.attempt ? 0.6 : 1,
+        };
 
         return (
             <div
@@ -38,50 +35,11 @@ class MiniQuizView extends Component<MainQuizProp> {
                             {miniQuiz.questionsComplete} / {miniQuiz.questionsSize} QUESTIONS
                         </p>
                     </div>
-                    {
-                        miniQuiz.attempt &&
-                        <Link
-                          to='/lol'
-                          className='results-link'
-                          style={{color: miniQuiz.color}}
-                        >
-                            RESULTS
-                        </Link>
-                    }
+                    {children}
                 </div>
             </div>
         );
     }
-
-    activeQuiz() {
-        const {miniQuiz} = this.props;
-        const link = miniQuiz.attempt ? '#' : `/quiz/${miniQuiz.id}`;
-        const style: CSSProperties = miniQuiz.attempt ? {opacity: 0.6} : {};
-
-        return (
-            <Link to={link} style={style}>
-                {this.renderMiniQuiz()}
-            </Link>
-        );
-    }
-
-    disabledQuiz() {
-        const {toggleLoginDialog} = this.props;
-        return (
-            <div onClick={toggleLoginDialog}>
-                {this.renderMiniQuiz()}
-            </div>
-        );
-    }
-
-    render() {
-        const {userToken} = this.props;
-        return userToken ? this.activeQuiz() : this.disabledQuiz();
-    }
 }
 
-function mapStateToProps(state: AppState) {
-    return {userToken: state.userState.userToken};
-}
-
-export default connect(mapStateToProps, {toggleLoginDialog})(MiniQuizView);
+export default MiniQuizView;

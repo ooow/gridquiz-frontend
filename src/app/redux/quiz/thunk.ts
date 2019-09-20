@@ -1,11 +1,11 @@
 import {ThunkAction} from 'redux-thunk';
 import {AppState} from '../reducers';
 import {Action, Dispatch} from 'redux';
-import {failedFetchingAttempt, failedFetchingMiniQuizzes, receiveAttempt, receiveMiniQuizzes, requestAttempt, requestMiniQuizzes} from './action';
-import {get, LOAD_ATTEMPT_URL, LOAD_MINI_QUIZZES_BY_USER_URL, LOAD_MINI_QUIZZES_URL, post} from '../api';
+import {failedFetchingMiniQuizzes, failedFetchingProgress, receiveMiniQuizzes, receiveProgress, requestMiniQuizzes, startProgress} from './action';
+import {get, LOAD_MINI_QUIZZES_BY_USER_URL, LOAD_MINI_QUIZZES_URL, LOAD_PROGRESS_URL, post} from '../api';
 import MiniQuiz from '../../model/MiniQuiz';
 import {User} from '../../model/User';
-import Attempt from '../../model/Attempt';
+import Progress from '../../model/Progress';
 
 /** Fetches mini quizzes. */
 export function fetchMiniQuizzes(): ThunkAction<void, AppState, null, Action<string>> {
@@ -35,18 +35,18 @@ export function fetchMiniQuizzesByUser(userId: string): ThunkAction<void, AppSta
     };
 }
 
-/** Fetches quiz by id. */
-export function getAttempt(user: User, quizId: string): ThunkAction<void, AppState, null, Action<string>> {
+/** Fetches quiz progress by user and quiz id. */
+export function getProgress(user: User, quizId: string): ThunkAction<void, AppState, null, Action<string>> {
     return async (dispatch: Dispatch) => {
-        dispatch(requestAttempt());
+        dispatch(startProgress());
         try {
-            const attempt: Attempt = await post<Attempt>(LOAD_ATTEMPT_URL, {
+            const progress: Progress = await post<Progress>(LOAD_PROGRESS_URL, {
                 user: user,
                 message: quizId,
             });
-            dispatch(receiveAttempt(attempt));
+            dispatch(receiveProgress(progress));
         } catch (e) {
-            dispatch(failedFetchingAttempt('Could not fetch mini quizzes'));
+            dispatch(failedFetchingProgress('Could not fetch mini quizzes'));
         }
     };
 }
