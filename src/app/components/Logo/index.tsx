@@ -8,10 +8,6 @@ interface LogoProps {
 
 /** A view component which displays the project logotype. */
 class Logo extends Component<LogoProps> {
-    static defaultProps = {
-        className: 'wh-2em',
-    };
-
     render() {
         const {className} = this.props;
         return <img

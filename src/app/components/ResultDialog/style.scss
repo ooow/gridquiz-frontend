@@ -1,0 +1,37 @@
+@import './../../../common/colors';
+
+#result-dialog {
+  .title {
+    font: {
+      family: FiraSans;
+      size: 39px;
+      weight: bold;
+    }
+  }
+
+  .result {
+    font: {
+      size: 70px;
+      family: FiraSans;
+      weight: bold;
+    }
+  }
+
+  .subtitle {
+    color: $secondary-text;
+    font: {
+      size: 16px;
+      family: FiraSans;
+    }
+  }
+
+  .link {
+    border-radius: 4px;
+    padding: 6px 22px;
+
+    font: {
+      family: FiraSans;
+      size: 16px;
+    }
+  }
+}

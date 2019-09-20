@@ -14,6 +14,7 @@ import Stopwatch from '../../components/Navbar/Stopwatch';
 import {defaultColor} from '../../components/Miniquiz';
 import './style.scss';
 import OptionButton from '../../components/OptionButton';
+import ResultDialog from '../../components/ResultDialog';
 
 interface QuizProps {
     attempt?: Attempt;
@@ -121,6 +122,8 @@ class QuizView extends Component<QuizProps, QuizState> {
 
         return (
             <div className='h-100vh' style={style}>
+                {attempt &&
+                <ResultDialog result={'9/10'} resultColor={attempt.quiz.color} />}
                 {!finished && attempt &&
                 <div>
                     {this.renderNavbar(new Date(attempt.result.startTime))}

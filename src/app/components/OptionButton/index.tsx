@@ -35,7 +35,7 @@ class OptionButton extends Component<OptionButtonProp> {
         const fontStyle: CSSProperties = {fontSize: this.getFontSize(text)};
 
         return (
-            <div className='option card shadow cursor-pointer m-3' onClick={onClick}>
+            <div className='option card shadow cursor-pointer m-4' onClick={onClick}>
                 <div className='d-flex h-100'>
                     <div
                         className='option-index d-flex align-items-center justify-content-center h-100'

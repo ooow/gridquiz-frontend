@@ -11,7 +11,7 @@ interface UserInfoProps {
 
 class UserInfo extends Component<UserInfoProps> {
     static defaultProps: UserInfoProps = {
-        className: 'text-white mr-4',
+        className: 'text-inline text-white mr-4',
     };
 
     render() {
