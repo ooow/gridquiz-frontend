@@ -6,9 +6,10 @@ const CURRENT_HOST = EnvService.getCurrentHost();
 
 /** All project API urls. */
 export const AUTH_URL = `${CURRENT_HOST}/auth/login`;
-export const LOAD_PROGRESS_URL = `${CURRENT_HOST}/quiz/progress`;
+export const LOAD_DASHBOARDS_URL = `${CURRENT_HOST}/result/dashboards`;
 export const LOAD_MINI_QUIZZES_BY_USER_URL = `${CURRENT_HOST}/quiz/mini`;
 export const LOAD_MINI_QUIZZES_URL = `${CURRENT_HOST}/open/mini`;
+export const LOAD_PROGRESS_URL = `${CURRENT_HOST}/quiz/progress`;
 export const SUBMIT_ANSWERS_URL = `${CURRENT_HOST}/result/submit`;
 
 export async function get<T>(url: string): Promise<T> {

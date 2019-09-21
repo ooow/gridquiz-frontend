@@ -1,0 +1,14 @@
+@import './../../../common/colors';
+
+.dashboard-tab {
+  background: $background-accent;
+}
+
+.results-label {
+  color: $subtitle;
+  font: {
+    size: 36px;
+    family: FiraSans;
+    weight: bold;
+  };
+}

@@ -21,7 +21,8 @@
     "redux": "latest",
     "redux-thunk": "latest",
     "typescript": "latest",
-    "superagent": "latest"
+    "superagent": "latest",
+    "react-bootstrap": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
