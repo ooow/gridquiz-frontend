@@ -34,7 +34,11 @@ class ResultDialog extends Component<ResultDialogProps> {
                         be in love with you!
                     </p>
                     <div className='row justify-content-center mt-3'>
-                        <Link to='/' className='link cursor-pointer' style={lingStyle}>
+                        <Link
+                            to='/dashboard'
+                            className='link cursor-pointer'
+                            style={lingStyle}
+                        >
                             See the results
                         </Link>
                     </div>

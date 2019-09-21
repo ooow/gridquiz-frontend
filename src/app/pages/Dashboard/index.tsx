@@ -9,8 +9,9 @@ import AuthButton from '../../components/Navbar/AuthButton';
 import {Link} from 'react-router-dom';
 import {getDashboards} from '../../redux/dashboards/thunk';
 import {DashboardResult} from '../../model/DashboardResult';
-import './style.scss';
 import Result from '../../model/Result';
+import {format, secBetween} from '../../components/Navbar/Stopwatch';
+import './style.scss';
 
 interface DashboardProps {
     userToken: UserToken;
@@ -28,7 +29,9 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
     }
 
     renderTableRow(result: Result, place: number) {
-        const time = '00:04:21';
+        // TODO: Check case with more that an hour.
+        const time = format(secBetween(new Date(result.startTime),
+            new Date(result.endTime)));
 
         return (
             <div className='border-bottom d-flex justify-content-between' key={place}>
@@ -64,10 +67,9 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
 
     render() {
         const {dashboards} = this.props;
-        console.log(1, dashboards);
         return (
             <div className='h-100vh'>
-                <Navbar>
+                <Navbar activeLinkToHome={true}>
                     <Link to='/' className='text-white cursor-pointer mr-4'>
                         Home
                     </Link>

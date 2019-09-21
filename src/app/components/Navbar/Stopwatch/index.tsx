@@ -37,25 +37,32 @@ class Stopwatch extends Component<StopwatchProps, StopwatchState> {
         if (!start) {
             return 0;
         }
-
-        const timeBetween = Math.abs(new Date().getTime() - start.getTime());
-        return Math.round(timeBetween / 1000);
-    }
-
-    /** Formats seconds to human readable label.
-     *  Example: 100 -> 1:40
-     */
-    private format(seconds: number): string {
-        return `${Math.floor(seconds / 60)}:${('0' + seconds % 60).slice(
-            -2)}`;
+        return secBetween(new Date(), start);
     }
 
     render() {
         const {className} = this.props;
         const {secondsElapsed} = this.state;
 
-        return <div className={className}>{this.format(secondsElapsed)}</div>;
+        return <div className={className}>{format(secondsElapsed)}</div>;
     }
 }
 
 export default Stopwatch;
+
+/**
+ * Formats seconds to human readable label.
+ * Example: 100 -> 1:40
+ */
+export function format(seconds: number): string {
+    return `${Math.floor(seconds / 60)}:${('0' + seconds % 60).slice(
+        -2)}`;
+}
+
+/**
+ * Returns second between two dates.
+ */
+export function secBetween(start: Date, end: Date): number {
+    const timeBetween = Math.abs(end.getTime() - start.getTime());
+    return Math.round(timeBetween / 1000);
+}
