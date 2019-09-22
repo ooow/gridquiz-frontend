@@ -19,7 +19,6 @@ class Stopwatch extends Component<StopwatchProps, StopwatchState> {
         this.state = {secondsElapsed: this.getStartDiffSec()};
     }
 
-    // TODO: Fix problem with clearing the interval.
     private incrementer?: NodeJS.Timeout;
 
     componentDidMount() {

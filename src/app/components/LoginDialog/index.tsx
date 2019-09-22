@@ -93,18 +93,22 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
                     contact with you to bring you prize. Goodluck!
                 </p>
                 <input
-                    required={true}
-                    className={nameClassName}
                     type='text'
                     placeholder='Name Surname'
+                    required={true}
+                    minLength={1}
+                    maxLength={100}
+                    className={nameClassName}
                     value={valueName}
                     onChange={this.changeName.bind(this)}
                 />
                 <input
-                    required={true}
-                    className={emailClassName}
                     type='text'
                     placeholder='Email or Phone'
+                    required={true}
+                    minLength={1}
+                    maxLength={100}
+                    className={emailClassName}
                     value={valueEmail}
                     onChange={this.changeEmail.bind(this)}
                 />

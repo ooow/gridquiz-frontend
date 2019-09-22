@@ -36,6 +36,10 @@ class QuizView extends Component<QuizProps> {
         this.props.getProgress(user.id, match.params.id);
     }
 
+    componentWillUnmount() {
+        this.props.cleanProgress();
+    }
+
     handelAnswer(index: number) {
         const {progress, updateProgress} = this.props;
 

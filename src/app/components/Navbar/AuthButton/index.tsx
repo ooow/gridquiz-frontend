@@ -5,6 +5,7 @@ import {logout, toggleLoginDialog} from '../../../redux/user/action';
 import {AppState} from '../../../redux/reducers';
 import UnlockSvg from '../../../assets/img/unlock.svg';
 import {User} from '../../../model/User';
+import {IconButton} from '@material-ui/core';
 
 interface AuthButtonProps {
     user?: User,
@@ -25,24 +26,32 @@ class AuthButton extends Component<AuthButtonProps> {
     showLogoutButton() {
         const {className} = this.props;
         return (
-            <img
-                alt='Logout button'
+            <IconButton
                 className={className}
                 onClick={this.logout.bind(this)}
-                src={UnlockSvg}
-            />
+                style={{width: 54}}
+            >
+                <img
+                    alt='Auth button'
+                    src={UnlockSvg}
+                />
+            </IconButton>
         );
     }
 
     showAuthButton() {
         const {className, toggleLoginDialog} = this.props;
         return (
-            <img
-                alt='Login button'
+            <IconButton
                 className={className}
                 onClick={toggleLoginDialog}
-                src={LockSvg}
-            />
+                style={{width: 54}}
+            >
+                <img
+                    alt='Login button'
+                    src={LockSvg}
+                />
+            </IconButton>
         );
     }
 

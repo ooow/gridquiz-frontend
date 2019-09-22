@@ -29,7 +29,7 @@ class Navbar extends Component<NavbarProps> {
                             </p>
                         </div>
                     </Link>
-                    <div className='d-flex'>
+                    <div className='d-flex align-items-center'>
                         {children}
                     </div>
                 </div>
