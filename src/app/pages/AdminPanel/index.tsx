@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../redux/reducers';
-import {UserToken} from '../../model/User';
+import {User} from '../../model/User';
 
 interface AdminPanelProps {
-    userToken?: UserToken,
+    user?: User,
 }
 
 interface AdminPanelState {
@@ -22,7 +22,7 @@ class AdminPanel extends Component<AdminPanelProps, AdminPanelState> {
 
 function mapStateToProps(state: AppState) {
     return {
-        userToken: state.userState.userToken,
+        user: state.userState.user,
     };
 }
 

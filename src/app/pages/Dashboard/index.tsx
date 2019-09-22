@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../redux/reducers';
-import {UserToken} from '../../model/User';
+import {User} from '../../model/User';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Navbar from '../../components/Navbar';
 import AuthButton from '../../components/Navbar/AuthButton';
 import {getDashboards, getOpenDashboards} from '../../redux/dashboards/thunk';
-import {DashboardResult} from '../../model/DashboardResult';
+import {Dashboard} from '../../model/Dashboard';
 import Result from '../../model/Result';
 import {format} from '../../components/Navbar/Stopwatch';
 import './style.scss';
 
 interface DashboardProps {
-    userToken: UserToken;
-    dashboards?: DashboardResult[];
+    user: User;
+    dashboards?: Dashboard[];
     getDashboards: any;
     getOpenDashboards: any;
 }
@@ -22,11 +22,11 @@ interface DashboardProps {
 interface DashboardState {
 }
 
-class Dashboard extends Component<DashboardProps, DashboardState> {
+class DashboardView extends Component<DashboardProps, DashboardState> {
     componentDidMount() {
-        const {userToken} = this.props;
-        userToken ?
-            this.props.getDashboards(userToken.user.id) :
+        const {user} = this.props;
+        user ?
+            this.props.getDashboards(user.id) :
             this.props.getOpenDashboards();
     }
 
@@ -56,7 +56,7 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
         );
     }
 
-    renderDashboardBody(dashboard: DashboardResult) {
+    renderDashboardBody(dashboard: Dashboard) {
         return (
             <div className='container dashboard-tab'>
                 <div className='row justify-content-start mt-5 ml-5'>
@@ -81,7 +81,7 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
                     {
                         dashboards &&
                         <Tabs id="dashboard-result-tabs">
-                            {dashboards.map((d: DashboardResult) =>
+                            {dashboards.map((d: Dashboard) =>
                                 <Tab
                                     eventKey={d.miniQuiz.id}
                                     title={d.miniQuiz.name}
@@ -102,11 +102,11 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
 
 function mapStateToProps(state: AppState) {
     return {
-        userToken: state.userState.userToken!,
+        user: state.userState.user!,
         dashboards: state.dashboardState.dashboards,
     };
 }
 
 export default connect(mapStateToProps,
     {getDashboards, getOpenDashboards})(
-    Dashboard);
+    DashboardView);

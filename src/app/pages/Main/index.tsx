@@ -5,7 +5,7 @@ import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
 import {toggleLoginDialog} from '../../redux/user/action';
-import {UserToken} from '../../model/User';
+import {User} from '../../model/User';
 import LoginDialog from '../../components/LoginDialog';
 import NavbarWrapper from '../../components/Navbar/NavbarWrapper';
 import AuthButton from '../../components/Navbar/AuthButton';
@@ -20,32 +20,32 @@ interface MainProps {
     toggleLoginDialog: any,
     startProgress: any,
     miniQuizzes: MiniQuiz[],
-    userToken?: UserToken,
+    user?: User,
 }
 
 class Main extends Component<MainProps> {
     componentDidMount() {
-        const {userToken} = this.props;
-        userToken ? this.props.fetchMiniQuizzesByUser(userToken.user.id)
+        const {user} = this.props;
+        user ? this.props.fetchMiniQuizzesByUser(user.id)
             : this.props.fetchMiniQuizzes();
     }
 
     componentDidUpdate(prevProps: MainProps) {
-        if (this.props.userToken !== prevProps.userToken) {
+        if (this.props.user !== prevProps.user) {
             this.updateMiniQuizzes();
         }
     }
 
     updateMiniQuizzes() {
-        const {userToken} = this.props;
-        userToken ? this.props.fetchMiniQuizzesByUser(userToken.user.id)
+        const {user} = this.props;
+        user ? this.props.fetchMiniQuizzesByUser(user.id)
             : this.props.fetchMiniQuizzes();
     }
 
     renderMiniquiz(miniQuiz: MiniQuiz) {
-        const {toggleLoginDialog, userToken} = this.props;
+        const {toggleLoginDialog, user} = this.props;
 
-        if (userToken) {
+        if (user) {
             return miniQuiz.attempt ?
                 <MiniQuizView miniQuiz={miniQuiz} key={miniQuiz.id}>
                     {
@@ -73,11 +73,11 @@ class Main extends Component<MainProps> {
     }
 
     render() {
-        const {userToken, miniQuizzes} = this.props;
+        const {user, miniQuizzes} = this.props;
 
         return (
             <div id='main'>
-                {!userToken && <LoginDialog />}
+                {!user && <LoginDialog />}
                 <NavbarWrapper>
                     <UserInfo className='user-info mr-4' />
                     <AdminButton className='cursor-pointer mr-4' />
@@ -100,7 +100,7 @@ class Main extends Component<MainProps> {
 function mapStateToProps(state: AppState) {
     return {
         miniQuizzes: state.quizState.miniQuizzes,
-        userToken: state.userState.userToken,
+        user: state.userState.user,
     };
 }
 

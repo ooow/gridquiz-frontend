@@ -4,10 +4,10 @@ import {connect} from 'react-redux';
 import {logout, toggleLoginDialog} from '../../../redux/user/action';
 import {AppState} from '../../../redux/reducers';
 import UnlockSvg from '../../../assets/img/unlock.svg';
-import {UserToken} from '../../../model/User';
+import {User} from '../../../model/User';
 
 interface AuthButtonProps {
-    userToken?: UserToken,
+    user?: User,
     className: string,
     logout: typeof logout,
     toggleLoginDialog: typeof toggleLoginDialog,
@@ -43,13 +43,13 @@ class AuthButton extends Component<AuthButtonProps> {
     }
 
     render() {
-        const {userToken} = this.props;
-        return userToken ? this.showLogoutButton() : this.showAuthButton();
+        const {user} = this.props;
+        return user ? this.showLogoutButton() : this.showAuthButton();
     }
 }
 
 function mapStateToProps(state: AppState) {
-    return {userToken: state.userState.userToken};
+    return {user: state.userState.user};
 }
 
 export default connect(mapStateToProps,

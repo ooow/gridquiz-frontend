@@ -1,6 +1,6 @@
 import EnvService from '../services/EnvService';
 import LocalStoreService, {userTokenKey} from '../services/LocalStoreService';
-import {UserToken} from '../model/User';
+import {User} from '../model/User';
 
 const CURRENT_HOST = EnvService.getCurrentHost();
 
@@ -30,8 +30,8 @@ export async function post<T>(url: string, body: any): Promise<T> {
 }
 
 function getHeaders(): any {
-    const userToken: UserToken = LocalStoreService.read<any>(userTokenKey);
-    const token = userToken ? `Bearer ${userToken.message}` : '';
+    const user: User = LocalStoreService.read<any>(userTokenKey);
+    const token = user ? `Bearer ${user.token}` : '';
 
     let headers: any = {
         'Accept': 'application/json',

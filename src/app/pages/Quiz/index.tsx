@@ -1,7 +1,6 @@
 import React, {Component, CSSProperties} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../redux/reducers';
-import {UserToken} from '../../model/User';
 import {submit} from '../../redux/result/thunk';
 import Navbar from '../../components/Navbar';
 import Result from '../../model/Result';
@@ -12,16 +11,17 @@ import {getProgress} from '../../redux/progress/thunk';
 import Progress from '../../model/Progress';
 import {cleanProgress, updateProgress} from '../../redux/progress/action';
 import {Answer} from '../../model/Answers';
-import './style.scss';
 import ResultDialog from '../../components/ResultDialog';
 import {cleanResult} from '../../redux/result/action';
+import {User} from '../../model/User';
+import './style.scss';
 
 interface QuizProps {
     currentColor: string;
     isFinished: boolean;
     progress?: Progress;
     result?: Result;
-    userToken: UserToken;
+    user: User;
     match: any;
     submit: any;
     getProgress: any;
@@ -32,8 +32,8 @@ interface QuizProps {
 
 class QuizView extends Component<QuizProps> {
     componentDidMount() {
-        const {userToken, match} = this.props;
-        this.props.getProgress(userToken.user.id, match.params.id);
+        const {user, match} = this.props;
+        this.props.getProgress(user.id, match.params.id);
     }
 
     handelAnswer(index: number) {
@@ -76,11 +76,11 @@ class QuizView extends Component<QuizProps> {
     }
 
     render() {
-        const {progress, currentColor, result, isFinished, submit, userToken, cleanProgress, cleanResult} = this.props;
+        const {progress, currentColor, result, isFinished, submit, user, cleanProgress, cleanResult} = this.props;
         const style: CSSProperties = {background: currentColor || defaultColor};
 
         if (progress && isFinished) {
-            submit(userToken.user.id,
+            submit(user.id,
                 {quizId: progress.quiz.id, answers: progress.answers});
             cleanProgress();
         }
@@ -111,7 +111,7 @@ function mapStateToProps(state: AppState) {
     return {
         progress: state.progressState.progress,
         result: state.resultState.result,
-        userToken: state.userState.userToken!,
+        user: state.userState.user!,
         currentColor: state.progressState.currentColor!,
         isFinished: state.progressState.isFinished,
     };

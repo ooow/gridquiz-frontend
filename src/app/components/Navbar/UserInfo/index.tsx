@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../../redux/reducers';
-import {UserToken} from '../../../model/User';
+import {User} from '../../../model/User';
 import {SafeEmptyRender} from '../index';
 
 interface UserInfoProps {
     className: string,
-    userToken?: UserToken,
+    user?: User,
 }
 
 class UserInfo extends Component<UserInfoProps> {
@@ -15,18 +15,18 @@ class UserInfo extends Component<UserInfoProps> {
     };
 
     render() {
-        const {userToken, className} = this.props;
+        const {user, className} = this.props;
 
-        return userToken ? (
+        return user ? (
             <div className={className}>
-                {userToken.user.name}
+                {user.name}
             </div>
         ) : SafeEmptyRender;
     }
 }
 
 function mapStateToProps(state: AppState) {
-    return {userToken: state.userState.userToken};
+    return {user: state.userState.user};
 }
 
 export default connect(mapStateToProps)(UserInfo);

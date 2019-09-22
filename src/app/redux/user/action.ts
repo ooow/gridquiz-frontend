@@ -1,12 +1,12 @@
-import {UserToken} from '../../model/User';
 import {FAILED_FETCHING_USER, FailedFetchingUser, LOGOUT, Logout, RECEIVE_USER, ReceiveUser, REQUEST_USER, RequestUser, TOGGLE_LOGIN_DIALOG, ToggleLoginDialog} from './types';
+import {User} from '../../model/User';
 
 export function requestUser(): RequestUser {
     return {type: REQUEST_USER};
 }
 
-export function receiveUser(userToken: UserToken): ReceiveUser {
-    return {type: RECEIVE_USER, userToken};
+export function receiveUser(user: User): ReceiveUser {
+    return {type: RECEIVE_USER, user: user};
 }
 
 export function failedFetchingUser(error: string): FailedFetchingUser {

@@ -1,4 +1,4 @@
-import {UserToken} from '../../model/User';
+import {User} from '../../model/User';
 
 export const FAILED_FETCHING_USER = 'FAILED_FETCHING_USER';
 export const LOGOUT = 'LOGOUT';
@@ -9,7 +9,7 @@ export const TOGGLE_LOGIN_DIALOG = 'TOGGLE_LOGIN_DIALOG';
 export interface UserState {
     isFetching: boolean,
     showLoginDialog: boolean,
-    userToken?: UserToken,
+    user?: User,
     error?: string,
 }
 
@@ -22,7 +22,7 @@ export interface RequestUser {
 
 export interface ReceiveUser {
     type: typeof RECEIVE_USER;
-    userToken: UserToken;
+    user: User;
 }
 
 export interface FailedFetchingUser {

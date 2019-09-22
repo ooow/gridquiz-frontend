@@ -1,22 +1,22 @@
 import {FAILED_FETCHING_USER, LOGOUT, RECEIVE_USER, REQUEST_USER, TOGGLE_LOGIN_DIALOG, UserActionTypes, UserState} from './types';
 import LocalStoreService, {userTokenKey} from '../../services/LocalStoreService';
-import {UserToken} from '../../model/User';
+import {User} from '../../model/User';
 
 const initState: UserState = {
     isFetching: false,
     showLoginDialog: false,
-    userToken: LocalStoreService.read<UserToken>(userTokenKey),
+    user: LocalStoreService.read<User>(userTokenKey),
 };
 
 export function userReducer(state = initState, action: UserActionTypes): UserState {
     switch (action.type) {
         case RECEIVE_USER:
-            LocalStoreService.write(userTokenKey, action.userToken);
+            LocalStoreService.write(userTokenKey, action.user);
             return {
                 ...state,
                 isFetching: false,
                 showLoginDialog: false,
-                userToken: action.userToken,
+                user: action.user,
                 error: undefined,
             };
         case REQUEST_USER:
@@ -31,7 +31,7 @@ export function userReducer(state = initState, action: UserActionTypes): UserSta
             LocalStoreService.remove(userTokenKey);
             return {
                 ...state,
-                userToken: undefined,
+                user: undefined,
             };
         case TOGGLE_LOGIN_DIALOG:
             return {

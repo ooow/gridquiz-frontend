@@ -4,12 +4,12 @@ import {AppState} from '../../../redux/reducers';
 import AdminSvg from '../../../assets/img/admin.svg';
 import {Link} from 'react-router-dom';
 import {ADMIN_PAGE_URL} from '../../../router';
-import {Role, UserToken} from '../../../model/User';
+import {Role, User} from '../../../model/User';
 import {SafeEmptyRender} from '../index';
 
 interface AdminButtonProps {
     className: string,
-    userToken?: UserToken,
+    user?: User,
 }
 
 class AdminButton extends Component<AdminButtonProps> {
@@ -18,8 +18,8 @@ class AdminButton extends Component<AdminButtonProps> {
     };
 
     isAdmin() {
-        const {userToken} = this.props;
-        return userToken && userToken.user.role === Role.ADMIN;
+        const {user} = this.props;
+        return user && user.role === Role.ADMIN;
     }
 
     render() {
@@ -38,7 +38,7 @@ class AdminButton extends Component<AdminButtonProps> {
 }
 
 function mapStateToProps(state: AppState) {
-    return {userToken: state.userState.userToken};
+    return {user: state.userState.user};
 }
 
 export default connect(mapStateToProps)(AdminButton);

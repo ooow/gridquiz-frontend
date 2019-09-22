@@ -1,4 +1,4 @@
-import {DashboardResult} from '../../model/DashboardResult';
+import {Dashboard} from '../../model/Dashboard';
 
 export const FAILED_FETCHING_DASHBOARD = 'FAILED_FETCHING_DASHBOARD';
 export const RECEIVE_DASHBOARD = 'RECEIVE_DASHBOARD';
@@ -6,7 +6,7 @@ export const REQUEST_DASHBOARD = 'REQUEST_DASHBOARD';
 
 export interface DashboardState {
     isFetching: boolean;
-    dashboards?: DashboardResult[];
+    dashboards?: Dashboard[];
     error?: string;
 }
 
@@ -19,7 +19,7 @@ export interface RequestDashboard {
 
 export interface ReceiveDashboard {
     type: typeof RECEIVE_DASHBOARD;
-    dashboards: DashboardResult[]
+    dashboards: Dashboard[]
 }
 
 export interface FailedFetchingDashboards {
