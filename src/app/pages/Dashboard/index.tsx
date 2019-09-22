@@ -74,7 +74,7 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
         return (
             <div className='h-100vh'>
                 <Navbar activeLinkToHome={true}>
-                    <AuthButton className='cursor-pointer' />
+                    <AuthButton />
                 </Navbar>
                 <div className='dashboard-stub'></div>
                 <div className='container mt-3'>

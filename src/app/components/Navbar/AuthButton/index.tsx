@@ -8,14 +8,18 @@ import {User} from '../../../model/User';
 
 interface AuthButtonProps {
     user?: User,
-    className: string,
-    logout: typeof logout,
-    toggleLoginDialog: typeof toggleLoginDialog,
+    className?: string,
+    logout?: typeof logout,
+    toggleLoginDialog?: typeof toggleLoginDialog,
 }
 
 class AuthButton extends Component<AuthButtonProps> {
+    static defaultProps: AuthButtonProps = {
+        className: 'cursor-pointer',
+    };
+
     logout() {
-        this.props.logout();
+        this.props.logout!();
     }
 
     showLogoutButton() {

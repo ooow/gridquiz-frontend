@@ -22,7 +22,9 @@
     "redux-thunk": "latest",
     "typescript": "latest",
     "superagent": "latest",
-    "react-bootstrap": "latest"
+    "react-bootstrap": "latest",
+    "react-color": "latest",
+    "hex-rgb": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-color": "^3.0.1",
     "@types/react-redux": "latest",
     "@types/reactstrap": "latest",
     "@types/superagent": "^4.1.3",

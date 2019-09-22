@@ -81,7 +81,7 @@ class Main extends Component<MainProps> {
                 <NavbarWrapper>
                     <UserInfo className='user-info mr-4' />
                     <AdminButton className='cursor-pointer mr-4' />
-                    <AuthButton className='cursor-pointer' />
+                    <AuthButton />
                 </NavbarWrapper>
                 <div className='content'>
                     <div className='d-flex justify-content-center align-items-center h-100'>
