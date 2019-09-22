@@ -15,6 +15,9 @@ export const SUBMIT_ANSWERS_URL = `${CURRENT_HOST}/result/submit`;
 
 export async function get<T>(url: string): Promise<T> {
     const response: Response = await fetch(url);
+    if (!response.ok) {
+        throw new Error();
+    }
     return response.json();
 }
 
@@ -25,6 +28,9 @@ export async function post<T>(url: string, body: any): Promise<T> {
         headers: getHeaders(),
         body: preparedBody,
     });
+    if (!response.ok) {
+        throw new Error();
+    }
     return response.json();
 
 }

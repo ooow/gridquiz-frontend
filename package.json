@@ -24,7 +24,9 @@
     "superagent": "latest",
     "react-bootstrap": "latest",
     "react-color": "latest",
-    "hex-rgb": "latest"
+    "hex-rgb": "latest",
+    "validator": "latest",
+    "@material-ui/core": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,6 +54,7 @@
     "@types/react-redux": "latest",
     "@types/reactstrap": "latest",
     "@types/superagent": "^4.1.3",
+    "@types/validator": "^10.11.3",
     "redux-devtools-extension": "latest"
   }
 }

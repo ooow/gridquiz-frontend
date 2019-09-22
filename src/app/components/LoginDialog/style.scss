@@ -18,6 +18,12 @@
     }
   }
 
+  button {
+    &:focus {
+      outline: 0;
+    }
+  }
+
   .input {
     border: 0;
     border-bottom: 1px solid $secondary-text;
@@ -26,6 +32,10 @@
     font: {
       family: FiraSans;
       size: 16px;
+    }
+
+    &.invalid {
+      background: rgba(255, 0, 0, 0.5);
     }
 
     &:focus {

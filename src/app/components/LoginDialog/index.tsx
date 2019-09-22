@@ -5,7 +5,9 @@ import {AppState} from '../../redux/reducers';
 import SendSVG from './../../assets/img/send.svg';
 import CloseSVG from './../../assets/img/close.svg';
 import {login} from '../../redux/user/thunk';
+import {isEmail, isEmpty} from 'validator';
 import {toggleLoginDialog} from '../../redux/user/action';
+import {IconButton} from '@material-ui/core';
 import './style.scss';
 
 interface LoginDialogProps {
@@ -16,13 +18,19 @@ interface LoginDialogProps {
 }
 
 interface LoginDialogState {
-    valueEmail: string,
-    valueName: string,
+    valueEmail: string;
+    valueName: string;
+    validName: boolean;
+    validEmail: boolean;
+    firstClick: boolean;
 }
 
 const initState: LoginDialogState = {
     valueName: '',
     valueEmail: '',
+    validName: false,
+    validEmail: false,
+    firstClick: true,
 };
 
 class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
@@ -33,16 +41,23 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
     }
 
     changeName(event: ChangeEvent<HTMLInputElement>) {
+        const isNameValid = !isEmpty(event.target.value);
         this.setState({valueName: event.target.value});
+        this.setState({validName: isNameValid});
     }
 
     changeEmail(event: ChangeEvent<HTMLInputElement>) {
+        const isEmailValid = isEmail(event.target.value);
         this.setState({valueEmail: event.target.value});
+        this.setState({validEmail: isEmailValid});
     }
 
     handleLogin() {
-        const {valueName, valueEmail} = this.state;
-        this.props.login({name: valueName, email: valueEmail});
+        const {valueName, valueEmail, validName, validEmail} = this.state;
+        this.setState({firstClick: false});
+        if (validName && validEmail) {
+            this.props.login({name: valueName, email: valueEmail});
+        }
     }
 
     renderSpinner() {
@@ -56,8 +71,20 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
     }
 
     renderForm() {
-        const {valueName, valueEmail} = this.state;
+        const {valueName, valueEmail, validName, validEmail, firstClick} = this.state;
         const {toggleLoginDialog} = this.props;
+
+        let nameClassName = 'row input w-100 mt-4';
+        let emailClassName = 'row input w-100 mt-4';
+
+        if (!firstClick) {
+            if (!validName) {
+                nameClassName += ' invalid';
+            }
+            if (!validEmail) {
+                emailClassName += ' invalid';
+            }
+        }
 
         return (
             <div className='container'>
@@ -66,32 +93,31 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
                     contact with you to bring you prize. Goodluck!
                 </p>
                 <input
-                    className='row input w-100 mt-4'
+                    required={true}
+                    className={nameClassName}
                     type='text'
                     placeholder='Name Surname'
                     value={valueName}
                     onChange={this.changeName.bind(this)}
                 />
                 <input
-                    className='row input w-100 mt-4'
+                    required={true}
+                    className={emailClassName}
                     type='text'
                     placeholder='Email or Phone'
                     value={valueEmail}
                     onChange={this.changeEmail.bind(this)}
                 />
                 <div className='row justify-content-end w-100 mt-4'>
-                    <img
-                        alt='Close dialog window button'
-                        className='cursor-pointer mr-3'
-                        src={CloseSVG}
-                        onClick={toggleLoginDialog}
-                    />
-                    <img
-                        alt='Login button'
-                        className='cursor-pointer'
-                        src={SendSVG}
-                        onClick={this.handleLogin.bind(this)}
-                    />
+                    <IconButton className='mr-3' onClick={toggleLoginDialog}>
+                        <img
+                            alt='Close dialog window button'
+                            src={CloseSVG}
+                        />
+                    </IconButton>
+                    <IconButton onClick={this.handleLogin.bind(this)}>
+                        <img alt='Login button' src={SendSVG} />
+                    </IconButton>
                 </div>
             </div>
         );
