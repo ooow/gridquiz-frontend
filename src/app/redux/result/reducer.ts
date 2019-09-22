@@ -1,4 +1,4 @@
-import {FAILED_SUBMITTING_ANSWERS, RECEIVE_RESULT, ResultActionTypes, ResultState, SUBMIT_ANSWERS} from './types';
+import {CLEAN_RESULT, FAILED_SUBMITTING_ANSWERS, RECEIVE_RESULT, ResultActionTypes, ResultState, SUBMIT_ANSWERS} from './types';
 
 const initState: ResultState = {
     isFetching: false,
@@ -15,12 +15,10 @@ export function resultReducer(state = initState, action: ResultActionTypes): Res
             };
         case SUBMIT_ANSWERS:
             return {...state, isFetching: true};
+        case CLEAN_RESULT:
+            return {isFetching: false};
         case FAILED_SUBMITTING_ANSWERS:
-            return {
-                ...state,
-                isFetching: false,
-                error: action.error,
-            };
+            return {...state, isFetching: false, error: action.error};
         default:
             return state;
     }

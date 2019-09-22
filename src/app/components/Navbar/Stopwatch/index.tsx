@@ -55,6 +55,7 @@ export default Stopwatch;
  * Example: 100 -> 1:40
  */
 export function format(seconds: number): string {
+    // TODO: Check case with more that an hour.
     return `${Math.floor(seconds / 60)}:${('0' + seconds % 60).slice(
         -2)}`;
 }

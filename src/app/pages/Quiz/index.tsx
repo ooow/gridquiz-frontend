@@ -14,24 +14,23 @@ import {cleanProgress, updateProgress} from '../../redux/progress/action';
 import {Answer} from '../../model/Answers';
 import './style.scss';
 import ResultDialog from '../../components/ResultDialog';
+import {cleanResult} from '../../redux/result/action';
 
 interface QuizProps {
     currentColor: string;
-    getProgress: any;
-    progress?: Progress;
-    match: any;
-    updateProgress: any;
-    result?: Result;
-    submit: any;
-    userToken: UserToken;
     isFinished: boolean;
+    progress?: Progress;
+    result?: Result;
+    userToken: UserToken;
+    match: any;
+    submit: any;
+    getProgress: any;
+    updateProgress: any;
+    cleanResult: typeof cleanResult;
     cleanProgress: typeof cleanProgress;
 }
 
-interface QuizState {
-}
-
-class QuizView extends Component<QuizProps, QuizState> {
+class QuizView extends Component<QuizProps> {
     componentDidMount() {
         const {userToken, match} = this.props;
         this.props.getProgress(userToken.user.id, match.params.id);
@@ -77,7 +76,7 @@ class QuizView extends Component<QuizProps, QuizState> {
     }
 
     render() {
-        const {progress, currentColor, result, isFinished, submit, userToken, cleanProgress} = this.props;
+        const {progress, currentColor, result, isFinished, submit, userToken, cleanProgress, cleanResult} = this.props;
         const style: CSSProperties = {background: currentColor || defaultColor};
 
         if (progress && isFinished) {
@@ -100,6 +99,7 @@ class QuizView extends Component<QuizProps, QuizState> {
                     <ResultDialog
                       result={`${result.points}/${result.outOf}`}
                       resultColor={currentColor}
+                      onClick={cleanResult}
                     />
                 }
             </div>
@@ -118,5 +118,5 @@ function mapStateToProps(state: AppState) {
 }
 
 export default connect(mapStateToProps,
-    {getProgress, submit, updateProgress, cleanProgress})(
+    {getProgress, submit, updateProgress, cleanProgress, cleanResult})(
     QuizView);

@@ -4,6 +4,15 @@
   background: $background-accent;
 }
 
+.dashboard-stub {
+  background: $background-accent;
+  height: calc(100vh - 155px);
+  margin-top: 61px;
+  position: absolute;
+  width: 100vw;
+  z-index: -5;
+}
+
 .results-label {
   color: $subtitle;
   font: {
@@ -11,4 +20,38 @@
     family: FiraSans;
     weight: bold;
   };
+}
+
+.result-text {
+  font-size: 18px;
+}
+
+.tab {
+  border: 0;
+  color: white;
+  font-size: 18px;
+  max-width: 200px;
+  min-width: 100px;
+  opacity: 0.6;
+  text-align: center;
+
+  &.nav-item.nav-link.active {
+    background: none;
+    border: 0;
+    border-bottom: 3px solid $primary;
+    color: white;
+    opacity: 1;
+  }
+
+  &:hover {
+    border: 0;
+    color: $primary;
+    opacity: 1;
+  }
+
+  &:focus {
+    border: 0;
+    color: $primary;
+    opacity: 1;
+  }
 }

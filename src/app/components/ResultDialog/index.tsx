@@ -4,13 +4,14 @@ import {Link} from 'react-router-dom';
 import './style.scss';
 
 interface ResultDialogProps {
-    result: string,
-    resultColor: string,
+    result: string;
+    resultColor: string;
+    onClick?: any;
 }
 
 class ResultDialog extends Component<ResultDialogProps> {
     render() {
-        const {result, resultColor} = this.props;
+        const {result, resultColor, onClick} = this.props;
         const lingStyle: CSSProperties = {border: `1px solid ${resultColor}`};
 
         return (
@@ -38,6 +39,7 @@ class ResultDialog extends Component<ResultDialogProps> {
                             to='/dashboard'
                             className='link cursor-pointer'
                             style={lingStyle}
+                            onClick={onClick}
                         >
                             See the results
                         </Link>

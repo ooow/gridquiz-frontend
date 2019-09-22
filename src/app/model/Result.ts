@@ -3,6 +3,7 @@ export default interface Result {
     quizId: string;
     startTime: string;
     endTime: string;
+    seconds: number;
     points: number;
     outOf: number;
     approved: boolean;

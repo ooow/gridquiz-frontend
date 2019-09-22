@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom';
 import {getDashboards} from '../../redux/dashboards/thunk';
 import {DashboardResult} from '../../model/DashboardResult';
 import Result from '../../model/Result';
-import {format, secBetween} from '../../components/Navbar/Stopwatch';
+import {format} from '../../components/Navbar/Stopwatch';
 import './style.scss';
 
 interface DashboardProps {
@@ -29,23 +29,19 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
     }
 
     renderTableRow(result: Result, place: number) {
-        // TODO: Check case with more that an hour.
-        const time = format(secBetween(new Date(result.startTime),
-            new Date(result.endTime)));
-
         return (
-            <div className='border-bottom d-flex justify-content-between' key={place}>
-                <div>{place + 1}</div>
-                <div>{result.userId}</div>
-                <div>{result.points}</div>
-                <div>{time}</div>
+            <div className='border-bottom d-flex justify-content-between px-3 result-text' key={place}>
+                <p>{place + 1}</p>
+                <p>{result.userId}</p>
+                <p>{result.points}</p>
+                <p>{format(result.seconds)}</p>
             </div>
         );
     }
 
     renderTable(results: Result[]) {
         return (
-            <div className='col'>
+            <div className='col px-5 mt-2'>
                 {results.map((r: Result, i: number) =>
                     this.renderTableRow(r, i))}
             </div>
@@ -55,7 +51,7 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
     renderDashboardBody(dashboard: DashboardResult) {
         return (
             <div className='container dashboard-tab'>
-                <div className='row justify-content-start'>
+                <div className='row justify-content-start mt-5 ml-5'>
                     <p className='results-label'>
                         Results / {dashboard.miniQuiz.name}
                     </p>
@@ -75,6 +71,7 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
                     </Link>
                     <AuthButton className='cursor-pointer' />
                 </Navbar>
+                <div className='dashboard-stub'></div>
                 <div className='container mt-3'>
                     {
                         dashboards &&
@@ -84,6 +81,7 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
                                     eventKey={d.miniQuiz.id}
                                     title={d.miniQuiz.name}
                                     key={d.miniQuiz.id}
+                                    tabClassName='tab text-inline'
                                 >
                                     {this.renderDashboardBody(d)}
                                 </Tab>,
