@@ -6,8 +6,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Navbar from '../../components/Navbar';
 import AuthButton from '../../components/Navbar/AuthButton';
-import {Link} from 'react-router-dom';
-import {getDashboards} from '../../redux/dashboards/thunk';
+import {getDashboards, getOpenDashboards} from '../../redux/dashboards/thunk';
 import {DashboardResult} from '../../model/DashboardResult';
 import Result from '../../model/Result';
 import {format} from '../../components/Navbar/Stopwatch';
@@ -17,6 +16,7 @@ interface DashboardProps {
     userToken: UserToken;
     dashboards?: DashboardResult[];
     getDashboards: any;
+    getOpenDashboards: any;
 }
 
 interface DashboardState {
@@ -25,13 +25,20 @@ interface DashboardState {
 class Dashboard extends Component<DashboardProps, DashboardState> {
     componentDidMount() {
         const {userToken} = this.props;
-        this.props.getDashboards(userToken.user.id);
+        userToken ?
+            this.props.getDashboards(userToken.user.id) :
+            this.props.getOpenDashboards();
     }
 
-    renderTableRow(result: Result, place: number) {
+    renderTableRow(result: Result) {
+        let className = 'border-bottom d-flex justify-content-between px-3 result-text';
+        if (result.highlighted) {
+            className += ' highlighted';
+        }
+
         return (
-            <div className='border-bottom d-flex justify-content-between px-3 result-text' key={place}>
-                <p>{place + 1}</p>
+            <div className={className} key={result.place}>
+                <p>{result.place} {result.highlighted && 'You!'}</p>
                 <p>{result.userId}</p>
                 <p>{result.points}</p>
                 <p>{format(result.seconds)}</p>
@@ -40,10 +47,11 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
     }
 
     renderTable(results: Result[]) {
+
         return (
             <div className='col px-5 mt-2'>
-                {results.map((r: Result, i: number) =>
-                    this.renderTableRow(r, i))}
+                {results.map((r: Result) =>
+                    this.renderTableRow(r))}
             </div>
         );
     }
@@ -56,7 +64,7 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
                         Results / {dashboard.miniQuiz.name}
                     </p>
                 </div>
-                {this.renderTable(dashboard.top5results)}
+                {this.renderTable(dashboard.results)}
             </div>
         );
     }
@@ -66,9 +74,6 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
         return (
             <div className='h-100vh'>
                 <Navbar activeLinkToHome={true}>
-                    <Link to='/' className='text-white cursor-pointer mr-4'>
-                        Home
-                    </Link>
                     <AuthButton className='cursor-pointer' />
                 </Navbar>
                 <div className='dashboard-stub'></div>
@@ -102,4 +107,6 @@ function mapStateToProps(state: AppState) {
     };
 }
 
-export default connect(mapStateToProps, {getDashboards})(Dashboard);
+export default connect(mapStateToProps,
+    {getDashboards, getOpenDashboards})(
+    Dashboard);
