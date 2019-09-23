@@ -5,7 +5,7 @@ import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
 import {toggleLoginDialog} from '../../redux/user/action';
-import {User} from '../../model/User';
+import {Role, User} from '../../model/User';
 import LoginDialog from '../../components/LoginDialog';
 import NavbarWrapper from '../../components/Navbar/NavbarWrapper';
 import AuthButton from '../../components/Navbar/AuthButton';
@@ -46,6 +46,19 @@ class Main extends Component<MainProps> {
         const {toggleLoginDialog, user} = this.props;
 
         if (user) {
+            if (user.role === Role.ADMIN) {
+                return (
+                    <MiniQuizView miniQuiz={miniQuiz} key={miniQuiz.id}>
+                        <Link
+                            to={`/dashboard`}
+                            className='results-link'
+                            style={{color: miniQuiz.color}}
+                        >
+                            RESULTS
+                        </Link>
+                    </MiniQuizView>
+                );
+            }
             return miniQuiz.attempt ?
                 <MiniQuizView miniQuiz={miniQuiz} key={miniQuiz.id}>
                     {
@@ -58,8 +71,8 @@ class Main extends Component<MainProps> {
                             RESULTS
                         </Link>
                     }
-
-                </MiniQuizView> :
+                </MiniQuizView>
+                :
                 <Link to={`/quiz/${miniQuiz.id}`} key={miniQuiz.id}>
                     <MiniQuizView miniQuiz={miniQuiz} />
                 </Link>;
