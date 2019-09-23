@@ -7,6 +7,7 @@ import AuthButton from '../../components/Navbar/AuthButton';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import CreateQuiz from './CraeteQuiz';
+import './style.scss';
 
 interface AdminPanelProps {
     user?: User,
@@ -18,7 +19,7 @@ interface AdminPanelState {
 class AdminPanel extends Component<AdminPanelProps, AdminPanelState> {
     render() {
         return (
-            <div>
+            <div id='admin-page'>
                 <Navbar activeLinkToHome={true}>
                     <AuthButton />
                 </Navbar>

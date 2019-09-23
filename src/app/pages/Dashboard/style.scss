@@ -1,13 +1,12 @@
 @import './../../../common/colors';
 
-.dashboard-tab {
-  background: $background-accent;
+.dashboard-navbar {
+  background: $background-primary;
 }
 
 .dashboard-stub {
-  background: $background-accent;
-  height: calc(100vh - 155px);
-  margin-top: 61px;
+  background: $background-primary;
+  height: 61px;
   position: absolute;
   width: 100vw;
   z-index: -5;

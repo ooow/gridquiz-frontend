@@ -82,7 +82,7 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
 
     renderDashboardBody(dashboard: Dashboard) {
         return (
-            <div className='container dashboard-tab'>
+            <div className='container'>
                 <div className='row justify-content-start mt-5 ml-5'>
                     <p className='results-label'>
                         Results / {dashboard.miniQuiz.name}
@@ -98,11 +98,13 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
         const currentTabId = match.params.id;
 
         return (
-            <div className='h-100vh'>
+            <div>
                 {!user && <LoginDialog />}
-                <Navbar activeLinkToHome={true}>
-                    <AuthButton />
-                </Navbar>
+                <div className='dashboard-navbar'>
+                    <Navbar activeLinkToHome={true}>
+                        <AuthButton />
+                    </Navbar>
+                </div>
                 <div className='dashboard-stub'></div>
                 <div className='container mt-3'>
                     {

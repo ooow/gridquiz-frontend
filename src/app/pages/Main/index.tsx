@@ -97,7 +97,7 @@ class Main extends Component<MainProps> {
                     <AuthButton />
                 </NavbarWrapper>
                 <div className='content'>
-                    <div className='d-flex justify-content-center align-items-center h-100'>
+                    <div className='d-flex flex-wrap justify-content-center align-items-center h-100'>
                         {
                             miniQuizzes &&
                             miniQuizzes.map((q: MiniQuiz) =>

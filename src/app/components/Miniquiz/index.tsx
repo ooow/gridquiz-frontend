@@ -14,7 +14,7 @@ class MiniQuizView extends Component<MainQuizProp> {
         const {miniQuiz, children} = this.props;
         const style: CSSProperties = {
             background: miniQuiz.color || defaultColor,
-            opacity: miniQuiz.attempt ? 0.6 : 1,
+            opacity: miniQuiz.attempt ? 0.5 : 1,
         };
 
         return (
