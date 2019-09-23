@@ -19,16 +19,12 @@ class AuthButton extends Component<AuthButtonProps> {
         className: 'cursor-pointer',
     };
 
-    logout() {
-        this.props.logout!();
-    }
-
     showLogoutButton() {
-        const {className} = this.props;
+        const {className, logout} = this.props;
         return (
             <IconButton
                 className={className}
-                onClick={this.logout.bind(this)}
+                onClick={logout}
                 style={{width: 54}}
             >
                 <img

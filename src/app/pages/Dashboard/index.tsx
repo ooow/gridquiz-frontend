@@ -10,6 +10,7 @@ import {getDashboards, getOpenDashboards} from '../../redux/dashboards/thunk';
 import {Dashboard} from '../../model/Dashboard';
 import Result from '../../model/Result';
 import {format} from '../../components/Navbar/Stopwatch';
+import LoginDialog from '../../components/LoginDialog';
 import './style.scss';
 
 interface DashboardProps {
@@ -24,6 +25,16 @@ interface DashboardState {
 
 class DashboardView extends Component<DashboardProps, DashboardState> {
     componentDidMount() {
+        this.updateDashboards();
+    }
+
+    componentDidUpdate(prevProps: DashboardProps) {
+        if (this.props.user !== prevProps.user) {
+            this.updateDashboards();
+        }
+    }
+
+    updateDashboards() {
         const {user} = this.props;
         user ?
             this.props.getDashboards(user.id) :
@@ -70,9 +81,10 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
     }
 
     render() {
-        const {dashboards} = this.props;
+        const {dashboards, user} = this.props;
         return (
             <div className='h-100vh'>
+                {!user && <LoginDialog />}
                 <Navbar activeLinkToHome={true}>
                     <AuthButton />
                 </Navbar>
