@@ -17,6 +17,7 @@ class Router extends Component {
                     <Route exact path='/' component={Main} />,
                     <Route exact path='/quiz/:id' component={QuizView} />,
                     <Route exact path='/dashboard' component={Dashboard} />,
+                    <Route exact path='/dashboard/:id' component={Dashboard} />,
                     <Route exact path={ADMIN_PAGE_URL} component={AdminPanel} />,
                     <Route component={NotFound} />
                 </Switch>

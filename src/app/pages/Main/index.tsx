@@ -51,7 +51,7 @@ class Main extends Component<MainProps> {
                     {
                         miniQuiz.attempt &&
                         <Link
-                          to='/dashboard'
+                          to={`/dashboard/${miniQuiz.id}`}
                           className='results-link'
                           style={{color: miniQuiz.color}}
                         >

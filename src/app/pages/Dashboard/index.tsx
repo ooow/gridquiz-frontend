@@ -16,6 +16,7 @@ import './style.scss';
 interface DashboardProps {
     user: User;
     dashboards?: Dashboard[];
+    match: any;
     getDashboards: any;
     getOpenDashboards: any;
 }
@@ -81,7 +82,9 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
     }
 
     render() {
-        const {dashboards, user} = this.props;
+        const {dashboards, user, match} = this.props;
+        const currentTabId = match.params.id;
+
         return (
             <div className='h-100vh'>
                 {!user && <LoginDialog />}
@@ -92,7 +95,10 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
                 <div className='container mt-3'>
                     {
                         dashboards &&
-                        <Tabs id="dashboard-result-tabs">
+                        <Tabs
+                          id="dashboard-result-tabs"
+                          activeKey={currentTabId}
+                        >
                             {dashboards.map((d: Dashboard) =>
                                 <Tab
                                     eventKey={d.miniQuiz.id}
