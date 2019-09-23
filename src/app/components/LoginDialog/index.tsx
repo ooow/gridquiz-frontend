@@ -20,6 +20,7 @@ interface LoginDialogProps {
 interface LoginDialogState {
     valueEmail: string;
     valueName: string;
+    valuePhone: string;
     validName: boolean;
     validEmail: boolean;
     firstClick: boolean;
@@ -28,6 +29,7 @@ interface LoginDialogState {
 const initState: LoginDialogState = {
     valueName: '',
     valueEmail: '',
+    valuePhone: '',
     validName: false,
     validEmail: false,
     firstClick: true,
@@ -52,11 +54,19 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
         this.setState({validEmail: isEmailValid});
     }
 
+    changePhone(event: ChangeEvent<HTMLInputElement>) {
+        this.setState({valuePhone: event.target.value});
+    }
+
     handleLogin() {
-        const {valueName, valueEmail, validName, validEmail} = this.state;
+        const {valueName, valueEmail, valuePhone, validName, validEmail} = this.state;
         this.setState({firstClick: false});
         if (validName && validEmail) {
-            this.props.login({name: valueName, email: valueEmail});
+            this.props.login({
+                name: valueName,
+                email: valueEmail,
+                phone: valuePhone,
+            });
         }
     }
 
@@ -71,7 +81,7 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
     }
 
     renderForm() {
-        const {valueName, valueEmail, validName, validEmail, firstClick} = this.state;
+        const {valueName, valueEmail, valuePhone, validName, validEmail, firstClick} = this.state;
         const {toggleLoginDialog} = this.props;
 
         let nameClassName = 'row input w-100 mt-4';
@@ -111,6 +121,14 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
                     className={emailClassName}
                     value={valueEmail}
                     onChange={this.changeEmail.bind(this)}
+                />
+                <input
+                    type='text'
+                    placeholder='Phone (optional)'
+                    className='row input w-100 mt-4'
+                    maxLength={25}
+                    value={valuePhone}
+                    onChange={this.changePhone.bind(this)}
                 />
                 <div className='row justify-content-end w-100 mt-4'>
                     <IconButton className='mr-3' onClick={toggleLoginDialog}>

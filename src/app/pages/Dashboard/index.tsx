@@ -113,7 +113,7 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
                         dashboards &&
                         <Tabs
                           id="dashboard-result-tabs"
-                          activeKey={currentTabId}
+                          defaultActiveKey={currentTabId}
                         >
                             {dashboards.map((d: Dashboard) =>
                                 <Tab
