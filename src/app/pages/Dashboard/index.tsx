@@ -13,6 +13,7 @@ import Result from '../../model/Result';
 import {format} from '../../components/Navbar/Stopwatch';
 import LoginDialog from '../../components/LoginDialog';
 import './style.scss';
+import UserInfo from '../../components/Navbar/UserInfo';
 
 interface DashboardProps {
     user: User;
@@ -102,6 +103,7 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
                 {!user && <LoginDialog />}
                 <div className='dashboard-navbar'>
                     <Navbar activeLinkToHome={true}>
+                        <UserInfo />
                         <AuthButton />
                     </Navbar>
                 </div>

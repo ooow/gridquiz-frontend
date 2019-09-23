@@ -2,9 +2,10 @@ import React, {Component, CSSProperties} from 'react';
 import {Modal} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import './style.scss';
+import Result from '../../model/Result';
 
 interface ResultDialogProps {
-    result: string;
+    result: Result;
     resultColor: string;
     onClick?: any;
 }
@@ -27,7 +28,7 @@ class ResultDialog extends Component<ResultDialogProps> {
                     </div>
                     <div className='row justify-content-center'>
                         <p className='result' style={{color: resultColor}}>
-                            {result}
+                            {`${result.points}/${result.outOf}`}
                         </p>
                     </div>
                     <p className='row text-center subtitle w-100 mb-3'>
@@ -36,7 +37,7 @@ class ResultDialog extends Component<ResultDialogProps> {
                     </p>
                     <div className='row justify-content-center mt-3'>
                         <Link
-                            to='/dashboard'
+                            to={`/dashboard/${result.quizId}`}
                             className='link cursor-pointer'
                             style={lingStyle}
                             onClick={onClick}

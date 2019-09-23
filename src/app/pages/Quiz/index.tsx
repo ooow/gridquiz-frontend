@@ -101,7 +101,7 @@ class QuizView extends Component<QuizProps> {
                 {
                     result &&
                     <ResultDialog
-                      result={`${result.points}/${result.outOf}`}
+                      result={result}
                       resultColor={currentColor}
                       onClick={cleanResult}
                     />

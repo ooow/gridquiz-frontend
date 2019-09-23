@@ -92,7 +92,7 @@ class Main extends Component<MainProps> {
             <div id='main'>
                 {!user && <LoginDialog />}
                 <NavbarWrapper>
-                    <UserInfo className='user-info mr-4' />
+                    <UserInfo />
                     <AdminButton className='cursor-pointer mr-4' />
                     <AuthButton />
                 </NavbarWrapper>

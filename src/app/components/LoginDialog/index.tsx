@@ -104,7 +104,7 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
                 />
                 <input
                     type='text'
-                    placeholder='Email or Phone'
+                    placeholder='Email'
                     required={true}
                     minLength={1}
                     maxLength={100}

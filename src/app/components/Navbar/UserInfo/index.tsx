@@ -18,7 +18,7 @@ class UserInfo extends Component<UserInfoProps> {
         const {user, className} = this.props;
 
         return user ? (
-            <div className={className}>
+            <div className={className} style={{fontWeight: 600}}>
                 {user.name}
             </div>
         ) : SafeEmptyRender;
