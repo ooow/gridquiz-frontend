@@ -3,6 +3,7 @@ import ArrowSvg from '../../../assets/img/arrow.svg';
 import Logo from '../../Logo';
 import Navbar from '../index';
 import './style.scss';
+import {IconButton} from '@material-ui/core';
 
 interface NavbarWrapperProps {
     children?: ReactNode,
@@ -29,6 +30,10 @@ class NavbarWrapper extends Component<NavbarWrapperProps, NavbarWrapperState> {
 
     onScroll() {
         this.setState({collapsed: window.scrollY !== 0});
+    }
+
+    handleArrow() {
+        window.scrollTo(0, 1);
     }
 
     render() {
@@ -60,7 +65,12 @@ class NavbarWrapper extends Component<NavbarWrapperProps, NavbarWrapperState> {
                             </h1>
                         </div>
                         <div className='row justify-content-center mt-5 arrow'>
-                            <img alt='arrow' src={ArrowSvg} />
+                            <IconButton
+                                onClick={this.handleArrow}
+                                style={{height: 72}}
+                            >
+                                <img alt='arrow' src={ArrowSvg} />
+                            </IconButton>
                         </div>
                     </div>
                 </div>
