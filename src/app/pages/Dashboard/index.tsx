@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../redux/reducers';
+import Table from 'react-bootstrap/Table';
 import {User} from '../../model/User';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
@@ -43,18 +44,15 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
     }
 
     renderTableRow(result: Result) {
-        let className = 'border-bottom d-flex justify-content-between px-3 result-text';
-        if (result.highlighted) {
-            className += ' highlighted';
-        }
+        const className = result.highlighted ? 'highlighted' : '';
 
         return (
-            <div className={className} key={result.place}>
-                <p>{result.place} {result.highlighted && 'You!'}</p>
-                <p>{result.userId}</p>
-                <p>{result.points}</p>
-                <p>{format(result.seconds)}</p>
-            </div>
+            <tr className={className} key={result.place}>
+                <td>{result.place} {result.highlighted && 'You!'}</td>
+                <td>{result.userId}</td>
+                <td>{result.points}/{result.outOf}</td>
+                <td>{format(result.seconds)}</td>
+            </tr>
         );
     }
 
@@ -62,8 +60,22 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
 
         return (
             <div className='col px-5 mt-2'>
-                {results.map((r: Result) =>
-                    this.renderTableRow(r))}
+                <Table bordered hover responsive>
+                    <thead>
+                    <tr>
+                        <th>PLACE</th>
+                        <th>ID</th>
+                        <th>POINTS</th>
+                        <th>TIME</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        results.map((r: Result) =>
+                            this.renderTableRow(r))
+                    }
+                    </tbody>
+                </Table>
             </div>
         );
     }
