@@ -6,6 +6,8 @@ body {
   margin: 0;
   padding: 0;
   background: $background-accent;
+  min-width: 320px;
+  min-height: 568px;
   font-family: SourceSansPro, FiraSans, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

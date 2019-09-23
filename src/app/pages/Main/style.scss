@@ -1,10 +1,6 @@
 @import './../../../common/colors';
 
 #main {
-  a {
-    text-decoration: none;
-  }
-
   .content {
     /**
      * The Navbar component in takes 100vh in full mode and 200px in collapsed.
@@ -13,6 +9,10 @@
      */
     height: calc(100vh - 199px);
     background: $background-accent;
+
+    @media (max-width: 576px) {
+      height: auto;
+    }
   }
 
   .results-link {

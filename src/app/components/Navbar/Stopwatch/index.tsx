@@ -13,6 +13,10 @@ interface StopwatchState {
  * A view component that displays stopwatch that does run from the start date.
  */
 class Stopwatch extends Component<StopwatchProps, StopwatchState> {
+    static defaultProps: StopwatchProps = {
+        className: 'text-white',
+    };
+
     constructor(props: StopwatchProps) {
         super(props);
 
@@ -43,7 +47,11 @@ class Stopwatch extends Component<StopwatchProps, StopwatchState> {
         const {className} = this.props;
         const {secondsElapsed} = this.state;
 
-        return <div className={className}>{format(secondsElapsed)}</div>;
+        return (
+            <div className={className} style={{fontSize: 36}}>
+                {format(secondsElapsed)}
+            </div>
+        );
     }
 }
 

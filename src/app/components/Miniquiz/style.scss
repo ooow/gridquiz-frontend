@@ -3,10 +3,19 @@
 #mini-quiz {
   height: 250px;
   width: 300px;
+  overflow: hidden;
+
+  @media (max-width: 576px) {
+    height: 150px;
+  }
 
   .name {
     color: white;
     font-size: 48px;
+
+    @media (max-width: 576px) {
+      font-size: 42px;
+    }
   }
 
   .info-container {

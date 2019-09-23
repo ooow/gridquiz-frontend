@@ -12,6 +12,10 @@
     &.coll {
       height: 200px;
 
+      @media (max-width: 576px) {
+        height: 120px;
+      }
+
       .full {
         opacity: 0;
         visibility: hidden;
@@ -29,6 +33,10 @@
 
   .logo {
     width: 250px;
+
+    @media (max-width: 576px) {
+      width: 180px;
+    }
   }
 
   .welcome-text {
@@ -42,6 +50,11 @@
       family: FiraSans;
       size: 120px;
       weight: bold;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 100px;
+      margin-top: 20px;
     }
   }
 }

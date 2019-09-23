@@ -35,16 +35,16 @@ class OptionButton extends Component<OptionButtonProp> {
         const fontStyle: CSSProperties = {fontSize: this.getFontSize(text)};
 
         return (
-            <div className='option card shadow cursor-pointer m-4' onClick={onClick}>
+            <div className='option card shadow cursor-pointer m-2 m-sm-4' onClick={onClick}>
                 <div className='d-flex h-100'>
                     <div
-                        className='option-index d-flex align-items-center justify-content-center h-100'
+                        className='option-index d-flex align-items-center justify-content-center'
                         style={{color: indexColor}}
                     >
                         {index}
                     </div>
                     <div
-                        className='option-text d-flex flex-fill align-items-center justify-content-center'
+                        className='option-text d-flex flex-fill align-items-center justify-content-sm-center'
                         style={fontStyle}
                     >
                         {text}

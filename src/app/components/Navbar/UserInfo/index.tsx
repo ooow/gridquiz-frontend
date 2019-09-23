@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {AppState} from '../../../redux/reducers';
 import {User} from '../../../model/User';
 import {SafeEmptyRender} from '../index';
+import './style.scss';
 
 interface UserInfoProps {
     className: string,
@@ -11,7 +12,7 @@ interface UserInfoProps {
 
 class UserInfo extends Component<UserInfoProps> {
     static defaultProps: UserInfoProps = {
-        className: 'text-inline text-white mr-4',
+        className: 'user-info text-white mr-4',
     };
 
     render() {

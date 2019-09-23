@@ -1,8 +1,14 @@
 @import './../../../common/colors';
 
 #navbar {
+  overflow: hidden;
+
   .navbar-logo {
     width: 65px;
+
+    @media (max-width: 576px) {
+      width: 50px;
+    }
   }
 
   .navbar-title {
@@ -12,6 +18,10 @@
       family: FiraSans;
       size: 50px;
       weight: bold;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 36px;
     }
   }
 

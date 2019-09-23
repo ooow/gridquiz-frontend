@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar';
 import Result from '../../model/Result';
 import Stopwatch from '../../components/Navbar/Stopwatch';
 import {defaultColor} from '../../components/Miniquiz';
-import QuestionView from '../../components/QuestionView';
+import QuestionView from './QuestionView';
 import {getProgress} from '../../redux/progress/thunk';
 import Progress from '../../model/Progress';
 import {cleanProgress, updateProgress} from '../../redux/progress/action';
@@ -14,7 +14,6 @@ import {Answer} from '../../model/Answers';
 import ResultDialog from '../../components/ResultDialog';
 import {cleanResult} from '../../redux/result/action';
 import {User} from '../../model/User';
-import './style.scss';
 
 interface QuizProps {
     currentColor: string;
@@ -74,7 +73,7 @@ class QuizView extends Component<QuizProps> {
     renderNavbar(startTime: Date) {
         return (
             <Navbar>
-                <Stopwatch start={startTime} className='stopwatch' />
+                <Stopwatch start={startTime} />
             </Navbar>
         );
     }
@@ -90,7 +89,7 @@ class QuizView extends Component<QuizProps> {
         }
 
         return (
-            <div className='h-100vh' style={style}>
+            <div className='min-h-100vh' style={style}>
                 {
                     progress && !isFinished &&
                     <div>

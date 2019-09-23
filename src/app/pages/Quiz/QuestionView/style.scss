@@ -1,0 +1,22 @@
+@import '../../../../common/colors';
+
+.quiz-name {
+  color: white;
+  font: {
+    size: 56px;
+    weight: 600;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 28px;
+  }
+}
+
+.question-text {
+  color: white;
+  font-size: 24px;
+
+  @media (max-width: 576px) {
+    font-size: 18px;
+  }
+}

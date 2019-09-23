@@ -2,8 +2,8 @@ import React, {Component, ReactNode} from 'react';
 import ArrowSvg from '../../../assets/img/arrow.svg';
 import Logo from '../../Logo';
 import Navbar from '../index';
-import './style.scss';
 import {IconButton} from '@material-ui/core';
+import './style.scss';
 
 interface NavbarWrapperProps {
     children?: ReactNode,
@@ -29,7 +29,12 @@ class NavbarWrapper extends Component<NavbarWrapperProps, NavbarWrapperState> {
     }
 
     onScroll() {
-        this.setState({collapsed: window.scrollY !== 0});
+        const {collapsed} = this.state;
+
+        if (!collapsed) {
+            // User can view full nav bar only once.
+            this.setState({collapsed: window.scrollY !== 0});
+        }
     }
 
     handleArrow() {
@@ -50,7 +55,7 @@ class NavbarWrapper extends Component<NavbarWrapperProps, NavbarWrapperState> {
                     <div>
                         {collapsed && <Navbar>{children}</Navbar>}
                     </div>
-                    <div className='container-fluid p-5 h-100 full'>
+                    <div className='container-fluid p-2 p-sm-5 h-100 full'>
                         <div className='row justify-content-center mt-5'>
                             <Logo className='logo' />
                         </div>

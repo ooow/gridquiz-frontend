@@ -97,7 +97,7 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
         }
 
         return (
-            <div className='container'>
+            <div className='d-flex flex-column align-items-center'>
                 <p className='row text-center subtitle w-100 mb-3'>
                     You might be a Winner! And we’d like to have a chance to
                     contact with you to bring you prize. Goodluck!
@@ -156,7 +156,7 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
                 isOpen={showLoginDialog}
                 toggle={toggleLoginDialog}
             >
-                <div className='modal-content container p-5'>
+                <div className='modal-content container p-4'>
                     <div className='row justify-content-center'>
                         <p className='title'>Registration</p>
                     </div>

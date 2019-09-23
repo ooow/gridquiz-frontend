@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import OptionButton from '../OptionButton';
-import Quiz from '../../model/Quiz';
-import Question from '../../model/Question';
+import OptionButton from './OptionButton';
+import Quiz from '../../../model/Quiz';
+import Question from '../../../model/Question';
 import './style.scss';
 
 interface QuestionProp {
@@ -16,13 +16,13 @@ class QuestionView extends Component<QuestionProp> {
 
         return (
             <div className='container'>
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center mt-2'>
                     <p className='quiz-name'>{quiz.name}</p>
                 </div>
-                <div className='row justify-content-center mt-3'>
+                <div className='row justify-content-center mt-1 mt-sm-3 px-4 px-sm-2'>
                     <p className='question-text'>{question.title}</p>
                 </div>
-                <div className='row justify-content-center mt-5'>
+                <div className='row justify-content-center mt-sm-5'>
                     {
                         question.answers.map((a, i) =>
                             <OptionButton

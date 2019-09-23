@@ -1,0 +1,9 @@
+.user-info {
+  max-width: 400px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  @media (max-width: 576px) {
+    max-width: 70px;
+  }
+}
