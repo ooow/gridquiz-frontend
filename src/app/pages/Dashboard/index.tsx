@@ -49,8 +49,8 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
 
         return (
             <tr className={className} key={result.place}>
-                <td>{result.place} {result.highlighted && 'You!'}</td>
-                <td>{result.userId}</td>
+                <td>{result.place} {result.highlighted && ' You!'}</td>
+                <td className='id text-inline'>{result.userId}</td>
                 <td>{result.points}/{result.outOf}</td>
                 <td>{format(result.seconds)}</td>
             </tr>
@@ -60,14 +60,14 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
     renderTable(results: Result[]) {
 
         return (
-            <div className='col px-5 mt-2'>
+            <div className='px-sm-5 mt-2'>
                 <Table bordered hover responsive>
                     <thead>
                     <tr>
-                        <th>PLACE</th>
-                        <th>ID</th>
-                        <th>POINTS</th>
-                        <th>TIME</th>
+                        <th className='place text-inline'>PLACE</th>
+                        <th className='id text-inline'>ID</th>
+                        <th className='text-inline'>POINTS</th>
+                        <th className='text-inline'>TIME</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -83,8 +83,8 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
 
     renderDashboardBody(dashboard: Dashboard) {
         return (
-            <div className='container'>
-                <div className='row justify-content-start mt-5 ml-5'>
+            <div className='container-fluid p-0 px-sm-1'>
+                <div className='row justify-content-start mt-2 px-3 px-sm-0 mt-sm-5 ml-sm-5'>
                     <p className='results-label'>
                         Results / {dashboard.miniQuiz.name}
                     </p>
@@ -99,7 +99,7 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
         const currentTabId = match.params.id;
 
         return (
-            <div>
+            <div id="dashboard">
                 {!user && <LoginDialog />}
                 <div className='dashboard-navbar'>
                     <Navbar activeLinkToHome={true}>
