@@ -2,7 +2,7 @@ import React, {Component, CSSProperties, ReactNode} from 'react';
 import MiniQuiz from '../../model/MiniQuiz';
 import './style.scss';
 
-export const defaultColor = '#197E92';
+export const defaultColor = '#F8F8F8';
 
 interface MainQuizProp {
     miniQuiz: MiniQuiz;
