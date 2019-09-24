@@ -1,6 +1,6 @@
 {
   "name": "gridquiz-frontend",
-  "version": "0.1.0",
+  "version": "2.0.1",
   "private": true,
   "dependencies": {
     "@types/jest": "latest",
@@ -27,6 +27,7 @@
     "hex-rgb": "latest",
     "validator": "latest",
     "@material-ui/core": "latest",
+    "react-ace": "latest",
     "react-syntax-highlighter": "latest"
   },
   "scripts": {

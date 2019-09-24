@@ -1,5 +1,5 @@
 const LOCAL_HOST = 'http://localhost:8080';
-const PROD_HOST = '/';
+const PROD_HOST = 'http://quiz.griddynamics.com:8080';
 
 /**
  * Env Service provides all functions related to project environment.

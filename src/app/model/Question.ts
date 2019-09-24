@@ -5,3 +5,10 @@ export default interface Question {
     answers: string[];
 }
 
+export interface NewQuestion {
+    text: string;
+    code: string | undefined;
+    correctAnswer: string;
+    answers: string[];
+}
+

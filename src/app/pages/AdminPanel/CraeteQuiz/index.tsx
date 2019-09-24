@@ -1,6 +1,10 @@
 import React, {ChangeEvent, Component, CSSProperties} from 'react';
 import {ColorResult, RGBColor, SketchPicker} from 'react-color';
 import hexRgb, {RgbaObject} from 'hex-rgb';
+import {IconButton} from '@material-ui/core';
+import AddSvg from '../../../assets/img/add.svg';
+import CreateQuestion from './CreateQuestion';
+import {NewQuestion} from '../../../model/Question';
 import './style.scss';
 
 interface CreateQuizProps {
@@ -62,6 +66,10 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
     handleClickColorPicker() {
         this.setState({displayColorPicker: !this.state.displayColorPicker});
     };
+
+    handleAddNewQuestion(q: NewQuestion) {
+        console.log(1, q);
+    }
 
     renderColorPicker() {
         const {color, displayColorPicker, colorHex} = this.state;
@@ -156,6 +164,17 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                     </div>
 
                     {this.renderColorPicker()}
+
+                    <IconButton
+                        className='add-new-question'
+                    >
+                        <img
+                            alt='Add new question'
+                            src={AddSvg}
+                        />
+                    </IconButton>
+
+                    <CreateQuestion onClick={this.handleAddNewQuestion.bind(this)} />
                 </div>
             </div>
         );
