@@ -38,6 +38,7 @@ class QuizView extends Component<QuizProps> {
 
     componentWillUnmount() {
         this.props.cleanProgress();
+        this.props.cleanResult();
     }
 
     handelAnswer(index: number) {
@@ -62,7 +63,7 @@ class QuizView extends Component<QuizProps> {
     }
 
     render() {
-        const {progress, currentColor, result, isFinished, submit, user, cleanProgress, cleanResult} = this.props;
+        const {progress, currentColor, result, isFinished, submit, user, cleanProgress} = this.props;
         const style: CSSProperties = {background: currentColor || defaultColor};
 
         if (progress && isFinished) {
@@ -95,7 +96,6 @@ class QuizView extends Component<QuizProps> {
                     <ResultDialog
                       result={result}
                       resultColor={currentColor}
-                      onClick={cleanResult}
                     />
                 }
             </div>
