@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import LockSvg from '../../../assets/img/lock.svg';
 import {connect} from 'react-redux';
-import {logout, toggleLoginDialog} from '../../../redux/user/action';
+import {logout, toggleAuthDialog} from '../../../redux/user/action';
 import {AppState} from '../../../redux/reducers';
 import UnlockSvg from '../../../assets/img/unlock.svg';
 import {User} from '../../../model/User';
@@ -11,7 +11,7 @@ interface AuthButtonProps {
     user?: User,
     className?: string,
     logout?: typeof logout,
-    toggleLoginDialog?: typeof toggleLoginDialog,
+    toggleAuthDialog?: typeof toggleAuthDialog,
 }
 
 class AuthButton extends Component<AuthButtonProps> {
@@ -36,11 +36,11 @@ class AuthButton extends Component<AuthButtonProps> {
     }
 
     showAuthButton() {
-        const {className, toggleLoginDialog} = this.props;
+        const {className, toggleAuthDialog} = this.props;
         return (
             <IconButton
                 className={className}
-                onClick={toggleLoginDialog}
+                onClick={toggleAuthDialog}
                 style={{width: 54}}
             >
                 <img
@@ -62,5 +62,5 @@ function mapStateToProps(state: AppState) {
 }
 
 export default connect(mapStateToProps,
-    {toggleLoginDialog, logout})(
+    {toggleAuthDialog, logout})(
     AuthButton);

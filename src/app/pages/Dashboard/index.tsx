@@ -11,7 +11,7 @@ import {getDashboards, getOpenDashboards} from '../../redux/dashboards/thunk';
 import {Dashboard} from '../../model/Dashboard';
 import Result from '../../model/Result';
 import {format} from '../../components/Navbar/Stopwatch';
-import LoginDialog from '../../components/LoginDialog';
+import AuthDialog from '../../components/AuthDialog';
 import './style.scss';
 import UserInfo from '../../components/Navbar/UserInfo';
 
@@ -100,7 +100,7 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
 
         return (
             <div id="dashboard">
-                {!user && <LoginDialog />}
+                {!user && <AuthDialog />}
                 <div className='dashboard-navbar'>
                     <Navbar activeLinkToHome={true}>
                         <UserInfo />

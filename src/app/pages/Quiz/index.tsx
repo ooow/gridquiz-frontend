@@ -14,6 +14,7 @@ import {Answer} from '../../model/Answers';
 import ResultDialog from '../../components/ResultDialog';
 import {cleanResult} from '../../redux/result/action';
 import {User} from '../../model/User';
+import Spinner from '../../components/Spinner';
 
 interface QuizProps {
     currentColor: string;
@@ -60,24 +61,6 @@ class QuizView extends Component<QuizProps> {
         updateProgress(newProgress);
     }
 
-    renderQuizBody() {
-        const {quiz, question} = this.props.progress!;
-
-        return <QuestionView
-            quiz={quiz}
-            question={question}
-            onClick={this.handelAnswer.bind(this)}
-        />;
-    }
-
-    renderNavbar(startTime: Date) {
-        return (
-            <Navbar>
-                <Stopwatch start={startTime} />
-            </Navbar>
-        );
-    }
-
     render() {
         const {progress, currentColor, result, isFinished, submit, user, cleanProgress, cleanResult} = this.props;
         const style: CSSProperties = {background: currentColor || defaultColor};
@@ -91,10 +74,20 @@ class QuizView extends Component<QuizProps> {
         return (
             <div className='min-h-100vh' style={style}>
                 {
+                    !progress &&
+                    <Spinner className='d-flex justify-content-center align-items-center h-100vh' />
+                }
+                {
                     progress && !isFinished &&
                     <div>
-                        {this.renderNavbar(new Date(progress.start!))}
-                        {this.renderQuizBody()}
+                        <Navbar>
+                            <Stopwatch start={new Date(progress.start!)} />
+                        </Navbar>
+                        <QuestionView
+                          quiz={progress.quiz}
+                          question={progress.question}
+                          onClick={this.handelAnswer.bind(this)}
+                        />
                     </div>
                 }
                 {

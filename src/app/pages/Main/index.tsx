@@ -4,9 +4,9 @@ import MiniQuizView from '../../components/Miniquiz';
 import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
 import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
-import {toggleLoginDialog} from '../../redux/user/action';
+import {toggleAuthDialog} from '../../redux/user/action';
 import {Role, User} from '../../model/User';
-import LoginDialog from '../../components/LoginDialog';
+import AuthDialog from '../../components/AuthDialog';
 import NavbarWrapper from '../../components/Navbar/NavbarWrapper';
 import AuthButton from '../../components/Navbar/AuthButton';
 import AdminButton from '../../components/Navbar/AdminButton';
@@ -17,7 +17,7 @@ import './style.scss';
 interface MainProps {
     fetchMiniQuizzes: any,
     fetchMiniQuizzesByUser: any,
-    toggleLoginDialog: any,
+    toggleAuthDialog: any,
     startProgress: any,
     miniQuizzes: MiniQuiz[],
     user?: User,
@@ -43,7 +43,7 @@ class Main extends Component<MainProps> {
     }
 
     renderMiniquiz(miniQuiz: MiniQuiz) {
-        const {toggleLoginDialog, user} = this.props;
+        const {toggleAuthDialog, user} = this.props;
 
         if (user) {
             if (user.role === Role.ADMIN) {
@@ -79,7 +79,7 @@ class Main extends Component<MainProps> {
         }
 
         return (
-            <div onClick={toggleLoginDialog} key={miniQuiz.id}>
+            <div onClick={toggleAuthDialog} key={miniQuiz.id}>
                 <MiniQuizView miniQuiz={miniQuiz} />
             </div>
         );
@@ -90,7 +90,7 @@ class Main extends Component<MainProps> {
 
         return (
             <div id='main'>
-                {!user && <LoginDialog />}
+                {!user && <AuthDialog />}
                 <NavbarWrapper>
                     <UserInfo />
                     <AdminButton className='cursor-pointer mr-4' />
@@ -122,6 +122,6 @@ export default connect(
     {
         fetchMiniQuizzes,
         fetchMiniQuizzesByUser,
-        toggleLoginDialog,
+        toggleAuthDialog,
     },
 )(Main);

@@ -4,7 +4,7 @@ import {User} from '../../model/User';
 
 const initState: UserState = {
     isFetching: false,
-    showLoginDialog: false,
+    showAuthDialog: false,
     user: LocalStoreService.read<User>(userTokenKey),
 };
 
@@ -15,7 +15,7 @@ export function userReducer(state = initState, action: UserActionTypes): UserSta
             return {
                 ...state,
                 isFetching: false,
-                showLoginDialog: false,
+                showAuthDialog: false,
                 user: action.user,
                 error: undefined,
             };
@@ -36,7 +36,7 @@ export function userReducer(state = initState, action: UserActionTypes): UserSta
         case TOGGLE_LOGIN_DIALOG:
             return {
                 ...state,
-                showLoginDialog: !state.showLoginDialog,
+                showAuthDialog: !state.showAuthDialog,
             };
         default:
             return state;

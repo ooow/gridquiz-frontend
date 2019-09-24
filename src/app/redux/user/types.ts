@@ -8,13 +8,13 @@ export const TOGGLE_LOGIN_DIALOG = 'TOGGLE_LOGIN_DIALOG';
 
 export interface UserState {
     isFetching: boolean,
-    showLoginDialog: boolean,
+    showAuthDialog: boolean,
     user?: User,
     error?: string,
 }
 
 export type UserActionTypes = FailedFetchingUser
-    | ReceiveUser | RequestUser | Logout | ToggleLoginDialog;
+    | ReceiveUser | RequestUser | Logout | ToggleAuthDialog;
 
 export interface RequestUser {
     type: typeof REQUEST_USER;
@@ -34,7 +34,7 @@ export interface Logout {
     type: typeof LOGOUT;
 }
 
-export interface ToggleLoginDialog {
+export interface ToggleAuthDialog {
     type: typeof TOGGLE_LOGIN_DIALOG;
 }
 

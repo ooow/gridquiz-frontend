@@ -6,18 +6,19 @@ import SendSVG from './../../assets/img/send.svg';
 import CloseSVG from './../../assets/img/close.svg';
 import {login} from '../../redux/user/thunk';
 import {isEmail, isEmpty} from 'validator';
-import {toggleLoginDialog} from '../../redux/user/action';
+import {toggleAuthDialog} from '../../redux/user/action';
 import {IconButton} from '@material-ui/core';
+import Spinner from '../Spinner';
 import './style.scss';
 
-interface LoginDialogProps {
-    isFetching: boolean,
+interface AuthDialogProps {
+    isFetching: boolean;
     login: any;
-    showLoginDialog: boolean,
-    toggleLoginDialog: any,
+    showAuthDialog: boolean;
+    toggleAuthDialog: any;
 }
 
-interface LoginDialogState {
+interface AuthDialogState {
     valueEmail: string;
     valueName: string;
     valuePhone: string;
@@ -26,7 +27,7 @@ interface LoginDialogState {
     firstClick: boolean;
 }
 
-const initState: LoginDialogState = {
+const initState: AuthDialogState = {
     valueName: '',
     valueEmail: '',
     valuePhone: '',
@@ -35,7 +36,7 @@ const initState: LoginDialogState = {
     firstClick: true,
 };
 
-class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
+class AuthDialog extends Component<AuthDialogProps, AuthDialogState> {
     constructor(props: any) {
         super(props);
 
@@ -70,19 +71,9 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
         }
     }
 
-    renderSpinner() {
-        return (
-            <div className='row justify-content-center'>
-                <div className="spinner-border text-secondary" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            </div>
-        );
-    }
-
     renderForm() {
         const {valueName, valueEmail, valuePhone, validName, validEmail, firstClick} = this.state;
-        const {toggleLoginDialog} = this.props;
+        const {toggleAuthDialog} = this.props;
 
         let nameClassName = 'row input w-100 mt-4';
         let emailClassName = 'row input w-100 mt-4';
@@ -131,7 +122,7 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
                     onChange={this.changePhone.bind(this)}
                 />
                 <div className='row justify-content-end w-100 mt-4'>
-                    <IconButton className='mr-3' onClick={toggleLoginDialog}>
+                    <IconButton className='mr-3' onClick={toggleAuthDialog}>
                         <img
                             alt='Close dialog window button'
                             src={CloseSVG}
@@ -146,22 +137,21 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
     }
 
     render() {
-        const {isFetching, showLoginDialog, toggleLoginDialog} = this.props;
+        const {isFetching, showAuthDialog, toggleAuthDialog} = this.props;
 
         return (
             <Modal
                 id='login-dialog'
                 centered={true}
                 fade={false}
-                isOpen={showLoginDialog}
-                toggle={toggleLoginDialog}
+                isOpen={showAuthDialog}
+                toggle={toggleAuthDialog}
             >
                 <div className='modal-content container p-4'>
                     <div className='row justify-content-center'>
                         <p className='title'>Registration</p>
                     </div>
-                    {isFetching && this.renderSpinner()}
-                    {!isFetching && this.renderForm()}
+                    {!isFetching ? this.renderForm() : <Spinner />}
                 </div>
             </Modal>
         );
@@ -171,10 +161,8 @@ class LoginDialog extends Component<LoginDialogProps, LoginDialogState> {
 function mapStateToProps(state: AppState) {
     return {
         isFetching: state.userState.isFetching,
-        showLoginDialog: state.userState.showLoginDialog,
+        showAuthDialog: state.userState.showAuthDialog,
     };
 }
 
-export default connect(
-    mapStateToProps, {login, toggleLoginDialog},
-)(LoginDialog);
+export default connect(mapStateToProps, {login, toggleAuthDialog})(AuthDialog);

@@ -1,4 +1,4 @@
-import {FAILED_FETCHING_USER, FailedFetchingUser, LOGOUT, Logout, RECEIVE_USER, ReceiveUser, REQUEST_USER, RequestUser, TOGGLE_LOGIN_DIALOG, ToggleLoginDialog} from './types';
+import {FAILED_FETCHING_USER, FailedFetchingUser, LOGOUT, Logout, RECEIVE_USER, ReceiveUser, REQUEST_USER, RequestUser, TOGGLE_LOGIN_DIALOG, ToggleAuthDialog} from './types';
 import {User} from '../../model/User';
 
 export function requestUser(): RequestUser {
@@ -17,6 +17,6 @@ export function logout(): Logout {
     return {type: LOGOUT};
 }
 
-export function toggleLoginDialog(): ToggleLoginDialog {
+export function toggleAuthDialog(): ToggleAuthDialog {
     return {type: TOGGLE_LOGIN_DIALOG};
 }
