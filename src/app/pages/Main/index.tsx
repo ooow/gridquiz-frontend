@@ -59,7 +59,7 @@ class Main extends Component<MainProps> {
                         {
                             !isMiniQuizzesFetching && miniQuizzes ?
                                 miniQuizzes.map((q: MiniQuiz) =>
-                                    <MiniQuizWrapper miniQuiz={q} user={user} />)
+                                    <MiniQuizWrapper miniQuiz={q} user={user} key={q.id} />)
                                 :
                                 <Spinner />
                         }

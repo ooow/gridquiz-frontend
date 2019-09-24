@@ -1,8 +1,8 @@
 import React, {Component, CSSProperties} from 'react';
 import {Modal} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import './style.scss';
 import Result from '../../model/Result';
+import './style.scss';
 
 interface ResultDialogProps {
     result: Result;

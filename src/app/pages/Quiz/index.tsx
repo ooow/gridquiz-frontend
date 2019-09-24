@@ -5,7 +5,7 @@ import {submit} from '../../redux/result/thunk';
 import Navbar from '../../components/Navbar';
 import Result from '../../model/Result';
 import Stopwatch from '../../components/Navbar/Stopwatch';
-import {defaultColor} from '../../components/Miniquiz';
+import {DEFAULT_COLOR} from '../../components/Miniquiz';
 import QuestionView from './QuestionView';
 import {getProgress} from '../../redux/progress/thunk';
 import Progress from '../../model/Progress';
@@ -15,6 +15,7 @@ import ResultDialog from '../../components/ResultDialog';
 import {cleanResult} from '../../redux/result/action';
 import {User} from '../../model/User';
 import Spinner from '../../components/Spinner';
+import Error from '../../components/Error';
 
 interface QuizProps {
     currentColor: string;
@@ -26,6 +27,7 @@ interface QuizProps {
     submit: any;
     getProgress: any;
     updateProgress: any;
+    error?: string;
     cleanResult: typeof cleanResult;
     cleanProgress: typeof cleanProgress;
 }
@@ -63,8 +65,8 @@ class QuizView extends Component<QuizProps> {
     }
 
     render() {
-        const {progress, currentColor, result, isFinished, submit, user, cleanProgress} = this.props;
-        const style: CSSProperties = {background: currentColor || defaultColor};
+        const {progress, currentColor, result, isFinished, submit, user, cleanProgress, error} = this.props;
+        const style: CSSProperties = {background: currentColor || DEFAULT_COLOR};
 
         if (progress && isFinished) {
             submit(user.id,
@@ -75,8 +77,10 @@ class QuizView extends Component<QuizProps> {
         return (
             <div className='min-h-100vh' style={style}>
                 {
-                    !progress &&
-                    <Spinner className='d-flex justify-content-center align-items-center h-100vh' />
+                    !progress && (
+                        error ? <Error error={error} /> :
+                            <Spinner className='d-flex justify-content-center align-items-center h-100vh' />
+                    )
                 }
                 {
                     progress && !isFinished &&
@@ -110,6 +114,7 @@ function mapStateToProps(state: AppState) {
         user: state.userState.user!,
         currentColor: state.progressState.currentColor!,
         isFinished: state.progressState.isFinished,
+        error: state.progressState.error,
     };
 }
 

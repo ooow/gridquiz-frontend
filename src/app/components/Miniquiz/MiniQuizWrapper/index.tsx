@@ -11,17 +11,18 @@ import './style.scss';
 interface MiniQuizWrapperProps {
     miniQuiz: MiniQuiz;
     user?: User;
+    key: string;
     toggleAuthDialog: any;
 }
 
 class MiniQuizWrapper extends Component<MiniQuizWrapperProps> {
     render() {
-        const {miniQuiz, toggleAuthDialog, user} = this.props;
+        const {miniQuiz, toggleAuthDialog, user, key} = this.props;
 
         if (user) {
             if (user.role === Role.ADMIN) {
                 return (
-                    <MiniQuizView miniQuiz={miniQuiz} key={miniQuiz.id}>
+                    <MiniQuizView miniQuiz={miniQuiz} key={key}>
                         <Link
                             to={`/dashboard`}
                             className='results-link'
@@ -33,7 +34,7 @@ class MiniQuizWrapper extends Component<MiniQuizWrapperProps> {
                 );
             }
             return miniQuiz.attempt ?
-                <MiniQuizView miniQuiz={miniQuiz} key={miniQuiz.id}>
+                <MiniQuizView miniQuiz={miniQuiz} key={key}>
                     {
                         miniQuiz.attempt &&
                         <Link
@@ -46,13 +47,13 @@ class MiniQuizWrapper extends Component<MiniQuizWrapperProps> {
                     }
                 </MiniQuizView>
                 :
-                <Link to={`/quiz/${miniQuiz.id}`} key={miniQuiz.id}>
+                <Link to={`/quiz/${miniQuiz.id}`} key={key}>
                     <MiniQuizView miniQuiz={miniQuiz} />
                 </Link>;
         }
 
         return (
-            <div onClick={toggleAuthDialog} key={miniQuiz.id}>
+            <div onClick={toggleAuthDialog} key={key}>
                 <MiniQuizView miniQuiz={miniQuiz} />
             </div>
         );

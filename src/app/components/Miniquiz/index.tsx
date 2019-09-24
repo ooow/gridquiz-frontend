@@ -2,7 +2,7 @@ import React, {Component, CSSProperties, ReactNode} from 'react';
 import MiniQuiz from '../../model/MiniQuiz';
 import './style.scss';
 
-export const defaultColor = '#F8F8F8';
+export const DEFAULT_COLOR = '#F8F8F8';
 
 interface MainQuizProp {
     miniQuiz: MiniQuiz;
@@ -13,7 +13,7 @@ class MiniQuizView extends Component<MainQuizProp> {
     render() {
         const {miniQuiz, children} = this.props;
         const style: CSSProperties = {
-            background: miniQuiz.color || defaultColor,
+            background: miniQuiz.color || DEFAULT_COLOR,
             opacity: miniQuiz.attempt ? 0.5 : 1,
         };
 

@@ -16,7 +16,7 @@ export function getProgress(userId: string, quizId: string): ThunkAction<void, A
             });
             dispatch(receiveProgress(progress));
         } catch (e) {
-            dispatch(failedFetchingProgress('Could not start progress'));
+            dispatch(failedFetchingProgress('The quiz is not available'));
         }
     };
 }
