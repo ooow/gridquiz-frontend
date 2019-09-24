@@ -12,21 +12,20 @@ import {Dashboard} from '../../model/Dashboard';
 import Result from '../../model/Result';
 import {format} from '../../components/Navbar/Stopwatch';
 import AuthDialog from '../../components/AuthDialog';
-import './style.scss';
 import UserInfo from '../../components/Navbar/UserInfo';
+import Spinner from '../../components/Spinner';
+import './style.scss';
 
 interface DashboardProps {
     user: User;
     dashboards?: Dashboard[];
     match: any;
+    isFetching: boolean;
     getDashboards: any;
     getOpenDashboards: any;
 }
 
-interface DashboardState {
-}
-
-class DashboardView extends Component<DashboardProps, DashboardState> {
+class DashboardView extends Component<DashboardProps> {
     componentDidMount() {
         this.updateDashboards();
     }
@@ -95,7 +94,7 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
     }
 
     render() {
-        const {dashboards, user, match} = this.props;
+        const {dashboards, user, match, isFetching} = this.props;
         const currentTabId = match.params.id;
 
         return (
@@ -110,23 +109,25 @@ class DashboardView extends Component<DashboardProps, DashboardState> {
                 <div className='dashboard-stub'></div>
                 <div className='container mt-3'>
                     {
-                        dashboards &&
-                        <Tabs
-                          id="dashboard-result-tabs"
-                          defaultActiveKey={currentTabId}
-                        >
-                            {dashboards.map((d: Dashboard) =>
-                                <Tab
-                                    eventKey={d.miniQuiz.id}
-                                    title={d.miniQuiz.name}
-                                    key={d.miniQuiz.id}
-                                    tabClassName='tab text-inline'
-                                >
-                                    {this.renderDashboardBody(d)}
-                                </Tab>,
-                            )}
+                        !isFetching && dashboards ?
+                            <Tabs
+                                id="dashboard-result-tabs"
+                                defaultActiveKey={currentTabId}
+                            >
+                                {dashboards.map((d: Dashboard) =>
+                                    <Tab
+                                        eventKey={d.miniQuiz.id}
+                                        title={d.miniQuiz.name}
+                                        key={d.miniQuiz.id}
+                                        tabClassName='tab text-inline'
+                                    >
+                                        {this.renderDashboardBody(d)}
+                                    </Tab>,
+                                )}
 
-                        </Tabs>
+                            </Tabs>
+                            :
+                            <Spinner />
                     }
                 </div>
             </div>
@@ -138,6 +139,7 @@ function mapStateToProps(state: AppState) {
     return {
         user: state.userState.user!,
         dashboards: state.dashboardState.dashboards,
+        isFetching: state.dashboardState.isFetching,
     };
 }
 
