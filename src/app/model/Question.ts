@@ -1,14 +1,7 @@
-export enum QuestionType {
-    TEXT,
-    CODE,
-    INPUT
-}
-
 export default interface Question {
     id: string;
     text: string;
-    title: string;
+    code: string;
     answers: string[];
-    type: QuestionType;
 }
 

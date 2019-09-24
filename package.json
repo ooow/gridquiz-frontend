@@ -26,7 +26,8 @@
     "react-color": "latest",
     "hex-rgb": "latest",
     "validator": "latest",
-    "@material-ui/core": "latest"
+    "@material-ui/core": "latest",
+    "react-syntax-highlighter": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,6 +53,7 @@
   "devDependencies": {
     "@types/react-color": "^3.0.1",
     "@types/react-redux": "latest",
+    "@types/react-syntax-highlighter": "^11.0.0",
     "@types/reactstrap": "latest",
     "@types/superagent": "^4.1.3",
     "@types/validator": "^10.11.3",
