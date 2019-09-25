@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Spinner from '../../../components/Spinner';
 import {User} from '../../../model/User';
 import {getUsers} from '../../../redux/admin/thunk';
+import Table from 'react-bootstrap/Table';
 
 interface UsersControlProps {
     users?: User[];
@@ -20,13 +21,45 @@ class UsersControl extends Component<UsersControlProps, UsersControlState> {
         this.props.getUsers();
     }
 
+    renderUserRow(user: User, index: number) {
+        return (
+            <tr key={user.id}>
+                <td>{index}</td>
+                <td>{user.id}</td>
+                <td>{user.email}</td>
+                <td>{user.name}</td>
+                <td>{user.phone}</td>
+            </tr>
+        );
+    }
+
+    renderUsersTable(users: User[]) {
+        return (
+            <div className='mt-2'>
+                <Table bordered hover responsive>
+                    <thead>
+                    <tr>
+                        <th className='text-inline'>#</th>
+                        <th className='text-inline'>ID</th>
+                        <th className='text-inline'>EMAIL</th>
+                        <th className='text-inline'>NAME</th>
+                        <th className='text-inline'>PHONE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {users.map((u, i) => this.renderUserRow(u, i + 1))}
+                    </tbody>
+                </Table>
+            </div>
+        );
+    }
+
     render() {
         const {isFetching, users} = this.props;
-        console.log(1, users);
 
-        return !isFetching ?
+        return !isFetching && users ?
             <div id='users-control' className='container'>
-                Hi
+                {this.renderUsersTable(users!)}
             </div>
             : <Spinner />;
     }

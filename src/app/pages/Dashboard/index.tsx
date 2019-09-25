@@ -57,7 +57,6 @@ class DashboardView extends Component<DashboardProps> {
     }
 
     renderTable(results: Result[]) {
-
         return (
             <div className='px-sm-5 mt-2'>
                 <Table bordered hover responsive>
