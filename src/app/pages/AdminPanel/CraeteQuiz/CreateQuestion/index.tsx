@@ -78,15 +78,13 @@ class CreateQuestion extends Component<CreateQuestionProps, CreateQuestionState>
         const {onClick} = this.props;
         const {text, answers, correctAnswer, code, questionType} = this.state;
 
-        if (this.isQuestionValid()) {
-            const newQuestion: NewQuestion = {
-                text,
-                answers,
-                correctAnswer,
-                code: questionType === QuestionType.CODE ? code : undefined,
-            };
-            onClick(newQuestion);
-        }
+        const newQuestion: NewQuestion = {
+            text,
+            answers,
+            correctAnswer,
+            code: questionType === QuestionType.CODE ? code : undefined,
+        };
+        onClick(newQuestion);
     }
 
     isQuestionValid(): boolean {
@@ -104,7 +102,10 @@ class CreateQuestion extends Component<CreateQuestionProps, CreateQuestionState>
 
     basicValidation(): boolean {
         const {text, answers, correctAnswer} = this.state;
-        return text.length > 0 && answers.length > 1 && correctAnswer.length > 0;
+        return text.length > 0
+            && answers.length > 1
+            && correctAnswer.length > 0
+            && answers.filter(a => a.length === 0).length === 0;
     }
 
     toggleDropdown() {
@@ -136,12 +137,13 @@ class CreateQuestion extends Component<CreateQuestionProps, CreateQuestionState>
     render() {
         const {text, questionType} = this.state;
         return (
-            <div id='create-question' className='container border rounded'>
+            <div id='create-question' className='container border rounded mb-3'>
                 <div className='d-flex justify-content-between my-3'>
                     <h4>New Question</h4>
                     <button
                         type="button"
                         className="btn btn-success"
+                        disabled={!this.isQuestionValid()}
                         onClick={this.handelAdd.bind(this)}
                     >
                         Add

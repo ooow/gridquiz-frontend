@@ -1,4 +1,4 @@
-import Question from './Question';
+import Question, {NewQuestion} from './Question';
 
 export default interface Quiz {
     id: string;
@@ -6,4 +6,11 @@ export default interface Quiz {
     description: string;
     color: string;
     questions: Question[];
+}
+
+export interface NewQuiz {
+    name: string;
+    description: string;
+    color: string;
+    questions: NewQuestion[];
 }

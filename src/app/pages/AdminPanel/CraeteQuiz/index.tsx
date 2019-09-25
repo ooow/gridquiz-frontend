@@ -3,6 +3,7 @@ import {ColorResult, RGBColor, SketchPicker} from 'react-color';
 import hexRgb, {RgbaObject} from 'hex-rgb';
 import {IconButton} from '@material-ui/core';
 import AddSvg from '../../../assets/img/add.svg';
+import CloseSvg from '../../../assets/img/close.svg';
 import CreateQuestion from './CreateQuestion';
 import {NewQuestion} from '../../../model/Question';
 import './style.scss';
@@ -13,9 +14,11 @@ interface CreateQuizProps {
 interface CreateQuizState {
     name: string;
     description: string;
-    color: RGBColor;
-    colorHex: string;
+    color: string;
+    questions: NewQuestion[];
+    colorRgb: RGBColor;
     displayColorPicker: boolean;
+    displayCreateQuestion: boolean;
 }
 
 class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
@@ -25,9 +28,11 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
         this.state = {
             name: '',
             description: '',
-            colorHex: '#FF8B00',
-            color: {r: 255, g: 139, b: 0, a: 1},
+            color: '#FF8B00',
+            questions: [],
+            colorRgb: {r: 255, g: 139, b: 0, a: 1},
             displayColorPicker: false,
+            displayCreateQuestion: false,
         };
     }
 
@@ -40,7 +45,7 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
     }
 
     changeColor(color: ColorResult) {
-        this.setState({color: color.rgb, colorHex: color.hex});
+        this.setState({colorRgb: color.rgb, color: color.hex});
     }
 
     changeColorHex(event: ChangeEvent<HTMLInputElement>) {
@@ -52,11 +57,11 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                 b: rgba.blue,
                 a: rgba.alpha,
             };
-            this.setState({color: rgb});
+            this.setState({colorRgb: rgb});
         } catch (e) {
             // Do nothing.
         }
-        this.setState({colorHex: event.target.value});
+        this.setState({color: event.target.value});
     }
 
     handleCloseColorPicker() {
@@ -67,18 +72,34 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
         this.setState({displayColorPicker: !this.state.displayColorPicker});
     };
 
-    handleAddNewQuestion(q: NewQuestion) {
-        console.log(1, q);
+    handleAddNewQuestion() {
+        const {displayCreateQuestion} = this.state;
+        this.setState({displayCreateQuestion: !displayCreateQuestion});
+    }
+
+    handleSaveNewQuestion(q: NewQuestion) {
+        const {questions} = this.state;
+        questions.push(q);
+        this.setState({questions: questions, displayCreateQuestion: false});
+    }
+
+    isQuizValid(): boolean {
+        const {name, description, color, questions} = this.state;
+
+        return name.length > 0
+            && description.length > 0
+            && color.length > 0
+            && questions.length > 0;
     }
 
     renderColorPicker() {
-        const {color, displayColorPicker, colorHex} = this.state;
+        const {colorRgb, displayColorPicker, color} = this.state;
 
         const pickerStyle: CSSProperties = {
-            background: `rgba(${this.state.color.r}, 
-                              ${this.state.color.g}, 
-                              ${this.state.color.b}, 
-                              ${this.state.color.a})`,
+            background: `rgba(${this.state.colorRgb.r}, 
+                              ${this.state.colorRgb.g}, 
+                              ${this.state.colorRgb.b}, 
+                              ${this.state.colorRgb.a})`,
         };
 
         return (
@@ -92,7 +113,7 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                     placeholder="Color"
                     aria-label="Quiz color"
                     maxLength={7}
-                    value={colorHex}
+                    value={color}
                     onChange={this.changeColorHex.bind(this)}
                 />
                 <div className="input-group-append">
@@ -112,7 +133,7 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                           onClick={this.handleCloseColorPicker.bind(this)}
                         />
                         <SketchPicker
-                          color={color} onChange={this.changeColor.bind(this)}
+                          color={colorRgb} onChange={this.changeColor.bind(this)}
                         />
                     </div>
                 }
@@ -121,21 +142,27 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
     }
 
     render() {
-        const {name, description} = this.state;
+        const {name, description, questions, displayCreateQuestion} = this.state;
 
         return (
             <div id='create-quiz' className='container'>
-                <div className='row mt-2'>
+                <div className='row mt-2 justify-content-between align-items-center'>
                     <p className='new-quiz-title'>New Quiz</p>
+                    <button
+                        type="button"
+                        className="btn btn-success"
+                        style={{height: 40}}
+                        disabled={!this.isQuizValid()}
+                    >
+                        Save
+                    </button>
                 </div>
 
                 <div className='row justify-content-between'>
 
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">
-                                1
-                            </span>
+                            <span className="input-group-text">1</span>
                         </div>
                         <input
                             type="text"
@@ -149,9 +176,7 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
 
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">
-                                2
-                            </span>
+                            <span className="input-group-text">2</span>
                         </div>
                         <input
                             type="text"
@@ -165,16 +190,47 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
 
                     {this.renderColorPicker()}
 
-                    <IconButton
-                        className='add-new-question'
-                    >
-                        <img
-                            alt='Add new question'
-                            src={AddSvg}
-                        />
-                    </IconButton>
+                    <div className='d-flex flex-column w-100'>
+                        <div className='d-flex  align-items-center justify-content-between w-100 mb-1'>
+                            <div className='d-flex align-items-center'>
+                                <div
+                                    className='rounded-circle bg-info d-flex align-items-center justify-content-center'
+                                    style={{width: 40, height: 40}}
+                                >
+                                    {questions.length}
+                                </div>
+                                <span className='ml-2'>Questions</span>
+                            </div>
 
-                    <CreateQuestion onClick={this.handleAddNewQuestion.bind(this)} />
+                            {displayCreateQuestion ?
+                                <IconButton
+                                    onClick={this.handleAddNewQuestion.bind(this)}
+                                >
+                                    <img
+                                        alt='Close new question'
+                                        src={CloseSvg}
+                                        style={{width: 40, height: 40}}
+                                    />
+                                </IconButton>
+                                :
+                                <IconButton
+                                    onClick={this.handleAddNewQuestion.bind(this)}
+                                >
+                                    <img
+                                        alt='Add new question'
+                                        src={AddSvg}
+                                        style={{width: 40, height: 40}}
+                                    />
+                                </IconButton>
+                            }
+                        </div>
+                        {
+                            displayCreateQuestion &&
+                            <CreateQuestion
+                              onClick={this.handleSaveNewQuestion.bind(this)}
+                            />
+                        }
+                    </div>
                 </div>
             </div>
         );
