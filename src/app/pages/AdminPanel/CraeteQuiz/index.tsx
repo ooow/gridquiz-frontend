@@ -119,23 +119,23 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
         };
 
         return (
-            <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                    <span className="input-group-text">3</span>
+            <div className='input-group mb-3'>
+                <div className='input-group-prepend'>
+                    <span className='input-group-text'>3</span>
                 </div>
                 <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Color"
-                    aria-label="Quiz color"
+                    type='text'
+                    className='form-control'
+                    placeholder='Color'
+                    aria-label='Quiz color'
                     maxLength={7}
                     value={color}
                     onChange={this.changeColorHex.bind(this)}
                 />
-                <div className="input-group-append">
+                <div className='input-group-append'>
                     <button
-                        type="button"
-                        className="btn color-picker-button"
+                        type='button'
+                        className='btn color-picker-button'
                         style={pickerStyle}
                         onClick={this.handleClickColorPicker.bind(this)}
                     > Pick Color
@@ -166,8 +166,8 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                 <div className='row mt-2 justify-content-between align-items-center'>
                     <p className='new-quiz-title'>New Quiz</p>
                     <button
-                        type="button"
-                        className="btn btn-success"
+                        type='button'
+                        className='btn btn-success'
                         style={{height: 40}}
                         disabled={!this.isQuizValid()}
                         onClick={this.handelSaveNewQuiz.bind(this)}
@@ -177,27 +177,27 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                 </div>
 
                 <div className='row justify-content-between'>
-                    <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text">1</span>
+                    <div className='input-group mb-3'>
+                        <div className='input-group-prepend'>
+                            <span className='input-group-text'>1</span>
                         </div>
                         <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Name"
-                            aria-label="Quiz Name"
+                            type='text'
+                            className='form-control'
+                            placeholder='Name'
+                            aria-label='Quiz Name'
                             value={name}
                             onChange={this.changeName.bind(this)}
                         />
                     </div>
 
-                    <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text">2</span>
+                    <div className='input-group mb-3'>
+                        <div className='input-group-prepend'>
+                            <span className='input-group-text'>2</span>
                         </div>
                         <input
-                            type="text"
-                            className="form-control"
+                            type='text'
+                            className='form-control'
                             placeholder="Description"
                             aria-label="Quiz Description"
                             value={description}

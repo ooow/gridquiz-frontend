@@ -118,9 +118,9 @@ class CreateQuestion extends Component<CreateQuestionProps, CreateQuestionState>
             <div className='d-flex flex-column'>
                 <h5>Code</h5>
                 <AceEditor
-                    mode="java"
-                    theme="monokai"
-                    name="code-editor"
+                    mode='java'
+                    theme='monokai'
+                    name='code-editor'
                     className='w-100 rounded'
                     style={{height: 250}}
                     value={code}
@@ -141,23 +141,23 @@ class CreateQuestion extends Component<CreateQuestionProps, CreateQuestionState>
                 <div className='d-flex justify-content-between my-3'>
                     <h4>New Question</h4>
                     <button
-                        type="button"
-                        className="btn btn-success"
+                        type='button'
+                        className='btn btn-success'
                         disabled={!this.isQuestionValid()}
                         onClick={this.handelAdd.bind(this)}
                     >
                         Add
                     </button>
                 </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">1</span>
+                <div className='input-group mb-3'>
+                    <div className='input-group-prepend'>
+                        <span className='input-group-text'>1</span>
                     </div>
                     <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Question"
-                        aria-label="Question text"
+                        type='text'
+                        className='form-control'
+                        placeholder='Question'
+                        aria-label='Question text'
                         value={text}
                         onChange={this.changeText.bind(this)}
                     />

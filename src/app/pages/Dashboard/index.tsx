@@ -98,7 +98,7 @@ class DashboardView extends Component<DashboardProps> {
         const currentTabId = match.params.id;
 
         return (
-            <div id="dashboard">
+            <div id='dashboard'>
                 {!user && <AuthDialog />}
                 <div className='dashboard-navbar'>
                     <Navbar activeLinkToHome={true}>
@@ -111,7 +111,7 @@ class DashboardView extends Component<DashboardProps> {
                     {
                         !isFetching && dashboards ?
                             <Tabs
-                                id="dashboard-result-tabs"
+                                id='dashboard-result-tabs'
                                 defaultActiveKey={currentTabId}
                             >
                                 {dashboards.map((d: Dashboard) =>

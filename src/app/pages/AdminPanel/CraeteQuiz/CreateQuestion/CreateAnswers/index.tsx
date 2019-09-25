@@ -71,24 +71,24 @@ class CreateAnswers extends Component<CreateAnswersProps, CreateAnswersState> {
                 <p>Correct answer: {correctAnswer.value}</p>
                 {
                     answers.map((a, i) =>
-                        <div className="input-group mb-3" key={i}>
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
+                        <div className='input-group mb-3' key={i}>
+                            <div className='input-group-prepend'>
+                                <span className='input-group-text'>
                                     {`#${i + 1}`}
                                 </span>
                             </div>
                             <input
-                                type="text"
-                                className="form-control"
+                                type='text'
+                                className='form-control'
                                 placeholder={`Answer #${i + 1}`}
-                                aria-label="Answer text"
+                                aria-label='Answer text'
                                 value={a}
                                 onChange={(e) => this.changeAnswer(e, i)}
                             />
-                            <div className="input-group-append">
-                                <div className="input-group-text">
+                            <div className='input-group-append'>
+                                <div className='input-group-text'>
                                     <input
-                                        type="radio"
+                                        type='radio'
                                         name='correct-answer'
                                         aria-label='Correct answer'
                                         checked={correctAnswer.index === i}
@@ -98,10 +98,10 @@ class CreateAnswers extends Component<CreateAnswersProps, CreateAnswersState> {
                                     />
                                 </div>
                             </div>
-                            <div className="input-group-append">
+                            <div className='input-group-append'>
                                 <button
-                                    type="button"
-                                    className="btn btn-outline-danger"
+                                    type='button'
+                                    className='btn btn-outline-danger'
                                     onClick={this.handelRemoveAnswer
                                                  .bind(this, i)}
                                 >

@@ -14,8 +14,8 @@ class Spinner extends Component<SpinnerProps> {
         const {className} = this.props;
         return (
             <div className={className}>
-                <div className="spinner-border text-secondary" role="status">
-                    <span className="sr-only">Loading...</span>
+                <div className='spinner-border text-secondary' role='status'>
+                    <span className='sr-only'>Loading...</span>
                 </div>
             </div>
         );
