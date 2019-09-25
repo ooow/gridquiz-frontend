@@ -1,11 +1,11 @@
-import {FAILED_FETCHING_MINI_QUIZZES, QuizActionTypes, QuizState, RECEIVE_MINI_QUIZZES, REQUEST_MINI_QUIZZES} from './types';
+import {FAILED_FETCHING_MINI_QUIZZES, MiniQuizActionTypes, MiniQuizState, RECEIVE_MINI_QUIZZES, REQUEST_MINI_QUIZZES} from './types';
 
-const initState: QuizState = {
+const initState: MiniQuizState = {
     isFetching: false,
     miniQuizzes: Array(0),
 };
 
-export function quizReducer(state = initState, action: QuizActionTypes): QuizState {
+export function miniQuizReducer(state = initState, action: MiniQuizActionTypes): MiniQuizState {
     switch (action.type) {
         case RECEIVE_MINI_QUIZZES:
             return {

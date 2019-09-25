@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../redux/reducers';
 import MiniQuiz from '../../model/MiniQuiz';
-import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/quiz/thunk';
+import {fetchMiniQuizzes, fetchMiniQuizzesByUser} from '../../redux/miniquiz/thunk';
 import {toggleAuthDialog} from '../../redux/user/action';
 import {User} from '../../model/User';
 import AuthDialog from '../../components/AuthDialog';
@@ -72,8 +72,8 @@ class Main extends Component<MainProps> {
 
 function mapStateToProps(state: AppState) {
     return {
-        miniQuizzes: state.quizState.miniQuizzes,
-        isMiniQuizzesFetching: state.quizState.isFetching,
+        miniQuizzes: state.miniQuizState.miniQuizzes,
+        isMiniQuizzesFetching: state.miniQuizState.isFetching,
         user: state.userState.user,
     };
 }

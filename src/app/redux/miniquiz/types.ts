@@ -4,13 +4,13 @@ export const FAILED_FETCHING_MINI_QUIZZES = 'FAILED_FETCHING_MINI_QUIZZES';
 export const RECEIVE_MINI_QUIZZES = 'RECEIVE_MINI_QUIZZES';
 export const REQUEST_MINI_QUIZZES = 'REQUEST_MINI_QUIZZES';
 
-export interface QuizState {
+export interface MiniQuizState {
     error?: string;
     isFetching: boolean;
     miniQuizzes: Array<MiniQuiz>;
 }
 
-export type QuizActionTypes = FailedFetchingMiniQuizzes
+export type MiniQuizActionTypes = FailedFetchingMiniQuizzes
     | ReceiveMiniQuizzes | RequestMiniQuizzes;
 
 export interface RequestMiniQuizzes {
