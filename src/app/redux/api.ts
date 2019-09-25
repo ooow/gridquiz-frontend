@@ -13,9 +13,13 @@ export const LOAD_MINI_QUIZZES_URL = `${CURRENT_HOST}/open/mini`;
 export const LOAD_PROGRESS_URL = `${CURRENT_HOST}/quiz/progress`;
 export const SUBMIT_ANSWERS_URL = `${CURRENT_HOST}/result/submit`;
 export const SAVE_QUIZ_URL = `${CURRENT_HOST}/admin/quiz/save`;
+export const CHECK_IS_ADMIN_URL = `${CURRENT_HOST}/admin/check`;
 
 export async function get<T>(url: string): Promise<T> {
-    const response: Response = await fetch(url);
+    const response: Response = await fetch(url, {
+        method: 'get',
+        headers: getHeaders(),
+    });
     if (!response.ok) {
         throw new Error();
     }
@@ -36,7 +40,7 @@ export async function post<T>(url: string, body: any): Promise<T> {
 
 }
 
-function getHeaders(): any {
+export function getHeaders(): any {
     const user: User = LocalStoreService.read<any>(userTokenKey);
     const token = user ? `Bearer ${user.token}` : '';
 
