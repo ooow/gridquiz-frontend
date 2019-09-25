@@ -5,6 +5,7 @@ import Spinner from '../../../components/Spinner';
 import {User} from '../../../model/User';
 import {getUsers} from '../../../redux/admin/thunk';
 import Table from 'react-bootstrap/Table';
+import {ADMIN_DOWNLOAD_REPORT_URL, getHeaders} from '../../../redux/api';
 
 interface UsersControlProps {
     users?: User[];
@@ -21,6 +22,49 @@ class UsersControl extends Component<UsersControlProps, UsersControlState> {
         this.props.getUsers();
     }
 
+    async handelDownload() {
+        try {
+            const response = await fetch(ADMIN_DOWNLOAD_REPORT_URL, {
+                method: 'get',
+                headers: getHeaders(),
+            });
+
+            const reader = response.body!.getReader();
+
+            // Read the data
+            let receivedLength = 0; // received that many bytes at the moment
+            let chunks = []; // array of received binary chunks (comprises the
+                             // body)
+            while (true) {
+                const {done, value} = await reader.read();
+                if (done) {
+                    break;
+                }
+                chunks.push(value);
+                receivedLength += value.length;
+            }
+
+            // Concatenate chunks into single Uint8Array
+            let chunksAll = new Uint8Array(receivedLength);
+            let position = 0;
+            for (let chunk of chunks) {
+                chunksAll.set(chunk, position);
+                position += chunk.length;
+            }
+
+            const blob = new Blob([chunksAll]);
+            const fileName = `Grid Quiz Report ${new Date().toLocaleDateString()}.xlsx`;
+            const csvURL = window.URL.createObjectURL(blob);
+            const tempLink = document.createElement('a');
+            tempLink.href = csvURL;
+            tempLink.setAttribute('download', fileName);
+            tempLink.click();
+        } catch (e) {
+            console.log(e);
+            // Do nothing.
+        }
+    }
+
     renderUserRow(user: User, index: number) {
         return (
             <tr key={user.id}>
@@ -29,6 +73,11 @@ class UsersControl extends Component<UsersControlProps, UsersControlState> {
                 <td>{user.email}</td>
                 <td>{user.name}</td>
                 <td>{user.phone}</td>
+                <td>
+                    <button type='button' className='btn btn-outline-danger'>
+                        Delete
+                    </button>
+                </td>
             </tr>
         );
     }
@@ -44,6 +93,7 @@ class UsersControl extends Component<UsersControlProps, UsersControlState> {
                         <th className='text-inline'>EMAIL</th>
                         <th className='text-inline'>NAME</th>
                         <th className='text-inline'>PHONE</th>
+                        <th className='text-inline'>ACTION</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -59,6 +109,17 @@ class UsersControl extends Component<UsersControlProps, UsersControlState> {
 
         return !isFetching && users ?
             <div id='users-control' className='container'>
+                <div className='row justify-content-between'>
+                    <h3>Users</h3>
+                    <button
+                        type='button'
+                        className='btn btn-warning'
+                        style={{height: 40}}
+                        onClick={this.handelDownload.bind(this)}
+                    >
+                        Download Report
+                    </button>
+                </div>
                 {this.renderUsersTable(users!)}
             </div>
             : <Spinner />;

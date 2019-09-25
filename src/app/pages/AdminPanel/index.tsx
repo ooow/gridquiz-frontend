@@ -54,7 +54,7 @@ class AdminPanel extends Component<any, AdminPanelState> {
                         <AuthButton />
                     </Navbar>
                     <div className='container'>
-                        <Tabs id="admin-panel-tabs" defaultActiveKey='create-quiz'>
+                        <Tabs id="admin-panel-tabs">
                             <Tab
                                 eventKey='user-control'
                                 title='Users control'

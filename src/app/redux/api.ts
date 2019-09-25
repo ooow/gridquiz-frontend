@@ -15,6 +15,7 @@ export const SUBMIT_ANSWERS_URL = `${CURRENT_HOST}/result/submit`;
 export const SAVE_QUIZ_URL = `${CURRENT_HOST}/admin/quiz/save`;
 export const ADMIN_CHECK_URL = `${CURRENT_HOST}/admin/check`;
 export const ADMIN_USERS_URL = `${CURRENT_HOST}/admin/users`;
+export const ADMIN_DOWNLOAD_REPORT_URL = `${CURRENT_HOST}/admin/download/report`;
 
 export async function get<T>(url: string): Promise<T> {
     const response: Response = await fetch(url, {
