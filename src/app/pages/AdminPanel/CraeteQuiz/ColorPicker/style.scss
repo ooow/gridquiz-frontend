@@ -1,0 +1,23 @@
+@import '../../../../../common/colors';
+
+#color-picker {
+  .color-picker-button {
+    width: 100px;
+    color: white;
+  }
+
+  .color-picker-container {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    z-index: 2;
+  }
+
+  .color-picker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+}

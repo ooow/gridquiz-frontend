@@ -1,5 +1,5 @@
 import React, {ChangeEvent, Component} from 'react';
-import CreateAnswers, {CreateAnswersState} from './CreateAnswers';
+import CreateAnswers, {CreateAnswersState} from '../CreateAnswers';
 import Dropdown from 'reactstrap/lib/Dropdown';
 import DropdownToggle from 'reactstrap/lib/DropdownToggle';
 import DropdownMenu from 'reactstrap/lib/DropdownMenu';

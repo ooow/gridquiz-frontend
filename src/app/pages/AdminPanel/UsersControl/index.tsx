@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {AppState} from '../../../redux/reducers';
 import {connect} from 'react-redux';
-import Spinner from '../../../components/Spinner';
-import {User} from '../../../model/User';
-import {getUsers} from '../../../redux/admin/thunk';
-import Table from 'react-bootstrap/Table';
+import {AppState} from '../../../redux/reducers';
 import {ADMIN_DOWNLOAD_REPORT_URL, getHeaders} from '../../../redux/api';
+import {getUsers} from '../../../redux/admin/thunk';
+import {User} from '../../../model/User';
+import Spinner from '../../../components/Spinner';
+import UserTable from './UserTable';
 
 interface UsersControlProps {
     users?: User[];
@@ -14,7 +14,6 @@ interface UsersControlProps {
 }
 
 interface UsersControlState {
-
 }
 
 class UsersControl extends Component<UsersControlProps, UsersControlState> {
@@ -65,62 +64,23 @@ class UsersControl extends Component<UsersControlProps, UsersControlState> {
         }
     }
 
-    renderUserRow(user: User, index: number) {
-        return (
-            <tr key={user.id}>
-                <td>{index}</td>
-                <td>{user.id}</td>
-                <td>{user.email}</td>
-                <td>{user.name}</td>
-                <td>{user.phone}</td>
-                <td>
-                    <button type='button' className='btn btn-outline-danger'>
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        );
-    }
-
-    renderUsersTable(users: User[]) {
-        return (
-            <div className='mt-2'>
-                <Table bordered hover responsive>
-                    <thead>
-                    <tr>
-                        <th className='text-inline'>#</th>
-                        <th className='text-inline'>ID</th>
-                        <th className='text-inline'>EMAIL</th>
-                        <th className='text-inline'>NAME</th>
-                        <th className='text-inline'>PHONE</th>
-                        <th className='text-inline'>ACTION</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {users.map((u, i) => this.renderUserRow(u, i + 1))}
-                    </tbody>
-                </Table>
-            </div>
-        );
-    }
-
     render() {
         const {isFetching, users} = this.props;
 
         return !isFetching && users ?
             <div id='users-control' className='container'>
-                <div className='row justify-content-between'>
-                    <h3>Users</h3>
+                <div className='row justify-content-between p-3'>
+                    <h3 className='text-white'>Users</h3>
                     <button
                         type='button'
-                        className='btn btn-warning'
+                        className='btn btn-outline-warning'
                         style={{height: 40}}
                         onClick={this.handelDownload.bind(this)}
                     >
                         Download Report
                     </button>
                 </div>
-                {this.renderUsersTable(users!)}
+                <UserTable users={users} />
             </div>
             : <Spinner />;
     }

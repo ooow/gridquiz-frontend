@@ -1,6 +1,4 @@
-import React, {ChangeEvent, Component, CSSProperties} from 'react';
-import {ColorResult, RGBColor, SketchPicker} from 'react-color';
-import hexRgb, {RgbaObject} from 'hex-rgb';
+import React, {ChangeEvent, Component} from 'react';
 import {IconButton} from '@material-ui/core';
 import AddSvg from '../../../assets/img/add.svg';
 import CloseSvg from '../../../assets/img/close.svg';
@@ -10,8 +8,8 @@ import {AppState} from '../../../redux/reducers';
 import {connect} from 'react-redux';
 import {save} from '../../../redux/quiz/thunk';
 import Quiz from '../../../model/Quiz';
-import './style.scss';
 import Spinner from '../../../components/Spinner';
+import ColorPicker from './ColorPicker';
 
 interface CreateQuizProps {
     quiz?: Quiz,
@@ -25,8 +23,6 @@ interface CreateQuizState {
     description: string;
     color: string;
     questions: NewQuestion[];
-    colorRgb: RGBColor;
-    displayColorPicker: boolean;
     displayCreateQuestion: boolean;
 }
 
@@ -39,8 +35,6 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
             description: '',
             color: '#FF8B00',
             questions: [],
-            colorRgb: {r: 255, g: 139, b: 0, a: 1},
-            displayColorPicker: false,
             displayCreateQuestion: false,
         };
     }
@@ -53,33 +47,9 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
         this.setState({description: event.target.value});
     }
 
-    changeColor(color: ColorResult) {
-        this.setState({colorRgb: color.rgb, color: color.hex});
+    changeColor(color: string) {
+        this.setState({color: color});
     }
-
-    changeColorHex(event: ChangeEvent<HTMLInputElement>) {
-        try {
-            const rgba: RgbaObject = hexRgb(event.target.value);
-            const rgb: RGBColor = {
-                r: rgba.red,
-                g: rgba.green,
-                b: rgba.blue,
-                a: rgba.alpha,
-            };
-            this.setState({colorRgb: rgb});
-        } catch (e) {
-            // Do nothing.
-        }
-        this.setState({color: event.target.value});
-    }
-
-    handleCloseColorPicker() {
-        this.setState({displayColorPicker: false});
-    };
-
-    handleClickColorPicker() {
-        this.setState({displayColorPicker: !this.state.displayColorPicker});
-    };
 
     handleAddNewQuestion() {
         const {displayCreateQuestion} = this.state;
@@ -108,63 +78,14 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
             && questions.length > 0;
     }
 
-    renderColorPicker() {
-        const {colorRgb, displayColorPicker, color} = this.state;
-
-        const pickerStyle: CSSProperties = {
-            background: `rgba(${this.state.colorRgb.r}, 
-                              ${this.state.colorRgb.g}, 
-                              ${this.state.colorRgb.b}, 
-                              ${this.state.colorRgb.a})`,
-        };
-
-        return (
-            <div className='input-group mb-3'>
-                <div className='input-group-prepend'>
-                    <span className='input-group-text'>3</span>
-                </div>
-                <input
-                    type='text'
-                    className='form-control'
-                    placeholder='Color'
-                    aria-label='Quiz color'
-                    maxLength={7}
-                    value={color}
-                    onChange={this.changeColorHex.bind(this)}
-                />
-                <div className='input-group-append'>
-                    <button
-                        type='button'
-                        className='btn color-picker-button'
-                        style={pickerStyle}
-                        onClick={this.handleClickColorPicker.bind(this)}
-                    > Pick Color
-                    </button>
-                </div>
-                {
-                    displayColorPicker &&
-                    <div className='color-picker-container'>
-                        <div
-                          className='color-picker'
-                          onClick={this.handleCloseColorPicker.bind(this)}
-                        />
-                        <SketchPicker
-                          color={colorRgb} onChange={this.changeColor.bind(this)}
-                        />
-                    </div>
-                }
-            </div>
-        );
-    }
-
     render() {
         const {isFetching} = this.props;
         const {name, description, questions, displayCreateQuestion} = this.state;
 
         return !isFetching ?
             <div id='create-quiz' className='container'>
-                <div className='row mt-2 justify-content-between align-items-center'>
-                    <p className='new-quiz-title'>New Quiz</p>
+                <div className='row justify-content-between align-items-center p-3'>
+                    <h3 className='text-white'>New Quiz</h3>
                     <button
                         type='button'
                         className='btn btn-success'
@@ -176,7 +97,7 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                     </button>
                 </div>
 
-                <div className='row justify-content-between'>
+                <div className='container-fluid p-0'>
                     <div className='input-group mb-3'>
                         <div className='input-group-prepend'>
                             <span className='input-group-text'>1</span>
@@ -205,7 +126,7 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                         />
                     </div>
 
-                    {this.renderColorPicker()}
+                    <ColorPicker onChange={this.changeColor.bind(this)} label='3' />
 
                     <div className='d-flex flex-column w-100'>
                         <div className='d-flex  align-items-center justify-content-between w-100 mb-1'>

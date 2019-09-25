@@ -8,8 +8,9 @@ import Tab from 'react-bootstrap/Tab';
 import CreateQuiz from './CraeteQuiz';
 import {ADMIN_CHECK_URL, getHeaders} from '../../redux/api';
 import Spinner from '../../components/Spinner';
-import './style.scss';
 import UsersControl from './UsersControl';
+import Quizzes from './Quizzes';
+import './style.scss';
 
 interface AdminPanelState {
     isChecking: boolean;
@@ -74,7 +75,7 @@ class AdminPanel extends Component<any, AdminPanelState> {
                                 title='Quizzes'
                                 tabClassName='tab text-inline'
                             >
-                                Quizzes
+                                <Quizzes />
                             </Tab>
                         </Tabs>
                     </div>

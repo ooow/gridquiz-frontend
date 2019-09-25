@@ -3,4 +3,49 @@
 #admin-page {
   min-height: 100vh;
   background: $background-primary;
+
+  .tab {
+    border: 0;
+    color: white;
+    font-size: 18px;
+    max-width: 200px;
+    min-width: 100px;
+    opacity: 0.6;
+    text-align: center;
+
+    &.nav-item.nav-link.active {
+      background: none;
+      border: 0;
+      border-bottom: 3px solid $primary;
+      color: white;
+      opacity: 1;
+    }
+
+    &:hover {
+      border: 0;
+      color: $primary;
+      opacity: 1;
+    }
+
+    &:focus {
+      border: 0;
+      color: $primary;
+      opacity: 1;
+    }
+  }
+
+  input {
+    color: white;
+    background: $background-primary;
+    border-bottom: 1px solid white;
+
+    font: {
+      family: FiraSans;
+      size: 16px;
+    }
+
+    &:focus {
+      outline-width: 0;
+    }
+  }
 }

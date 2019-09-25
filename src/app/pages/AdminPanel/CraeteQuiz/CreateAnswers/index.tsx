@@ -1,5 +1,5 @@
 import React, {ChangeEvent, Component} from 'react';
-import AddSvg from '../../../../../assets/img/add.svg';
+import AddSvg from '../../../../assets/img/add.svg';
 import {IconButton} from '@material-ui/core';
 
 interface CreateAnswersProps {
