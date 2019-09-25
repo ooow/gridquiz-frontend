@@ -6,9 +6,10 @@ import AuthButton from '../../components/Navbar/AuthButton';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import CreateQuiz from './CraeteQuiz';
-import {CHECK_IS_ADMIN_URL, getHeaders} from '../../redux/api';
+import {ADMIN_CHECK_URL, getHeaders} from '../../redux/api';
 import Spinner from '../../components/Spinner';
 import './style.scss';
+import UsersControl from './UsersControl';
 
 interface AdminPanelState {
     isChecking: boolean;
@@ -22,7 +23,7 @@ class AdminPanel extends Component<any, AdminPanelState> {
     }
 
     async componentDidMount() {
-        const response = await fetch(CHECK_IS_ADMIN_URL, {
+        const response = await fetch(ADMIN_CHECK_URL, {
             method: 'get',
             headers: getHeaders(),
         });
@@ -59,7 +60,7 @@ class AdminPanel extends Component<any, AdminPanelState> {
                                 title='Users control'
                                 tabClassName='tab text-inline'
                             >
-                                Users control
+                                <UsersControl />
                             </Tab>
                             <Tab
                                 eventKey='create-quiz'

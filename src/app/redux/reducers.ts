@@ -5,8 +5,10 @@ import {resultReducer} from './result/reducer';
 import {dashboardReducer} from './dashboards/reducer';
 import {progressReducer} from './progress/reducer';
 import {quizReducer} from './quiz/reducer';
+import {adminReducer} from './admin/reducer';
 
 export const rootReducer = combineReducers({
+    adminState: adminReducer,
     dashboardState: dashboardReducer,
     miniQuizState: miniQuizReducer,
     progressState: progressReducer,
