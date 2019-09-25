@@ -12,6 +12,7 @@ export const LOAD_MINI_QUIZZES_BY_USER_URL = `${CURRENT_HOST}/quiz/mini`;
 export const LOAD_MINI_QUIZZES_URL = `${CURRENT_HOST}/open/mini`;
 export const LOAD_PROGRESS_URL = `${CURRENT_HOST}/quiz/progress`;
 export const SUBMIT_ANSWERS_URL = `${CURRENT_HOST}/result/submit`;
+export const SAVE_QUIZ_URL = `${CURRENT_HOST}/admin/quiz/save`;
 
 export async function get<T>(url: string): Promise<T> {
     const response: Response = await fetch(url);

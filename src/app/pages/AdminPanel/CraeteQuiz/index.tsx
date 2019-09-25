@@ -6,9 +6,18 @@ import AddSvg from '../../../assets/img/add.svg';
 import CloseSvg from '../../../assets/img/close.svg';
 import CreateQuestion from './CreateQuestion';
 import {NewQuestion} from '../../../model/Question';
+import {AppState} from '../../../redux/reducers';
+import {connect} from 'react-redux';
+import {save} from '../../../redux/quiz/thunk';
+import Quiz from '../../../model/Quiz';
 import './style.scss';
+import Spinner from '../../../components/Spinner';
 
 interface CreateQuizProps {
+    quiz?: Quiz,
+    isFetching: boolean
+    error?: string,
+    save: any;
 }
 
 interface CreateQuizState {
@@ -83,6 +92,13 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
         this.setState({questions: questions, displayCreateQuestion: false});
     }
 
+    handelSaveNewQuiz() {
+        const {save} = this.props;
+        const {name, description, color, questions} = this.state;
+
+        save({name, description, color, questions});
+    }
+
     isQuizValid(): boolean {
         const {name, description, color, questions} = this.state;
 
@@ -142,9 +158,10 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
     }
 
     render() {
+        const {isFetching} = this.props;
         const {name, description, questions, displayCreateQuestion} = this.state;
 
-        return (
+        return !isFetching ?
             <div id='create-quiz' className='container'>
                 <div className='row mt-2 justify-content-between align-items-center'>
                     <p className='new-quiz-title'>New Quiz</p>
@@ -153,13 +170,13 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                         className="btn btn-success"
                         style={{height: 40}}
                         disabled={!this.isQuizValid()}
+                        onClick={this.handelSaveNewQuiz.bind(this)}
                     >
                         Save
                     </button>
                 </div>
 
                 <div className='row justify-content-between'>
-
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
                             <span className="input-group-text">1</span>
@@ -233,8 +250,16 @@ class CreateQuiz extends Component<CreateQuizProps, CreateQuizState> {
                     </div>
                 </div>
             </div>
-        );
+            : <Spinner />;
     }
 }
 
-export default CreateQuiz;
+function mapStateToProps(state: AppState) {
+    return {
+        quiz: state.quizState.quiz,
+        isFetching: state.quizState.isFetching,
+        error: state.quizState.error,
+    };
+}
+
+export default connect(mapStateToProps, {save})(CreateQuiz);

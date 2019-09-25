@@ -1,7 +1,6 @@
 import {FAILED_FETCHING_MINI_QUIZZES, FailedFetchingMiniQuizzes, RECEIVE_MINI_QUIZZES, ReceiveMiniQuizzes, REQUEST_MINI_QUIZZES, RequestMiniQuizzes} from './types';
 import MiniQuiz from '../../model/MiniQuiz';
 
-// Mini Quizzes
 export function requestMiniQuizzes(): RequestMiniQuizzes {
     return {type: REQUEST_MINI_QUIZZES};
 }
